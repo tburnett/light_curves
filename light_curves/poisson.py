@@ -232,7 +232,7 @@ class PoissonFitter(object):
                 a,b = self.find_delta(delta, scale, xtol=tol*1e-2)
                 dom.add(a); dom.add(b)
             self.dom = np.array(sorted(list(dom)))
-            self.fit()
+            self._fit()
         self.maxdev=self.check(tol)[0]
 
     def __repr__(self):
@@ -289,7 +289,7 @@ class PoissonFitter(object):
             raise Exception(msg)
         return (s_low,s_high)
 
-    def fit(self, mu=30, beta=5):
+    def _fit(self, mu=30, beta=5):
         """Do the fit, return parameters for a Poisson constructor
         mu, beta: initial parameters for the fit if the peak is positive
         """
@@ -337,7 +337,7 @@ class PoissonFitter(object):
             raise Exception(f'PoissonFitter: max dev= {t:.3f} > tol= {tol}. (wprime={self.wprime:.2f})' )
         return t, deltas
 
-    def plot(self, ax=None, xticks=True ):
+    def plot(self, ax=None, xticks=True, legend=True ):
         """Return a figure showing the fit"""
         import matplotlib.pyplot as plt
         xp = self.dom
@@ -347,9 +347,9 @@ class PoissonFitter(object):
         else: fig = ax.figure
         pfmax = self(self.smax)
         ax.plot(x, np.exp(self(x)-pfmax), '-', label='Input function')
-        ax.plot(xp, np.exp(self._poiss(xp)), 'o', label='Poisson approx.')
-        ax.plot(x, np.exp(self._poiss(x)), ':')
-        ax.legend(loc='upper right', prop=dict(size=8) )
+        ax.plot(xp, np.exp(self._poiss(xp)), 'D', label='Poisson approx.')
+        ax.plot(x, np.exp(self._poiss(x)), ':', color='orange')
+        if legend: ax.legend(loc='upper right', prop=dict(size=8) )
         ax.set(xlim=(0,None), ylim=(0,1.05))
         if xticks:
             ax.set_xticks([0, xp[-1]])
