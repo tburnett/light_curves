@@ -3,9 +3,20 @@
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
 index = {"Poisson": "00_poisson.ipynb",
-         "PoissonFitter": "00_poisson.ipynb"}
+         "PoissonFitter": "00_poisson.ipynb",
+         "EffectiveArea": "01_effective_area.ipynb",
+         "InterpTable": "01_effective_area.ipynb",
+         "BinnedWeights": "02_binner.ipynb",
+         "MJD": "03_data.ipynb",
+         "UTC": "03_data.ipynb",
+         "mission_start": "03_data.ipynb",
+         "day": "03_data.ipynb",
+         "first_data": "03_data.ipynb"}
 
-modules = ["poisson.py"]
+modules = ["poisson.py",
+           "effective_area.py",
+           "binner.py",
+           "data_management.py"]
 
 doc_url = "https://tburnett.github.io/light_curves/"
 

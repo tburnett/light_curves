@@ -4,43 +4,39 @@ __all__ = ['Poisson', 'PoissonFitter']
 
 # Cell
 import numpy as np
-from scipy import optimize
+from scipy import optimize, special, polyfit, stats
 
 class Poisson(object):
-    r"""This is a functor class that manages a three-parameter Poisson-like function used to approximate the
-    likelihood for a flux measurement, obtained by counting events. Since the actual likelihood is often
-    very compute intensive, this function can be very useful for subsequent analysis. The class `PoissonFitter`
-    is used to sample a function and produce a `Poisson` object.
+    r"""log of the three-parameter Poisson-like function used to represent the flux likelihood
+    parameters are, in order:
 
-    The array of parameters are, in order:
+    $s_p$ : flux at peak, if positive; if negative, there is only a limit
 
-    $s_p$ : flux at the peak, if positive; if negative, there will be only a limit
+    $e$ : normalization factor to convert flux to equivalent counts. must be >0
 
-    $e$  : scale factor to convert flux to equivalent counts. must be >0
-
-    $b$  : background flux: must be >=0 (the case $e=b=0$ is the standard Poisson)
+    $b$  : background flux: must be >=0
 
     This parameterization is equivalent to that described in William
-    Tompkins' thesis (arxiv: astro-ph/0202141) and Nolan, et al., 2003, ApJ 597:615:627.
-
-    The function of flux  $s>=0$,  returned by the function, defining  $w=\log\mathcal{L}$ is
-
-    $$w(s| s_p,e,b) = e\ (s_p+b) \ \log( e\ (s+b) ) - e\ s + \mathrm{const}$$
+    Tompkins' thesis (arxiv: astro-ph/0202141) and Nolan, et al., 2003,
+    ApJ 597:615:627. The functional form is that of a Poisson distribution
 
 
+    The log likelihood expression is for flux $s>=0$
+       $$w(s | s_p,e,b) = e\ (s_p+b) \ \log[ e\ (s+b) ] - e\ s + \mathrm{const}$$
     the const is such that $w=0$ at the peak.
 
-    A slightly more elegant expression, used in the `cdf` function, is to define
-       $\beta = e b_s$, $\mu = e s_p + \beta$, and $x = e s$, so $x$ is in count units, is
+    A slightly more elegant expression, used in the cdf function, is to define
+       $\beta = e b$,
+       $\mu = e s_p + \beta$, and
+       $x = e s$
+    Then the log likelihood is
 
+       $$ w'(x) =  \mu \ \log( x + \beta) - x + \mathrm{const}$$
 
-    $$ w'(x) =  \mu \ \log( x + \beta) - x + \mathrm{const} $$
-
-
-    where the peak is at $x=x_p=\max(0, \mu-\beta)$, and the constant is defined so that $w'(x_p)=0$.
-
+    where the peak is at x=x_p=max(0, mu-beta), and the constant is defined so that $w'(x_p)=0$.
 
     """
+
     def __init__(self, p:'array of parameters'):
         """p : array of parameters
         """
@@ -105,6 +101,7 @@ class Poisson(object):
         if ll_max-ll_zero<delta_logl:
             s_low = 0
         else:
+            #s_low = optimize.bisect(func,0,smax,xtol=.01*smax)
             s_low = optimize.brentq(func,0,smax,xtol=1e-17)
         if smax>0:
             s_high = smax*10
@@ -119,10 +116,10 @@ class Poisson(object):
         return (s_low,s_high)
 
     def cdf(self, flux ):
-        """ cumulative Bayesian pdf, from flux=0."""
-#         It uses an incomplete gamma function for integrals. (Note that the scipy function
-#         is a regularized incomplete gamma function)
-
+        """ cumulative pdf, from flux=0, according to Bayes
+        uses incomplete gamma function for integrals. (Note that the scipy function
+        is a regularized incomplete gamma function)
+        """
         e, beta, mu = self.altpars()
         offset = special.gammainc(mu+1, beta) # Bayes offset if beta>0
         return (special.gammainc(mu+1, beta+flux*e)-offset)/(1-offset)
@@ -173,36 +170,24 @@ class Poisson(object):
         return 1-1./self.cdfc(-self.p[2])
 
 # Cell
-import numpy as np
-from scipy import optimize, special
-
 class PoissonFitter(object):
-    """ Manage a fit from log likelihood function to the poisson-like `Poisson`.
-
-    * func : function of one parameter
-
-    * fmax : position of maximum value, or None
-           if None, estimate using fmin
-
-    * scale: float | None
-        estimate for scale to use; if None, estimate from derivative
-
-    * tol : float
-        absolute tolerance in probability amplitude for fit, within default domain out to delta L of 4
-
-    * delta : float
-        value to calculate numerical derivative at zero flux
+    """ Helper class to fit a log likelihood function to the Poisson
 
     """
-    def __init__(self, func:'function of one parameter to fit',
-                 fmax:'position of maximum, if known'=None,
-                 scale=None,
-                 tol=0.20,
-                 delta=1e-4,
-                 dd=-0.1,
-                 test_mode=False):
-        """
 
+    def __init__(self, func, fmax=None, scale=None,  tol=0.20, delta=1e-4, dd=-0.1, test_mode=False):
+        """
+        parameters
+        ----------
+        func : function of one parameter
+        fmax : position of maximum value, or None
+               if None, estimate using fmin
+        scale: float | None
+            estimate for scale to use; if None, estimate from derivatime
+        tol : float
+            absolute tolerance in probability amplitude for fit, within default domain out to delta L of 4
+        delta : float
+            value to calculate numerical derivative at zero flux
         """
         self.func = func
         #first check derivative at zero flux - delta is sensitive
@@ -232,7 +217,7 @@ class PoissonFitter(object):
                 a,b = self.find_delta(delta, scale, xtol=tol*1e-2)
                 dom.add(a); dom.add(b)
             self.dom = np.array(sorted(list(dom)))
-            self._fit()
+            self.fit()
         self.maxdev=self.check(tol)[0]
 
     def __repr__(self):
@@ -289,7 +274,7 @@ class PoissonFitter(object):
             raise Exception(msg)
         return (s_low,s_high)
 
-    def _fit(self, mu=30, beta=5):
+    def fit(self, mu=30, beta=5):
         """Do the fit, return parameters for a Poisson constructor
         mu, beta: initial parameters for the fit if the peak is positive
         """
@@ -314,7 +299,7 @@ class PoissonFitter(object):
             # exposure factor estimated from asymptotic behavior
             big= x[-1]*1e3; e = -self(big)/big;
             # preliminary fit to the quadratic coeficients and estimate parameters from the linear and 2nd order
-            pf = np.polyfit(x,y, 2)
+            pf = polyfit(x,y, 2)
             b,a = pf[:2]
             beta = -e*(e+a)/(2.*b)
             mu = beta*(1+a/e)
@@ -330,7 +315,7 @@ class PoissonFitter(object):
 
     def check(self, tol=0.05):
         offset = self(self.smax)
-        dom =self.dom[1:] # ignore first one
+        dom =self.dom[1:] # ignore first on
         deltas = np.array([np.exp(self.func(x)-offset)-np.exp(self._poiss(x)) for x in dom])
         t = np.abs(deltas).max()
         if t>tol:
@@ -347,8 +332,8 @@ class PoissonFitter(object):
         else: fig = ax.figure
         pfmax = self(self.smax)
         ax.plot(x, np.exp(self(x)-pfmax), '-', label='Input function')
-        ax.plot(xp, np.exp(self._poiss(xp)), 'D', label='Poisson approx.')
-        ax.plot(x, np.exp(self._poiss(x)), ':', color='orange')
+        ax.plot(xp, np.exp(self._poiss(xp)), 'o', label='Poisson approx.')
+        ax.plot(x, np.exp(self._poiss(x)), ':')
         if legend: ax.legend(loc='upper right', prop=dict(size=8) )
         ax.set(xlim=(0,None), ylim=(0,1.05))
         if xticks:

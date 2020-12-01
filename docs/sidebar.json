@@ -1,6 +1,9 @@
 {
   "light_curves": {
     "Overview": "/",
-    "poisson": "poisson.html"
+    "poisson": "poisson.html",
+    "effective_area": "effective_area.html",
+    "binner": "binner.html",
+    "data management": "data.html"
   }
 }

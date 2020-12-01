@@ -12,6 +12,15 @@ entries:
     - output: web,pdf
       title: poisson
       url: poisson.html
+    - output: web,pdf
+      title: effective_area
+      url: effective_area.html
+    - output: web,pdf
+      title: binner
+      url: binner.html
+    - output: web,pdf
+      title: data management
+      url: data.html
     output: web
     title: light_curves
   output: web
