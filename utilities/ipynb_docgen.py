@@ -5,8 +5,8 @@ Usage:
 from utilities import nbdoc
 
 def doc():
-    """ text to show, with {} strings.
-    """
+    ''' text to show, with {} strings.
+    '''
     # code
 nbdev(doc)
 
