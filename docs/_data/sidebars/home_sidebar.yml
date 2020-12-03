@@ -10,20 +10,26 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
+      title: config
+      url: config.html
+    - output: web,pdf
       title: poisson
       url: poisson.html
     - output: web,pdf
       title: effective_area
       url: effective_area.html
     - output: web,pdf
-      title: binner
-      url: binner.html
+      title: load_gti
+      url: load_gti.html
     - output: web,pdf
       title: data management
       url: data.html
     - output: web,pdf
-      title: Title
-      url: Untitled.html
+      title: exposure
+      url: exposure.html
+    - output: web,pdf
+      title: binner
+      url: binner.html
     output: web
     title: light_curves
   output: web

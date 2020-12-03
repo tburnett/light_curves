@@ -2,21 +2,29 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"Poisson": "00_poisson.ipynb",
+index = {"MJD": "02_load_gti.ipynb",
+         "UTC": "02_load_gti.ipynb",
+         "mission_start": "02_load_gti.ipynb",
+         "day": "02_load_gti.ipynb",
+         "first_data": "02_load_gti.ipynb",
+         "Config": "00_config.ipynb",
+         "FileConfiguration": "00_config.ipynb",
+         "PointSource": "00_config.ipynb",
+         "Poisson": "00_poisson.ipynb",
          "PoissonFitter": "00_poisson.ipynb",
          "EffectiveArea": "01_effective_area.ipynb",
          "InterpTable": "01_effective_area.ipynb",
-         "BinnedWeights": "02_binner.ipynb",
-         "MJD": "03_data.ipynb",
-         "UTC": "03_data.ipynb",
-         "mission_start": "03_data.ipynb",
-         "day": "03_data.ipynb",
-         "first_data": "03_data.ipynb"}
+         "process_gti": "02_load_gti.ipynb",
+         "process_ft2": "03_exposure.ipynb",
+         "exposure": "03_exposure.ipynb",
+         "BinnedWeights": "04_binner.ipynb"}
 
-modules = ["poisson.py",
+modules = ["config.py",
+           "poisson.py",
            "effective_area.py",
-           "binner.py",
-           "data_management.py"]
+           "load_gti.py",
+           "exposure.py",
+           "binner.py"]
 
 doc_url = "https://tburnett.github.io/light_curves/"
 

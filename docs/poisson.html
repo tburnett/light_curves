@@ -6,8 +6,8 @@ title: poisson
 keywords: fastai
 sidebar: home_sidebar
 
-
-
+summary: "Description of the class ``Poisson`, and its helper `PoissonFitter`, "
+description: "Description of the class ``Poisson`, and its helper `PoissonFitter`, "
 nb_path: "00_poisson.ipynb"
 ---
 <!--
@@ -42,7 +42,7 @@ nb_path: "00_poisson.ipynb"
 <div class="output_markdown rendered_html output_subarea ">
 <h2 id="Poisson" class="doc_header"><code>class</code> <code>Poisson</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/poisson.py#L9" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Poisson</code>(<strong><code>p</code></strong>:<code>array of parameters</code>)</p>
 </blockquote>
-<p>log of the three-parameter Poisson-like function used to represent the flux likelihood
+<p>Functor class returning the log of the three-parameter Poisson-like function used to represent the flux likelihood
 parameters are, in order:</p>
 <p>$s_p$ : flux at peak, if positive; if negative, there is only a limit</p>
 <p>$e$ : normalization factor to convert flux to equivalent counts. must be &gt;0</p>
@@ -59,7 +59,7 @@ the const is such that $w=0$ at the peak.</p>
    $x = e s$
 Then the log likelihood is</p>
 <p>$$ w'(x) =  \mu \ \log( x + \beta) - x + \mathrm{const}$$</p>
-<p>where the peak is at x=x_p=max(0, mu-beta), and the constant is defined so that $w'(x_p)=0$.</p>
+<p>where the peak is at $x=x_p=max(0, \mu-\beta)$, and the constant is defined so that $w'(x_p)=0$.</p>
 
 </div>
 
@@ -105,7 +105,7 @@ Then the log likelihood is</p>
 <p>The peak ($s_p$) and  background ($b$) parameters are chosen from the following list:</p>
 <p style="margin-left: 5%"><samp>[(10, 5), (10, 0), (-5, 5), (-5, 1)]</samp></p><p>The first two, with the peak at 10, show the effect of background. The last two show an example with a
 peak less than zero, so that the Bayesian likelihood peaks at zero, and the effect of background on it.</p>
-<div class="jupydoc_fig"><figure>   <img src="images/poisson_doc_fig_01.png" alt="Figure 1 at images/poisson_doc_fig_01.png" > </figure></div><hr>
+<div class="jupydoc_fig"><figure>   <img src="images/poisson_doc_fig_01.png" alt="Figure 1 at images/poisson_doc_fig_01.png" >  <figcaption><b>Figure 1</b>. Poisson-like plots</figcaption></figure></div><hr>
 
 </div>
 

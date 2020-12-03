@@ -7,7 +7,7 @@ import numpy as np
 from scipy import optimize, special, polyfit, stats
 
 class Poisson(object):
-    r"""log of the three-parameter Poisson-like function used to represent the flux likelihood
+    r"""This is a Functor class which returns the log of a three-parameter Poisson-like function used to represent the flux likelihood
     parameters are, in order:
 
     $s_p$ : flux at peak, if positive; if negative, there is only a limit
@@ -33,7 +33,7 @@ class Poisson(object):
 
        $$ w'(x) =  \mu \ \log( x + \beta) - x + \mathrm{const}$$
 
-    where the peak is at x=x_p=max(0, mu-beta), and the constant is defined so that $w'(x_p)=0$.
+    where the peak is at $x=x_p=max(0, \mu-\beta)$, and the constant is defined so that $w'(x_p)=0$.
 
     """
 
