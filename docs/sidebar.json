@@ -2,11 +2,11 @@
   "light_curves": {
     "Overview": "/",
     "config": "config.html",
-    "poisson": "poisson.html",
     "effective_area": "effective_area.html",
     "load_gti": "load_gti.html",
     "data management": "data.html",
     "exposure": "exposure.html",
-    "binner": "binner.html"
+    "binner": "binner.html",
+    "poisson": "poisson.html"
   }
 }

@@ -28,19 +28,33 @@ from dataclasses import dataclass
 from typing import Tuple
 import os,glob
 
+import numpy as np
+
 @dataclass
 class Config:
     verbose : int = 3
+
+    # photon selection
     mjd_range : Tuple=None
+    radius: float = 5
     cos_theta_max:float=0.5
     z_max : float=100
+
+    #binning
+    energy_edges = np.logspace(2,6,17)
+
+    # healpix
+    nside : int=1024
+    nest: bool=False
+
+    #exposure calculation
     bins_per_decade: int=4
     base_spectrum: str='lambda E: (E/1000)**-2.1'
     energy_range: Tuple = (100.,1e6)
 
 @dataclass
 class FileConfiguration:
-    data:str = '$HOME/work/lat-data/binned'
+    data:str = '$HOME/data'
     ft2: str = '$HOME/work/lat-data/ft2/*.fits'
     gti: str = '$HOME/work/lat-data/binned/*.fits'
     aeff:str = '$HOME/work/lat-data/aeff'
