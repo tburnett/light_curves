@@ -18,8 +18,8 @@ index = {"MJD": "00_config.ipynb",
          "exposure": "03_exposure.ipynb",
          "get_exposure": "03_exposure.ipynb",
          "BinnedWeights": "04_binner.ipynb",
-         "Poisson": "09_poisson.ipynb",
-         "PoissonFitter": "09_poisson.ipynb"}
+         "Poisson": "05_poisson.ipynb",
+         "PoissonFitter": "05_poisson.ipynb"}
 
 modules = ["config.py",
            "effective_area.py",
