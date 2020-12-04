@@ -4,7 +4,6 @@ __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
 index = {"MJD": "00_config.ipynb",
          "UTC": "00_config.ipynb",
-         "mission_start": "00_config.ipynb",
          "day": "00_config.ipynb",
          "first_data": "00_config.ipynb",
          "Config": "00_config.ipynb",
