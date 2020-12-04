@@ -19,17 +19,20 @@ entries:
       title: load_gti
       url: load_gti.html
     - output: web,pdf
-      title: data management
-      url: data.html
-    - output: web,pdf
       title: exposure
       url: exposure.html
+    - output: web,pdf
+      title: data
+      url: data.html
+    - output: web,pdf
+      title: poisson
+      url: poisson.html
     - output: web,pdf
       title: binner
       url: binner.html
     - output: web,pdf
-      title: poisson
-      url: poisson.html
+      title: Untitled
+      url: Untitled.html
     output: web
     title: light_curves
   output: web

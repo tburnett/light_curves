@@ -4,9 +4,10 @@
     "config": "config.html",
     "effective_area": "effective_area.html",
     "load_gti": "load_gti.html",
-    "data management": "data.html",
     "exposure": "exposure.html",
+    "data": "data.html",
+    "poisson": "poisson.html",
     "binner": "binner.html",
-    "poisson": "poisson.html"
+    "Untitled": "Untitled.html"
   }
 }

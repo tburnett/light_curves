@@ -13,21 +13,19 @@ index = {"MJD": "00_config.ipynb",
          "EffectiveArea": "01_effective_area.ipynb",
          "InterpTable": "01_effective_area.ipynb",
          "get_gti": "02_load_gti.ipynb",
-         "process_data": "03_data.ipynb",
-         "process_ft2": "03_exposure.ipynb",
-         "exposure": "03_exposure.ipynb",
          "get_exposure": "03_exposure.ipynb",
-         "BinnedWeights": "04_binner.ipynb",
+         "process_data": "04_data.ipynb",
          "Poisson": "05_poisson.ipynb",
-         "PoissonFitter": "05_poisson.ipynb"}
+         "PoissonFitter": "05_poisson.ipynb",
+         "BinnedWeights": "06_binner.ipynb"}
 
 modules = ["config.py",
            "effective_area.py",
            "load_gti.py",
-           "data_management.py",
            "exposure.py",
-           "binner.py",
-           "poisson.py"]
+           "data_management.py",
+           "poisson.py",
+           "binner.py"]
 
 doc_url = "https://tburnett.github.io/light_curves/"
 
