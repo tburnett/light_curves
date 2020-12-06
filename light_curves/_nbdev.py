@@ -13,18 +13,31 @@ index = {"MJD": "00_config.ipynb",
          "InterpTable": "01_effective_area.ipynb",
          "get_gti": "02_load_gti.ipynb",
          "get_exposure": "03_exposure.ipynb",
-         "process_data": "04_data.ipynb",
-         "Poisson": "05_poisson.ipynb",
-         "PoissonFitter": "05_poisson.ipynb",
-         "BinnedWeights": "06_binner.ipynb"}
+         "get_photon_data": "04_photon_data.ipynb",
+         "config": "05_weights.ipynb",
+         "files": "05_weights.ipynb",
+         "add_weights": "05_weights.ipynb",
+         "get_cells": "07_binner.ipynb",
+         "Poisson": "09_poisson.ipynb",
+         "PoissonFitter": "09_poisson.ipynb",
+         "poisson_tolerance": "10_loglike.ipynb",
+         "LogLike": "10_loglike.ipynb",
+         "GaussianRep": "10_loglike.ipynb",
+         "Gaussian2dRep": "10_loglike.ipynb",
+         "PoissonRep": "10_loglike.ipynb",
+         "PoissonRepTable": "10_loglike.ipynb",
+         "LightCurve": "11_lightcurve.ipynb"}
 
 modules = ["config.py",
            "effective_area.py",
            "load_gti.py",
            "exposure.py",
-           "data_management.py",
+           "photon_data.py",
+           "weights.py",
+           "binner.py",
            "poisson.py",
-           "binner.py"]
+           "loglike.py",
+           "lightcurve.py"]
 
 doc_url = "https://tburnett.github.io/light_curves/"
 

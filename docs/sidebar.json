@@ -5,9 +5,10 @@
     "effective_area": "effective_area.html",
     "load_gti": "load_gti.html",
     "exposure": "exposure.html",
-    "data": "data.html",
-    "poisson": "poisson.html",
+    "photon_data": "photon_data.html",
+    "weights": "weights.html",
     "binner": "binner.html",
+    "poisson": "poisson.html",
     "Untitled": "Untitled.html"
   }
 }

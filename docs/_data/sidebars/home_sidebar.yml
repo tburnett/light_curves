@@ -22,14 +22,17 @@ entries:
       title: exposure
       url: exposure.html
     - output: web,pdf
-      title: data
-      url: data.html
+      title: photon_data
+      url: photon_data.html
     - output: web,pdf
-      title: poisson
-      url: poisson.html
+      title: weights
+      url: weights.html
     - output: web,pdf
       title: binner
       url: binner.html
+    - output: web,pdf
+      title: poisson
+      url: poisson.html
     - output: web,pdf
       title: Untitled
       url: Untitled.html
