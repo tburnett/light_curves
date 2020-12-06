@@ -6,7 +6,7 @@ __all__ = ['get_cells']
 import os
 import numpy as np
 import pandas as pd
-from .config import Config, FileConfiguration, PointSource
+from .config import LCconfig, FileConfiguration, PointSource
 from .photon_data import get_photon_data
 from .weights import add_weights
 from .exposure import get_exposure
@@ -29,7 +29,6 @@ def _get_time_bins(config, exposure):
         print(f'Time bins: {nbins} intervals of {step} days, '\
               f'in range ({time_bins[0]:.1f}, {time_bins[-1]:.1f})')
     return time_bins
-
 
 # Cell
 def _get_binned_exposure(time_bins, exposure):

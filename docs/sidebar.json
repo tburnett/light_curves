@@ -1,14 +1,15 @@
 {
   "light_curves": {
     "Overview": "/",
-    "config": "config.html",
+    "Configuration data and basic functions": "config.html",
     "effective_area": "effective_area.html",
     "load_gti": "load_gti.html",
     "exposure": "exposure.html",
-    "photon_data": "photon_data.html",
-    "weights": "weights.html",
-    "binner": "binner.html",
+    "Photon Data": "photon_data.html",
+    "Weights": "weights.html",
+    "Cells": "cells.html",
     "poisson": "poisson.html",
-    "Untitled": "Untitled.html"
+    "Log Likelihood tools": "loglike.html",
+    "Light Curve": "lightcurve.html"
   }
 }

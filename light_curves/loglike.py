@@ -190,7 +190,6 @@ class LogLike(object):
             ax.set(title=' **failed fit**')
         ax.grid()
 
-
 # Cell
 class GaussianRep(object):
     """ Manage fits to the loglike object
@@ -210,8 +209,6 @@ class GaussianRep(object):
 class Gaussian2dRep(GaussianRep):
     def __init__(self, loglike):
         super(Gaussian2dRep, self).__init__(loglike, fix_beta=False)
-
-
 
 # Cell
 class PoissonRep(object):
@@ -302,7 +299,6 @@ class PoissonRep(object):
         ax.set(ylim=(-9,0.5));
         ax.axhline(0, color='grey', ls='--')
         ax.legend()
-
 
 # Cell
 class PoissonRepTable(PoissonRep):

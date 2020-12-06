@@ -5,7 +5,7 @@ __all__ = ['config', 'files', 'add_weights']
 # Cell
 import os,  pickle, healpy
 import numpy as np
-from .config import Config, FileConfiguration, PointSource
+from .config import LCconfig, FileConfiguration, PointSource
 from .load_gti import get_gti
 from .photon_data import get_photon_data
 
@@ -77,7 +77,6 @@ def _add_weights(wts, wt_pix, nside_wt, photon_data):
     photon_data.loc[:,'weight'] = wts[tuple([band_index, weight_index])]
     if config.verbose>0:
         print(f'\t{sum(np.isnan(photon_data.weight.values))} weights set to NaN')
-
 
 # Cell
 def add_weights(xconfig, xfiles, photon_data, source):

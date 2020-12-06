@@ -10,7 +10,7 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
-      title: config
+      title: Configuration data and basic functions
       url: config.html
     - output: web,pdf
       title: effective_area
@@ -22,20 +22,23 @@ entries:
       title: exposure
       url: exposure.html
     - output: web,pdf
-      title: photon_data
+      title: Photon Data
       url: photon_data.html
     - output: web,pdf
-      title: weights
+      title: Weights
       url: weights.html
     - output: web,pdf
-      title: binner
-      url: binner.html
+      title: Cells
+      url: cells.html
     - output: web,pdf
       title: poisson
       url: poisson.html
     - output: web,pdf
-      title: Untitled
-      url: Untitled.html
+      title: Log Likelihood tools
+      url: loglike.html
+    - output: web,pdf
+      title: Light Curve
+      url: lightcurve.html
     output: web
     title: light_curves
   output: web

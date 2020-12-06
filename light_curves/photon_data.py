@@ -3,6 +3,7 @@
 __all__ = ['get_photon_data']
 
 # Cell
+import os, sys
 import healpy
 import pickle
 import pandas as pd
@@ -58,7 +59,7 @@ def get_photon_data(config: 'configuration data',
         time = MJD(np.array(table['time'],float)[incone]+tstart)
         in_gti = gti(time)
         if np.sum(in_gti)==0:
-            print(f'WARNING: no photons in GTI for month {month}!', out=sys.stderr)
+            print(f'WARNING: no photons in GTI for month {month}!', file=sys.stderr)
 
         pixincone = allpix[incone][in_gti]
 
