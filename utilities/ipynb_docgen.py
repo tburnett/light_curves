@@ -375,7 +375,8 @@ def nbdoc(userfun:'a function'):
 
     # this object will replace references to objects that it recognizes, like "Figure"
     # It needs to know where to put image files
-    orep = ObjectReplacer(folders=['','docs'], figure_prefix=name)
+    ### TODO: figure out where the doc folder is. Now assume using nbs folder
+    orep = ObjectReplacer(folders=['','../docs'], figure_prefix=name)
     
     # get the function's docstring, assumed to be MD
     doc = inspect.cleandoc(userfun.__doc__)
