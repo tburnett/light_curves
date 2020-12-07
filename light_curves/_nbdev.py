@@ -34,7 +34,7 @@ modules = ["config.py",
            "exposure.py",
            "photon_data.py",
            "weights.py",
-           "binner.py",
+           "cells.py",
            "poisson.py",
            "loglike.py",
            "lightcurve.py"]
