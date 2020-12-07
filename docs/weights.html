@@ -569,9 +569,10 @@ WARNING: no photons in GTI for month 132!
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">weight_file</span> <span class="o">=</span>  <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">files</span><span class="o">.</span><span class="n">weights</span><span class="p">,</span> <span class="n">source</span><span class="o">.</span><span class="n">name</span><span class="o">+</span><span class="s1">&#39;_weights.pkl&#39;</span><span class="p">)</span>
-<span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span> <span class="n">weight_file</span> <span class="p">),</span> <span class="s1">&#39;Failed check for weights&#39;</span>
-<span class="n">wts</span><span class="p">,</span> <span class="n">wt_pix</span><span class="p">,</span> <span class="n">nside_wt</span> <span class="o">=</span> <span class="n">_load_weights</span><span class="p">(</span><span class="n">weight_file</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">files</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
+    <span class="n">weight_file</span> <span class="o">=</span>  <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">files</span><span class="o">.</span><span class="n">weights</span><span class="p">,</span> <span class="n">source</span><span class="o">.</span><span class="n">name</span><span class="o">+</span><span class="s1">&#39;_weights.pkl&#39;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span> <span class="n">weight_file</span> <span class="p">),</span> <span class="s1">&#39;Failed check for weights&#39;</span>
+    <span class="n">wts</span><span class="p">,</span> <span class="n">wt_pix</span><span class="p">,</span> <span class="n">nside_wt</span> <span class="o">=</span> <span class="n">_load_weights</span><span class="p">(</span><span class="n">weight_file</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -617,7 +618,9 @@ WARNING: no photons in GTI for month 132!
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">_add_weights</span><span class="p">(</span><span class="n">wts</span><span class="p">,</span> <span class="n">wt_pix</span><span class="p">,</span> <span class="n">nside_wt</span> <span class="p">,</span> <span class="n">photon_data</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">files</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
+    <span class="n">_add_weights</span><span class="p">(</span><span class="n">wts</span><span class="p">,</span> <span class="n">wt_pix</span><span class="p">,</span> <span class="n">nside_wt</span> <span class="p">,</span> <span class="n">photon_data</span><span class="p">)</span>
+    <span class="n">photon_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>

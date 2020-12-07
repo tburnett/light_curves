@@ -78,9 +78,9 @@ class _WeightedCells(object):
         good = np.logical_not(np.isnan(w))
         self.photons = photon_data.loc[good]
         self.weights = w = self.photons.weight.values
-        # estimates for total signal and background
-        self.S = np.sum(w)
-        self.B = np.sum(1-w)
+        # estimates for averate signal and background per cell
+        self.S = np.sum(w)/self.N
+        self.B = np.sum(1-w)/self.N
 
         # use photon times to get indices of bin edges
         self._edges = np.searchsorted(self.photons.time, bins)
