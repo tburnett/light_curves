@@ -190,35 +190,6 @@ saving exposure to /tmp/light_curves/Geminga_exposure.pkl
 </div>
     {% endraw %}
 
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ecache</span> <span class="o">=</span> <span class="n">files</span><span class="o">.</span><span class="n">cache</span><span class="o">/</span><span class="s1">&#39;exposure.pkl&#39;</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">ecache</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">verbose</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;saving exposure to </span><span class="si">{</span><span class="n">ecache</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="n">exposure</span><span class="o">.</span><span class="n">to_pickle</span><span class="p">(</span><span class="n">ecache</span><span class="p">)</span>
-    
-<span class="k">else</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">verbose</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;restoring exposure from </span><span class="si">{</span><span class="n">ecache</span><span class="si">}</span><span class="s1"> &#39;</span> <span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-    <span class="n">exposure</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="n">ecache</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">verbose</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">exposure</span><span class="p">)</span><span class="si">}</span><span class="s1"> entries, MJD </span><span class="si">{</span><span class="n">exposure</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start</span><span class="si">:</span><span class="s1">.0f</span><span class="si">}</span><span class="s1">&#39;</span>
-              <span class="sa">f</span><span class="s1">&#39; - </span><span class="si">{</span><span class="n">exposure</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">stop</span><span class="si">:</span><span class="s1">.0f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
 </div>
  
 

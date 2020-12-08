@@ -2,74 +2,78 @@
 > Code for generating fermi-LAT light curves
 
 
+## Background
+
+This package has code that is being adapted to the [nbdev](https://nbdev.fast.ai/) environment from [github package lat-timing](https://github.com/tburnett/lat-timing) to manage light curves of Fermi-LAT sources.  
+
+An At the same time, I've ported some code from  my [jupydoc](https://github.com/tburnett/jupydoc) documention package to allow enhanced documentation combining Markdown and code. 
+
 ## Install
-
-After cloning this repository:
-
+After cloning, in its folder run the command
 `pip install -e .`
 
 
-## How to use (If you have set up files)
+
+## Demonstrate some actual light curves
  
-Make a DataFrame of cells
-
+ 
+<details class="description">
+    <summary>Code details ...</summary>
+    
 ```python
-from light_curves.config import Config, Files, PointSource
-from light_curves.cells import get_cells
-config = Config()
-files = Files()
-if files.valid:
-    cells = get_cells(config, files, PointSource('Geminga'))
+#collapse_hide
 
-    cells.head()
-else:
-    cells = None                 
+def plot_demo():
+    """
+    ### Light curve plots
+    
+    Test with {source1.name}:
+    
+    {fig1}
+    
+    and {source2.name}
+    
+    {fig2}
+    
+    Printout:
+    {print_out}
+    """
+    from light_curves.config import Config, Files, PointSource
+    from light_curves.lightcurve import get_lightcurve, flux_plot
+    
+    config = Config()
+    files = Files()
+    
+    with capture_print() as print_out:
+        source1 = PointSource('Geminga')
+        lc1 = get_lightcurve(config, files, source1)
+        fig1 = flux_plot(config, lc1, fignum=1, title=source1.name)
+        fig1.caption=f'{source1.name}'
+
+        source2 = PointSource('3C 279')
+        lc2 = get_lightcurve(config, files, source2)
+        fig2 = flux_plot(config, lc2, fignum=2, yscale='log' )
+        fig2.caption=f'{source2.name}'
+
+nbdoc(plot_demo)
 ```
 
-    Processing 11 GTI files ...  11 files, 63635 intervals with 3,322 days live time
-    	GTI MJD range: 54682.66-58698.08, good fraction 0.83 
-    Loading  132 months from Arrow dataset /home/burnett/data/dataset
-    ....................................................................................................................................
-    	Selected 1313726 photons within 5 deg of  (195.13,4.27)
-    	Energies: 100.0-1000000 MeV
-    	Dates:    2008-08-04 15:46 - 2019-08-03 01:17
-    	MJD  :    54682.7          - 58698.1         
-    Load weights from file /mnt/c/users/thbur/OneDrive/fermi/weight_files/Geminga_weights.pkl
-    	Found: PSR J0633+1746 at (195.14, 4.27)
-    	Applyng weights: 240 / 1313726 photon pixels are outside weight region
-    	233109 weights set to NaN
-    Processing 11 GTI files ...  11 files, 63635 intervals with 3,322 days live time
-    	GTI MJD range: 54682.66-58698.08, good fraction 0.83 
-    Processing 12 S/C history (FT2) files
-      applying cuts cos(theta) < 0.4,  z < 100
-    	file /home/burnett/work/lat-data/ft2/ft2_2008.fits: 362996 entries, 360944 in GTI
-    	file /home/burnett/work/lat-data/ft2/ft2_2009.fits: 874661 entries, 870446 in GTI
-    	file /home/burnett/work/lat-data/ft2/ft2_2010.fits: 889547 entries, 884697 in GTI
-    	file /home/burnett/work/lat-data/ft2/ft2_2011.fits: 882832 entries, 871672 in GTI
-    	file /home/burnett/work/lat-data/ft2/ft2_2012.fits: 881317 entries, 868109 in GTI
-    	file /home/burnett/work/lat-data/ft2/ft2_2013.fits: 885307 entries, 867342 in GTI
-    	file /home/burnett/work/lat-data/ft2/ft2_2014.fits: 894730 entries, 886570 in GTI
-    	file /home/burnett/work/lat-data/ft2/ft2_2015.fits: 890006 entries, 886086 in GTI
-    	file /home/burnett/work/lat-data/ft2/ft2_2016.fits: 890933 entries, 884823 in GTI
-    	file /home/burnett/work/lat-data/ft2/ft2_2017.fits: 888349 entries, 883761 in GTI
-    	file /home/burnett/work/lat-data/ft2/ft2_2018.fits: 842824 entries, 830723 in GTI
-    	file /home/burnett/work/lat-data/ft2/ft2_2019.fits: 737029 entries, 514657 in GTI
-    	Found 9,609,830 S/C entries:  2,695,715 remain after zenith and theta cuts
-    Calculate exposure using the energy domain 100.0-1000000.0 4 bins/decade
-    Time bins: 4015 intervals of 1 days, in range (54683.0, 58698.0)
+</details>
 
 
-A look at the content of the first cell
+### Light curve plots
 
-```python
-if cells is not None:
-    cells.iloc[0]
-```
+Test with Geminga:
 
-where the fields are: 
-- t : MJD central time
-- tw : width
-- fexp : exposure for this interval compared to mean
-- n : Number of photons detected
-- w : List of int(weight*256) for the photons detected during the interval. stored as uint8
-- S, B : expected signal and background
+<div class="jupydoc_fig"><figure>   <img src="images/plot_demo_fig_01.png" alt="Figure 1 at images/plot_demo_fig_01.png" >  <figcaption><b>Figure 1</b>. Geminga</figcaption></figure></div>
+
+
+and 3C 279
+
+<div class="jupydoc_fig"><figure>   <img src="images/plot_demo_fig_02.png" alt="Figure 2 at images/plot_demo_fig_02.png" >  <figcaption><b>Figure 2</b>. 3C 279</figcaption></figure></div>
+
+
+Printout:
+<p style="margin-left: 5%"><pre>Restoring the light curve from /tmp/light_curves/Geminga_lightcurve.pkl <br>Restoring the light curve from /tmp/light_curves/3C_279_lightcurve.pkl <br></pre></p>
+
+

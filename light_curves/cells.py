@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 from .config import Config, Files, PointSource
 from .photon_data import get_photon_data
-from .weights import add_weights
+from .weights import add_weights, check_source
 from .exposure import get_exposure
 
 # Cell

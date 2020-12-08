@@ -31,87 +31,89 @@ nb_path: "nbs/index.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Install">Install<a class="anchor-link" href="#Install"> </a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>After cloning this repository:</p>
-<p><code>pip install -e .</code></p>
+<h2 id="Background">Background<a class="anchor-link" href="#Background"> </a></h2><p>This package has code that is being adapted to the <a href="https://nbdev.fast.ai/">nbdev</a> environment from <a href="https://github.com/tburnett/lat-timing">github package lat-timing</a> to manage light curves of Fermi-LAT sources.</p>
+<p>An At the same time, I've ported some code from  my <a href="https://github.com/tburnett/jupydoc">jupydoc</a> documention package to allow enhanced documentation combining Markdown and code.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="How-to-use-(If-you-have-set-up-files)">How to use (If you have set up files)<a class="anchor-link" href="#How-to-use-(If-you-have-set-up-files)"> </a></h2><p>Make a DataFrame of cells</p>
+<h2 id="Install">Install<a class="anchor-link" href="#Install"> </a></h2><p>After cloning, in its folder run the command
+<code>pip install -e .</code></p>
 
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Demonstrate-some-actual-light-curves">Demonstrate some actual light curves<a class="anchor-link" href="#Demonstrate-some-actual-light-curves"> </a></h2>
 </div>
 </div>
 </div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary data-open="Hide Code" data-close="Show Code"></summary>
+        <summary></summary>
+        <div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">light_curves.config</span> <span class="kn">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Files</span><span class="p">,</span> <span class="n">PointSource</span>
-<span class="kn">from</span> <span class="nn">light_curves.cells</span> <span class="kn">import</span> <span class="n">get_cells</span>
-<span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
-<span class="n">files</span> <span class="o">=</span> <span class="n">Files</span><span class="p">()</span>
-<span class="k">if</span> <span class="n">files</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
-    <span class="n">cells</span> <span class="o">=</span> <span class="n">get_cells</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">PointSource</span><span class="p">(</span><span class="s1">&#39;Geminga&#39;</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">plot_demo</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ### Light curve plots</span>
+<span class="sd">    </span>
+<span class="sd">    Test with {source1.name}:</span>
+<span class="sd">    </span>
+<span class="sd">    {fig1}</span>
+<span class="sd">    </span>
+<span class="sd">    and {source2.name}</span>
+<span class="sd">    </span>
+<span class="sd">    {fig2}</span>
+<span class="sd">    </span>
+<span class="sd">    Printout:</span>
+<span class="sd">    {print_out}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">light_curves.config</span> <span class="kn">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Files</span><span class="p">,</span> <span class="n">PointSource</span>
+    <span class="kn">from</span> <span class="nn">light_curves.lightcurve</span> <span class="kn">import</span> <span class="n">get_lightcurve</span><span class="p">,</span> <span class="n">flux_plot</span>
+    
+    <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="n">Files</span><span class="p">()</span>
+    
+    <span class="k">with</span> <span class="n">capture_print</span><span class="p">()</span> <span class="k">as</span> <span class="n">print_out</span><span class="p">:</span>
+        <span class="n">source1</span> <span class="o">=</span> <span class="n">PointSource</span><span class="p">(</span><span class="s1">&#39;Geminga&#39;</span><span class="p">)</span>
+        <span class="n">lc1</span> <span class="o">=</span> <span class="n">get_lightcurve</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">source1</span><span class="p">)</span>
+        <span class="n">fig1</span> <span class="o">=</span> <span class="n">flux_plot</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">lc1</span><span class="p">,</span> <span class="n">fignum</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">source1</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">fig1</span><span class="o">.</span><span class="n">caption</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">source1</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span>
 
-    <span class="n">cells</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">cells</span> <span class="o">=</span> <span class="kc">None</span>                 
+        <span class="n">source2</span> <span class="o">=</span> <span class="n">PointSource</span><span class="p">(</span><span class="s1">&#39;3C 279&#39;</span><span class="p">)</span>
+        <span class="n">lc2</span> <span class="o">=</span> <span class="n">get_lightcurve</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">source2</span><span class="p">)</span>
+        <span class="n">fig2</span> <span class="o">=</span> <span class="n">flux_plot</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">lc2</span><span class="p">,</span> <span class="n">fignum</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">yscale</span><span class="o">=</span><span class="s1">&#39;log&#39;</span> <span class="p">)</span>
+        <span class="n">fig2</span><span class="o">.</span><span class="n">caption</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">source2</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span>
+
+<span class="n">nbdoc</span><span class="p">(</span><span class="n">plot_demo</span><span class="p">)</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
 <div class="output_area">
 
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Processing 11 GTI files ...  11 files, 63635 intervals with 3,322 days live time
-	GTI MJD range: 54682.66-58698.08, good fraction 0.83 
-Loading  132 months from Arrow dataset /home/burnett/data/dataset
-....................................................................................................................................
-	Selected 1313726 photons within 5 deg of  (195.13,4.27)
-	Energies: 100.0-1000000 MeV
-	Dates:    2008-08-04 15:46 - 2019-08-03 01:17
-	MJD  :    54682.7          - 58698.1         
-Load weights from file /mnt/c/users/thbur/OneDrive/fermi/weight_files/Geminga_weights.pkl
-	Found: PSR J0633+1746 at (195.14, 4.27)
-	Applyng weights: 240 / 1313726 photon pixels are outside weight region
-	233109 weights set to NaN
-Processing 11 GTI files ...  11 files, 63635 intervals with 3,322 days live time
-	GTI MJD range: 54682.66-58698.08, good fraction 0.83 
-Processing 12 S/C history (FT2) files
-  applying cuts cos(theta) &lt; 0.4,  z &lt; 100
-	file /home/burnett/work/lat-data/ft2/ft2_2008.fits: 362996 entries, 360944 in GTI
-	file /home/burnett/work/lat-data/ft2/ft2_2009.fits: 874661 entries, 870446 in GTI
-	file /home/burnett/work/lat-data/ft2/ft2_2010.fits: 889547 entries, 884697 in GTI
-	file /home/burnett/work/lat-data/ft2/ft2_2011.fits: 882832 entries, 871672 in GTI
-	file /home/burnett/work/lat-data/ft2/ft2_2012.fits: 881317 entries, 868109 in GTI
-	file /home/burnett/work/lat-data/ft2/ft2_2013.fits: 885307 entries, 867342 in GTI
-	file /home/burnett/work/lat-data/ft2/ft2_2014.fits: 894730 entries, 886570 in GTI
-	file /home/burnett/work/lat-data/ft2/ft2_2015.fits: 890006 entries, 886086 in GTI
-	file /home/burnett/work/lat-data/ft2/ft2_2016.fits: 890933 entries, 884823 in GTI
-	file /home/burnett/work/lat-data/ft2/ft2_2017.fits: 888349 entries, 883761 in GTI
-	file /home/burnett/work/lat-data/ft2/ft2_2018.fits: 842824 entries, 830723 in GTI
-	file /home/burnett/work/lat-data/ft2/ft2_2019.fits: 737029 entries, 514657 in GTI
-	Found 9,609,830 S/C entries:  2,695,715 remain after zenith and theta cuts
-Calculate exposure using the energy domain 100.0-1000000.0 4 bins/decade
-Time bins: 4015 intervals of 1 days, in range (54683.0, 58698.0)
-</pre>
+
+<div class="output_markdown rendered_html output_subarea ">
+<h3 id="Light-curve-plots">Light curve plots<a class="anchor-link" href="#Light-curve-plots"> </a></h3><p>Test with Geminga:</p>
+<div class="jupydoc_fig"><figure>   <img src="images/plot_demo_fig_01.png" alt="Figure 1 at images/plot_demo_fig_01.png" >  <figcaption><b>Figure 1</b>. Geminga</figcaption></figure></div><p>and 3C 279</p>
+<div class="jupydoc_fig"><figure>   <img src="images/plot_demo_fig_02.png" alt="Figure 2 at images/plot_demo_fig_02.png" >  <figcaption><b>Figure 2</b>. 3C 279</figcaption></figure></div><p>Printout:</p>
+<p style="margin-left: 5%"><pre>Restoring the light curve from /tmp/light_curves/Geminga_lightcurve.pkl <br>Restoring the light curve from /tmp/light_curves/3C_279_lightcurve.pkl <br></pre></p>
 </div>
+
 </div>
 
 </div>
@@ -120,46 +122,6 @@ Time bins: 4015 intervals of 1 days, in range (54683.0, 58698.0)
 </div>
     {% endraw %}
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>A look at the content of the first cell</p>
-
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">cells</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="n">cells</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>where the fields are:</p>
-<ul>
-<li>t : MJD central time</li>
-<li>tw : width</li>
-<li>fexp : exposure for this interval compared to mean</li>
-<li>n : Number of photons detected</li>
-<li>w : List of int(weight*256) for the photons detected during the interval. stored as uint8</li>
-<li>S, B : expected signal and background</li>
-</ul>
-
-</div>
-</div>
-</div>
 </div>
  
 

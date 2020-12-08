@@ -72,10 +72,7 @@ nb_path: "nbs/05_weights.ipynb"
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Loading photon data for using source Geminga to test adding weights
-Processing 11 FITS files with GTI information ...  11 files, 63635 intervals with 3,322 days live time
-	GTI MJD range: 54682.66-58698.08, good fraction 0.83 
-Loading  132 months from Arrow dataset /home/burnett/data/dataset
-....................................................................................................................................
+restoring photon data from /tmp/light_curves/Geminga_photons.pkl 
 	Selected 1313726 photons within 5 deg of  (195.13,4.27)
 	Energies: 100.0-1000000 MeV
 	Dates:    2008-08-04 15:46 - 2019-08-03 01:17
@@ -198,9 +195,33 @@ Loading  132 months from Arrow dataset /home/burnett/data/dataset
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="add_weights" class="doc_header"><code>add_weights</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/weights.py#L82" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>add_weights</code>(<strong><code>xconfig</code></strong>, <strong><code>xfiles</code></strong>, <strong><code>photon_data</code></strong>, <strong><code>source</code></strong>)</p>
+<h4 id="check_source" class="doc_header"><code>check_source</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/weights.py#L82" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>check_source</code>(<strong><code>files</code></strong>, <strong><code>source</code></strong>)</p>
 </blockquote>
-<p>add weights for the soruce to the photons data</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="add_weights" class="doc_header"><code>add_weights</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/weights.py#L93" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>add_weights</code>(<strong><code>xconfig</code></strong>, <strong><code>xfiles</code></strong>, <strong><code>photon_data</code></strong>, <strong><code>source</code></strong>)</p>
+</blockquote>
+<p>add weights for the source to the photon data</p>
 
 </div>
 
