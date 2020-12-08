@@ -68,7 +68,7 @@ def monospace(text:'Either a string, or an object',
     out = f'<p style="margin-left: {indent}"><pre>{text}</pre></p>'
     if not summary:
         return out
-    return f'<details {"open" if open else ""}><summary> {summary} </summary> {out} </details>'
+    return f'<details class="descripton" ><summary data-open="Hide " data-close="Show "> {summary} </summary> {out} </details>'
     
 def shell(text:'a shell command ', mono=True, **kwargs):
     import subprocess

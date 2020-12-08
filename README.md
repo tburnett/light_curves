@@ -1,14 +1,14 @@
 # The `light_curve` package
-> Code for generating fermi-LAT light curves
+> Code for generating fermi-LAT light curves <a href='document'>https://tburnett.github.io/light_curves/</a>
 
 
 ## Background
 
 This package has code that is being adapted to the [nbdev](https://nbdev.fast.ai/) environment from [github package lat-timing](https://github.com/tburnett/lat-timing) to manage light curves of Fermi-LAT sources.  
 
-An At the same time, I've ported some code from  my [jupydoc](https://github.com/tburnett/jupydoc) documention package to allow enhanced documentation combining Markdown and code. 
+And at the same time, I've ported some code from  my [jupydoc](https://github.com/tburnett/jupydoc) documention package to allow enhanced documentation combining Markdown and code. This is demonstrated below.
 
-## Install
+## Installation
 After cloning, in its folder run the command
 `pip install -e .`
 
@@ -29,7 +29,7 @@ def plot_demo():
     
     {print_out}
     
-    
+    <br>
     Test with {source1.name}:
     
     {fig1}
@@ -45,6 +45,7 @@ def plot_demo():
     
     config = Config()
     files = Files()
+    assert files.valid
     
     with capture_print(summary='printout from this analysis') as print_out:
         source1 = PointSource('Geminga')
@@ -57,7 +58,10 @@ def plot_demo():
         fig2 = flux_plot(config, lc2, fignum=2, yscale='log' )
         fig2.caption=f'{source2.name}'
 
-nbdoc(plot_demo)
+
+from light_curves.config import Files
+if Files().valid:
+    nbdoc(plot_demo)
 ```
 
 </details>
@@ -65,9 +69,9 @@ nbdoc(plot_demo)
 
 ### Light curve plots
 
-<details ><summary> printout from this analysis </summary> <p style="margin-left: 5%"><pre>Restoring the light curve from /tmp/light_curves/Geminga_lightcurve.pkl <br>Restoring the light curve from /tmp/light_curves/3C_279_lightcurve.pkl <br></pre></p> </details>
+<details class="descripton" ><summary data-open="Hide " data-close="Show "> printout from this analysis </summary> <p style="margin-left: 5%"><pre>Restoring the light curve from /tmp/light_curves/Geminga_lightcurve.pkl <br>Restoring the light curve from /tmp/light_curves/3C_279_lightcurve.pkl <br></pre></p> </details>
 
-
+<br>
 Test with Geminga:
 
 <div class="jupydoc_fig"><figure>   <img src="images/plot_demo_fig_01.png" alt="Figure 1 at images/plot_demo_fig_01.png" >  <figcaption><b>Figure 1</b>. Geminga</figcaption></figure></div>
