@@ -65,6 +65,9 @@ nb_path: "nbs/index.ipynb"
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    ### Light curve plots</span>
 <span class="sd">    </span>
+<span class="sd">    {print_out}</span>
+<span class="sd">    </span>
+<span class="sd">    </span>
 <span class="sd">    Test with {source1.name}:</span>
 <span class="sd">    </span>
 <span class="sd">    {fig1}</span>
@@ -73,8 +76,7 @@ nb_path: "nbs/index.ipynb"
 <span class="sd">    </span>
 <span class="sd">    {fig2}</span>
 <span class="sd">    </span>
-<span class="sd">    Printout:</span>
-<span class="sd">    {print_out}</span>
+<span class="sd"> </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">light_curves.config</span> <span class="kn">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Files</span><span class="p">,</span> <span class="n">PointSource</span>
     <span class="kn">from</span> <span class="nn">light_curves.lightcurve</span> <span class="kn">import</span> <span class="n">get_lightcurve</span><span class="p">,</span> <span class="n">flux_plot</span>
@@ -82,7 +84,7 @@ nb_path: "nbs/index.ipynb"
     <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
     <span class="n">files</span> <span class="o">=</span> <span class="n">Files</span><span class="p">()</span>
     
-    <span class="k">with</span> <span class="n">capture_print</span><span class="p">()</span> <span class="k">as</span> <span class="n">print_out</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">capture_print</span><span class="p">(</span><span class="n">summary</span><span class="o">=</span><span class="s1">&#39;printout from this analysis&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">print_out</span><span class="p">:</span>
         <span class="n">source1</span> <span class="o">=</span> <span class="n">PointSource</span><span class="p">(</span><span class="s1">&#39;Geminga&#39;</span><span class="p">)</span>
         <span class="n">lc1</span> <span class="o">=</span> <span class="n">get_lightcurve</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">source1</span><span class="p">)</span>
         <span class="n">fig1</span> <span class="o">=</span> <span class="n">flux_plot</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">lc1</span><span class="p">,</span> <span class="n">fignum</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">source1</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
@@ -108,10 +110,10 @@ nb_path: "nbs/index.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h3 id="Light-curve-plots">Light curve plots<a class="anchor-link" href="#Light-curve-plots"> </a></h3><p>Test with Geminga:</p>
+<h3 id="Light-curve-plots">Light curve plots<a class="anchor-link" href="#Light-curve-plots"> </a></h3><p><details ><summary> printout from this analysis </summary> <p style="margin-left: 5%"><pre>Restoring the light curve from /tmp/light_curves/Geminga_lightcurve.pkl <br>Restoring the light curve from /tmp/light_curves/3C_279_lightcurve.pkl <br></pre></p> </details></p>
+<p>Test with Geminga:</p>
 <div class="jupydoc_fig"><figure>   <img src="images/plot_demo_fig_01.png" alt="Figure 1 at images/plot_demo_fig_01.png" >  <figcaption><b>Figure 1</b>. Geminga</figcaption></figure></div><p>and 3C 279</p>
-<div class="jupydoc_fig"><figure>   <img src="images/plot_demo_fig_02.png" alt="Figure 2 at images/plot_demo_fig_02.png" >  <figcaption><b>Figure 2</b>. 3C 279</figcaption></figure></div><p>Printout:</p>
-<p style="margin-left: 5%"><pre>Restoring the light curve from /tmp/light_curves/Geminga_lightcurve.pkl <br>Restoring the light curve from /tmp/light_curves/3C_279_lightcurve.pkl <br></pre></p>
+<div class="jupydoc_fig"><figure>   <img src="images/plot_demo_fig_02.png" alt="Figure 2 at images/plot_demo_fig_02.png" >  <figcaption><b>Figure 2</b>. 3C 279</figcaption></figure></div>
 </div>
 
 </div>
