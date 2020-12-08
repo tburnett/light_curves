@@ -13,13 +13,13 @@ entries:
       title: Configuration data and basic functions
       url: config.html
     - output: web,pdf
-      title: effective_area
+      title: Effective Area
       url: effective_area.html
     - output: web,pdf
-      title: load_gti
+      title: GTI, or Good Time Interval
       url: load_gti.html
     - output: web,pdf
-      title: exposure
+      title: Exposure
       url: exposure.html
     - output: web,pdf
       title: Photon Data

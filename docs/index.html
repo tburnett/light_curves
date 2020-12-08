@@ -57,10 +57,10 @@ nb_path: "nbs/index.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">light_curves.config</span> <span class="kn">import</span> <span class="n">LCconfig</span><span class="p">,</span> <span class="n">FileConfiguration</span><span class="p">,</span> <span class="n">PointSource</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">light_curves.config</span> <span class="kn">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Files</span><span class="p">,</span> <span class="n">PointSource</span>
 <span class="kn">from</span> <span class="nn">light_curves.cells</span> <span class="kn">import</span> <span class="n">get_cells</span>
-<span class="n">config</span> <span class="o">=</span> <span class="n">LCconfig</span><span class="p">()</span>
-<span class="n">files</span> <span class="o">=</span> <span class="n">FileConfiguration</span><span class="p">()</span>
+<span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+<span class="n">files</span> <span class="o">=</span> <span class="n">Files</span><span class="p">()</span>
 <span class="k">if</span> <span class="n">files</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
     <span class="n">cells</span> <span class="o">=</span> <span class="n">get_cells</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">PointSource</span><span class="p">(</span><span class="s1">&#39;Geminga&#39;</span><span class="p">))</span>
 
@@ -134,33 +134,11 @@ Time bins: 4015 intervals of 1 days, in range (54683.0, 58698.0)
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cells</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">cells</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">cells</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>t                                                 54683.5
-tw                                                      1
-fexp                                              1.26439
-n                                                     330
-w       [244, 214, 174, 5, 246, 150, 187, 65, 91, 215,...
-S                                                  905751
-B                                                  460568
-Name: 54683.5, dtype: object</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -169,7 +147,7 @@ Name: 54683.5, dtype: object</pre>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>wher the fields are:</p>
+<p>where the fields are:</p>
 <ul>
 <li>t : MJD central time</li>
 <li>tw : width</li>

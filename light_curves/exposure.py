@@ -10,7 +10,7 @@ from scipy.integrate import simps
 from .config import MJD
 
 # Cell
-def _process_ft2(config, source, ft2_files, gti, effective_area):
+def _process_ft2(config, source, ft2_file_path, gti, effective_area):
     """Process a set of FT2 files, with S/C history data
     Parameters:
         - config -- verbose, cos_theta_max, z_max
@@ -25,6 +25,7 @@ def _process_ft2(config, source, ft2_files, gti, effective_area):
      """
     # combine the files into a DataFrame with following fields besides START and STOP (lower case for column)
     fields    = ['LIVETIME','RA_SCZ','DEC_SCZ', 'RA_ZENITH','DEC_ZENITH']
+    ft2_files = list(ft2_file_path.glob('*.fits'))
     if config.verbose>1:
         print(f'Processing {len(ft2_files)} S/C history (FT2) files')
         print(f'  applying cuts cos(theta) < {config.cos_theta_max},  z < {config.z_max}')
@@ -122,12 +123,30 @@ def _exposure(config, effective_area, livetime, pcosine):
     return (aeff*livetime)
 
 # Cell
-def get_exposure(config, files, gti, source):
+def get_exposure(config, files, gti, source, use_cache=True):
     """Return the exposure for the source
     If gti is None, regenerate it
     """
     from  light_curves.load_gti import get_gti
     from .effective_area import EffectiveArea
-    gti = gti or get_gti(config, files.gti)
-    aeff = EffectiveArea(file_path = files.aeff)
-    return _process_ft2(config, source, files.ft2, gti, aeff)
+
+    fcache = files.cache/f'{source.filename}_exposure.pkl' if use_cache else None
+
+    if fcache and fcache.exists():
+        if config.verbose>1:
+            print(f'restoring exposure from {fcache} ' , end='')
+        exposure = pd.read_pickle(fcache)
+        if config.verbose>1:
+            print(f'{len(exposure)} entries, MJD {exposure.iloc[0].start:.0f}'
+                  f' - {exposure.iloc[-1].stop:.0f}')
+
+    else:
+        gti = gti or get_gti(config, files.gti)
+        aeff = EffectiveArea(file_path = files.aeff)
+        exposure =  _process_ft2(config, source, files.ft2, gti, aeff)
+
+        if fcache:
+            if config.verbose>1:
+                print(f'saving exposure to {fcache}')
+            exposure.to_pickle(fcache)
+    return exposure

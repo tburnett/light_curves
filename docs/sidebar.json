@@ -2,9 +2,9 @@
   "light_curves": {
     "Overview": "/",
     "Configuration data and basic functions": "config.html",
-    "effective_area": "effective_area.html",
-    "load_gti": "load_gti.html",
-    "exposure": "exposure.html",
+    "Effective Area": "effective_area.html",
+    "GTI, or Good Time Interval": "load_gti.html",
+    "Exposure": "exposure.html",
     "Photon Data": "photon_data.html",
     "Weights": "weights.html",
     "Cells": "cells.html",

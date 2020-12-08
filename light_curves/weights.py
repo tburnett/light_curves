@@ -5,7 +5,7 @@ __all__ = ['config', 'files', 'add_weights']
 # Cell
 import os,  pickle, healpy
 import numpy as np
-from .config import LCconfig, FileConfiguration, PointSource
+from .config import Config, Files, PointSource
 from .load_gti import get_gti
 from .photon_data import get_photon_data
 

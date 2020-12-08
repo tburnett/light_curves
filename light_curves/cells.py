@@ -6,7 +6,7 @@ __all__ = ['get_cells']
 import os
 import numpy as np
 import pandas as pd
-from .config import LCconfig, FileConfiguration, PointSource
+from .config import Config, Files, PointSource
 from .photon_data import get_photon_data
 from .weights import add_weights
 from .exposure import get_exposure

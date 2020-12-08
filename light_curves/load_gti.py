@@ -13,8 +13,9 @@ def get_gti(config, gti_files):
     """Combine the GTI intervals that fall within the gti range
     Return a function that tests a list of times
     """
+    gti_files = list(gti_files.glob('*.fits'))
     if config.verbose>1:
-        print(f'Processing {len(gti_files)} GTI files ... ', end='')
+        print(f'Processing {len(gti_files)} FITS files with GTI information ... ', end='')
     starts=[]
     stops=[]
     for i, ft1 in enumerate(gti_files):

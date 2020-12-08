@@ -14,10 +14,10 @@ After cloning this repository:
 Make a DataFrame of cells
 
 ```python
-from light_curves.config import LCconfig, FileConfiguration, PointSource
+from light_curves.config import Config, Files, PointSource
 from light_curves.cells import get_cells
-config = LCconfig()
-files = FileConfiguration()
+config = Config()
+files = Files()
 if files.valid:
     cells = get_cells(config, files, PointSource('Geminga'))
 
@@ -62,24 +62,11 @@ else:
 A look at the content of the first cell
 
 ```python
-cells.iloc[0]
+if cells is not None:
+    cells.iloc[0]
 ```
 
-
-
-
-    t                                                 54683.5
-    tw                                                      1
-    fexp                                              1.26439
-    n                                                     330
-    w       [244, 214, 174, 5, 246, 150, 187, 65, 91, 215,...
-    S                                                  905751
-    B                                                  460568
-    Name: 54683.5, dtype: object
-
-
-
-wher the fields are: 
+where the fields are: 
 - t : MJD central time
 - tw : width
 - fexp : exposure for this interval compared to mean

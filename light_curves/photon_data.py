@@ -16,11 +16,31 @@ def get_photon_data(config: 'configuration data',
                     files:  'file locations',
                     source: 'Source data',
                     gti:   'Good Time Interval'=None,
+                    use_cache=True,
                     nest=True):
     """
     Read photon data from a Parquet dataset, select cone around the
     source, use exposure to add exposures, return DataFrame
     """
+
+    def summarize(df):
+        emin,emax = config.energy_range or (config.energy_edges[0],config.energy_edges[-1])
+        print(f'\n\tSelected {len(df)} photons within {config.radius}'\
+              f' deg of  ({source.l:.2f},{source.b:.2f})')
+        print(f'\tEnergies: {emin:.1f}-{emax:.0f} MeV')
+        ta,tb = df.iloc[0].time, df.iloc[-1].time
+        print(f'\tDates:    {UTC(ta):16} - {UTC(tb)}'
+            f'\n\tMJD  :    {ta:<16.1f} - {tb:<16.1f}')
+
+    fcache = files.cache/f'{source.filename}_photons.pkl' if use_cache else None
+
+    if fcache and fcache.exists():
+        if config.verbose>1:
+            print(f'restoring photon data from {fcache} ' , end='')
+        photon_data = pd.read_pickle(fcache)
+        if config.verbose>1:
+            summarize(photon_data)
+        return(photon_data)
 
     # check GTI
     if gti is None:
@@ -80,8 +100,8 @@ def get_photon_data(config: 'configuration data',
         return out_df.query(f'radius<{radius} & {band_limits[0]} < band < {band_limits[1]}')
 
     # get the monthly-partitioned dataset and tstart values
-    dataset = files.data+'/dataset'
-    tstart_dict= pickle.load(open(files.data+'/tstart.pkl', 'rb'))
+    dataset = files.data/'dataset'
+    tstart_dict= pickle.load(open(files.data/'tstart.pkl', 'rb'))
     months = tstart_dict.keys()
 
     if config.verbose>0:
@@ -102,11 +122,11 @@ def get_photon_data(config: 'configuration data',
     assert len(dflist)>0, '\nNo photon data found?'
     df = pd.concat(dflist, ignore_index=True)
     if config.verbose>0:
-        emin,emax = config.energy_range or (config.energy_edges[0],config.energy_edges[-1])
-        print(f'\n\tSelected {len(df)} photons within {config.radius}'\
-              f' deg of  ({source.l:.2f},{source.b:.2f})')
-        print(f'\tEnergies: {emin:.1f}-{emax:.0f} MeV')
-        ta,tb = df.iloc[0].time, df.iloc[-1].time
-        print(f'\tDates:    {UTC(ta):16} - {UTC(tb)}'
-            f'\n\tMJD  :    {ta:<16.1f} - {tb:<16.1f}')
+        summarize(df)
+
+    if fcache:
+        if config.verbose>1:
+            print(f'saving photon data to {fcache}')
+        df.to_pickle(fcache)
+
     return df
