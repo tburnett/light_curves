@@ -11,6 +11,7 @@
     "poisson": "poisson.html",
     "Log Likelihood tools": "loglike.html",
     "Light Curve": "lightcurve.html",
-    "Instructions": "instructions.html"
+    "Instructions": "instructions.html",
+    "Kerr Comparison": "kerr_comparison.html"
   }
 }

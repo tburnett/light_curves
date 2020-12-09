@@ -40,108 +40,12 @@ nb_path: "nbs/index.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Installation">Installation<a class="anchor-link" href="#Installation"> </a></h2><p>After cloning, in its folder run the command
+<h2 id="Installation">Installation<a class="anchor-link" href="#Installation"> </a></h2><p>To enable the <code>nbdev_*</code> commands, after cloning, in its folder run the command
 <code>pip install -e .</code></p>
-<h2 id="Instructions-on-set-up-/-use">Instructions on set up / use<a class="anchor-link" href="#Instructions-on-set-up-/-use"> </a></h2><p><code>instructions</code></p>
-
+<h2 id="instructions-on-set-up-/-use"><a href="https://tburnett.github.io/light_curves/instructions.html">instructions</a> on set up / use<a class="anchor-link" href="#instructions-on-set-up-/-use"> </a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Demonstrate-some-actual-light-curves">Demonstrate some actual light curves<a class="anchor-link" href="#Demonstrate-some-actual-light-curves"> </a></h2>
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary data-open="Hide Code" data-close="Show Code"></summary>
-        <summary></summary>
-        <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">plot_demo</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    ### Light curve plots</span>
-<span class="sd">    </span>
-<span class="sd">    {print_out}</span>
-<span class="sd">    </span>
-<span class="sd">    &lt;br&gt;</span>
-<span class="sd">    Test with {source1.name}:</span>
-<span class="sd">    </span>
-<span class="sd">    {fig1}</span>
-<span class="sd">    </span>
-<span class="sd">    This is to be compared with Kerr&#39;s Figure 1:</span>
-<span class="sd">    </span>
-<span class="sd">    {kerr_fig1}</span>
-<span class="sd">    </span>
-<span class="sd">    This flaring AGN, {source2.name} was used in the Kerr paper as well.</span>
-<span class="sd">    </span>
-<span class="sd">    {fig2}</span>
-<span class="sd">    </span>
-<span class="sd"> </span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">light_curves.config</span> <span class="kn">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Files</span><span class="p">,</span> <span class="n">PointSource</span>
-    <span class="kn">from</span> <span class="nn">light_curves.lightcurve</span> <span class="kn">import</span> <span class="n">get_lightcurve</span><span class="p">,</span> <span class="n">flux_plot</span>
-    
-    <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
-    <span class="n">files</span> <span class="o">=</span> <span class="n">Files</span><span class="p">()</span>
-    <span class="k">assert</span> <span class="n">files</span><span class="o">.</span><span class="n">valid</span>
-    <span class="c1">#files.clear_cache()</span>
-    
-    <span class="n">kerr_fig1</span> <span class="o">=</span> <span class="n">image</span><span class="p">(</span><span class="s1">&#39;kerr_fig1.png&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
-    
-    <span class="k">with</span> <span class="n">capture_print</span><span class="p">(</span><span class="n">summary</span><span class="o">=</span><span class="s1">&#39;printout from this analysis&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">print_out</span><span class="p">:</span>
-        <span class="n">source1</span> <span class="o">=</span> <span class="n">PointSource</span><span class="p">(</span><span class="s1">&#39;Geminga&#39;</span><span class="p">)</span>
-        <span class="n">lc1</span> <span class="o">=</span> <span class="n">get_lightcurve</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">source1</span><span class="p">)</span>
-        <span class="n">fig1</span> <span class="o">=</span> <span class="n">flux_plot</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">lc1</span><span class="p">,</span> <span class="n">fignum</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">source1</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-        <span class="n">fig1</span><span class="o">.</span><span class="n">caption</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">source1</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span>
-        <span class="n">fig1</span><span class="o">.</span><span class="n">width</span><span class="o">=</span><span class="mi">500</span>
-
-        <span class="n">source2</span> <span class="o">=</span> <span class="n">PointSource</span><span class="p">(</span><span class="s1">&#39;3C 279&#39;</span><span class="p">)</span>
-        <span class="n">lc2</span> <span class="o">=</span> <span class="n">get_lightcurve</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">source2</span><span class="p">)</span>
-        <span class="n">fig2</span> <span class="o">=</span> <span class="n">flux_plot</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">lc2</span><span class="p">,</span> <span class="n">fignum</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">yscale</span><span class="o">=</span><span class="s1">&#39;log&#39;</span> <span class="p">)</span>
-        <span class="n">fig2</span><span class="o">.</span><span class="n">caption</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">source2</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span>
-        <span class="n">fig2</span><span class="o">.</span><span class="n">width</span><span class="o">=</span><span class="mi">500</span>
-
-
-<span class="kn">from</span> <span class="nn">light_curves.config</span> <span class="kn">import</span> <span class="n">Files</span>
-<span class="k">if</span> <span class="n">Files</span><span class="p">()</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
-    <span class="n">nbdoc</span><span class="p">(</span><span class="n">plot_demo</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-    </details>
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h3 id="Light-curve-plots">Light curve plots<a class="anchor-link" href="#Light-curve-plots"> </a></h3><p><details class="descripton" ><summary data-open="Hide " data-close="Show "> printout from this analysis </summary> <p style="margin-left: 5%"><pre>Restoring the light curve from /tmp/light_curves/Geminga_lightcurve.pkl <br>Restoring the light curve from /tmp/light_curves/3C_279_lightcurve.pkl <br></pre></p> </details></p>
-<p><br>
-Test with Geminga:</p>
-<div class="jupydoc_fig"><a href="images/plot_demo_fig_01.png"<figure>   <img src="images/plot_demo_fig_01.png" alt="Figure 1 at images/plot_demo_fig_01.png" width=500>  <figcaption><b>Figure 1</b>. Geminga</figcaption></figure></a></div><p>This is to be compared with Kerr's Figure 1:</p>
-<div class="jupydoc_fig"> <a href="images/kerr_fig1.png">  <figure>    <img src="images/kerr_fig1.png"  width=300       alt="Image kerr_fig1.png at images/kerr_fig1.png">
-  <figcaption></figcaption></figure></a></div><p>This flaring AGN, 3C 279 was used in the Kerr paper as well.</p>
-<div class="jupydoc_fig"><a href="images/plot_demo_fig_02.png"<figure>   <img src="images/plot_demo_fig_02.png" alt="Figure 2 at images/plot_demo_fig_02.png" width=500>  <figcaption><b>Figure 2</b>. 3C 279</figcaption></figure></a></div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
 </div>
  
 

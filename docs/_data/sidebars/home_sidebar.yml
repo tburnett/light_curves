@@ -42,6 +42,9 @@ entries:
     - output: web,pdf
       title: Instructions
       url: instructions.html
+    - output: web,pdf
+      title: Kerr Comparison
+      url: kerr_comparison.html
     output: web
     title: light_curves
   output: web
