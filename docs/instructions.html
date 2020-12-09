@@ -126,17 +126,39 @@ nb_path: "nbs/12_instructions.ipynb"
 
 <div class="output_area">
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-3-7e670495a868&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">     75</span> <span class="ansi-green-fg">from</span> light_curves<span class="ansi-blue-fg">.</span>config <span class="ansi-green-fg">import</span> Files
-<span class="ansi-green-intense-fg ansi-bold">     76</span> <span class="ansi-green-fg">if</span> Files<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>valid<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">---&gt; 77</span><span class="ansi-red-fg">     </span>nbdoc<span class="ansi-blue-fg">(</span>instructions<span class="ansi-blue-fg">)</span>
 
-<span class="ansi-red-fg">NameError</span>: name &#39;nbdoc&#39; is not defined</pre>
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="Setup-declarations">Setup declarations<a class="anchor-link" href="#Setup-declarations"> </a></h2><p>The following describes the module <code>config</code>. The defaults are wired-in
+for now, but could be obtained from an editable yaml file.</p>
+<h3 id="config.Config----parameters">config.Config -- parameters<a class="anchor-link" href="#config.Config----parameters"> </a></h3><p style="margin-left: 5%"><pre>Configuration parameters <br>  verbose         : 3<br>  use_cache       : True<br>  mjd_range       : None<br>  radius          : 5<br>  cos_theta_max   : 0.4<br>  z_max           : 100<br>  time_interval   : 1<br>  nside           : 1024<br>  nest            : True<br>  bins_per_decade : 4<br>  base_spectrum   : lambda E: (E/1000)**-2.1<br>  energy_range    : (100.0, 1000000.0)<br>  likelihood_rep  : poisson<br></pre></p><h3 id="config.Files----default-file-paths">config.Files -- default file paths<a class="anchor-link" href="#config.Files----default-file-paths"> </a></h3><p style="margin-left: 5%"><pre>File paths for light curves<br>  data       : /home/burnett/data<br>  ft2        : /home/burnett/work/lat-data/ft2<br>  gti        : /home/burnett/work/lat-data/binned<br>  aeff       : /home/burnett/work/lat-data/aeff<br>  weights    : /home/burnett/onedrive/fermi/weight_files<br>  cache      : /tmp/light_curves<br></pre></p><p>The these are dataclass classes, and can be initialized with
+parameters. For example, to suppress printout</p>
+
+<pre><code>config = Config(verbose=0)</code></pre>
+<h2 id="The-light-curve">The light curve<a class="anchor-link" href="#The-light-curve"> </a></h2><p>The light curve can be represented by plots of flux vs. time. The time range,
+limited by 'config.mjd_range`, if set. The actual livetime, during which <em>Fermi</em> is
+collecting data, is further limited by the GTI, for good-time interval. This is a list
+of start,stop pairs.</p>
+<p>The module <a href="/light_curves/load_gti.html">load_gti</a> defines <code>get_gti</code>.</p>
+<p>During the valid times, a the flux, or rate, is estimated by counting the number 
+of photons and dividing by the exposure.</p>
+<p>The source is defined by instantiating a [PointSource(/light_curves/config#PointSource) object, defined in</p>
+<h3 id="Exposure">Exposure<a class="anchor-link" href="#Exposure"> </a></h3><p>The exposure for the specified source is calculated from the  <a href="/light_curves/exposure.html">exposure</a> module,
+which implements <code>get_exposure</code>. It depends on:</p>
+<ul>
+<li><p>Space craft info (FT2)
+The FT2 file(s) contain spacecraft position and orientation as a function of time.</p>
+</li>
+<li><p>Efffective Area
+The module <a href="light_curves/effective_area.html">effective_area</a> defines the functor class
+<code>EffectiveArea</code>, needed to calculate the exposure</p>
+</li>
+</ul>
+<h3 id="Photon-data">Photon data<a class="anchor-link" href="#Photon-data"> </a></h3><h3 id="Weights">Weights<a class="anchor-link" href="#Weights"> </a></h3><p>Each photon</p>
+<h3 id="Cells">Cells<a class="anchor-link" href="#Cells"> </a></h3><p>A "cell" represents a time interval to measure the flux.</p>
+<p>This is where the ...</p>
+
 </div>
+
 </div>
 
 </div>

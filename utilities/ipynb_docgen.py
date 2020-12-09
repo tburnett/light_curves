@@ -222,7 +222,6 @@ if plt:
             # from kwargs
             self.folder_name=kwargs.pop('folder_name', 'figs')
             self.fig_folders=kwargs.pop('fig_folders', self.replacer.document_folders)
-            print(f'***fig_folders: {self.fig_folders}')
 
             self.replacer.figure_number += 1
             self.number = self.replacer.figure_number
