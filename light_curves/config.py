@@ -60,11 +60,13 @@ class Config:
     # analysis
     likelihood_rep: str='poisson'
 
-    def __repr__(self):
+    def __str__(self):
         s = 'Configuration parameters \n'
         for name, value in self.__dict__.items():
             s += f'  {name:15s} : {value}\n'
         return s
+
+    def __repr__(self): return str(self)
 
 # Cell
 

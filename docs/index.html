@@ -6,8 +6,8 @@ title: The `light_curve` package
 keywords: fastai
 sidebar: home_sidebar
 
-summary: "Code for generating fermi-LAT light curves <a href='document'>https://tburnett.github.io/light_curves/</a>"
-description: "Code for generating fermi-LAT light curves <a href='document'>https://tburnett.github.io/light_curves/</a>"
+summary: "Code for generating fermi-LAT light curves. <a href='https://tburnett.github.io/light_curves/'>link to this document</a>"
+description: "Code for generating fermi-LAT light curves. <a href='https://tburnett.github.io/light_curves/'>link to this document</a>"
 nb_path: "nbs/index.ipynb"
 ---
 <!--
@@ -32,6 +32,7 @@ nb_path: "nbs/index.ipynb"
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Background">Background<a class="anchor-link" href="#Background"> </a></h2><p>This package has code that is being adapted to the <a href="https://nbdev.fast.ai/">nbdev</a> environment from <a href="https://github.com/tburnett/lat-timing">github package lat-timing</a> to manage light curves of Fermi-LAT sources.</p>
+<p>As pointed out there, it is based on a <a href="https://arxiv.org/pdf/1910.00140.pdf">paper</a> by Matthew Kerr,</p>
 <p>And at the same time, I've ported some code from  my <a href="https://github.com/tburnett/jupydoc">jupydoc</a> documention package to allow enhanced documentation combining Markdown and code. This is demonstrated below.</p>
 
 </div>
@@ -41,6 +42,7 @@ nb_path: "nbs/index.ipynb"
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Installation">Installation<a class="anchor-link" href="#Installation"> </a></h2><p>After cloning, in its folder run the command
 <code>pip install -e .</code></p>
+<h2 id="Instructions-on-set-up-/-use">Instructions on set up / use<a class="anchor-link" href="#Instructions-on-set-up-/-use"> </a></h2><p><code>instructions</code></p>
 
 </div>
 </div>
@@ -72,7 +74,11 @@ nb_path: "nbs/index.ipynb"
 <span class="sd">    </span>
 <span class="sd">    {fig1}</span>
 <span class="sd">    </span>
-<span class="sd">    and {source2.name}</span>
+<span class="sd">    This is to be compared with Kerr&#39;s Figure 1:</span>
+<span class="sd">    </span>
+<span class="sd">    {kerr_fig1}</span>
+<span class="sd">    </span>
+<span class="sd">    This flaring AGN, {source2.name} was used in the Kerr paper as well.</span>
 <span class="sd">    </span>
 <span class="sd">    {fig2}</span>
 <span class="sd">    </span>
@@ -84,6 +90,9 @@ nb_path: "nbs/index.ipynb"
     <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
     <span class="n">files</span> <span class="o">=</span> <span class="n">Files</span><span class="p">()</span>
     <span class="k">assert</span> <span class="n">files</span><span class="o">.</span><span class="n">valid</span>
+    <span class="c1">#files.clear_cache()</span>
+    
+    <span class="n">kerr_fig1</span> <span class="o">=</span> <span class="n">image</span><span class="p">(</span><span class="s1">&#39;kerr_fig1.png&#39;</span><span class="p">)</span>
     
     <span class="k">with</span> <span class="n">capture_print</span><span class="p">(</span><span class="n">summary</span><span class="o">=</span><span class="s1">&#39;printout from this analysis&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">print_out</span><span class="p">:</span>
         <span class="n">source1</span> <span class="o">=</span> <span class="n">PointSource</span><span class="p">(</span><span class="s1">&#39;Geminga&#39;</span><span class="p">)</span>
@@ -112,13 +121,24 @@ nb_path: "nbs/index.ipynb"
 
 <div class="output_area">
 
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>***fig_folders: [&#39;&#39;, &#39;../docs&#39;]
+***fig_folders: [&#39;&#39;, &#39;../docs&#39;]
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
 
 <div class="output_markdown rendered_html output_subarea ">
-<h3 id="Light-curve-plots">Light curve plots<a class="anchor-link" href="#Light-curve-plots"> </a></h3><p><details class="descripton" ><summary data-open="Hide " data-close="Show "> printout from this analysis </summary> <p style="margin-left: 5%"><pre>Restoring the light curve from /tmp/light_curves/Geminga_lightcurve.pkl <br>Restoring the light curve from /tmp/light_curves/3C_279_lightcurve.pkl <br></pre></p> </details></p>
+<h3 id="Light-curve-plots">Light curve plots<a class="anchor-link" href="#Light-curve-plots"> </a></h3><p><details class="descripton" ><summary data-open="Hide " data-close="Show "> printout from this analysis </summary> <p style="margin-left: 5%"><pre>Processing 11 FITS files with GTI information ...  11 files, 63635 intervals with 3,322 days live time<br>   GTI MJD range: 54682.66-58698.08, good fraction 0.83 <br>Loading  132 months from Arrow dataset /home/burnett/data/dataset<br>....................................................................................................................................<br>  Selected 1313726 photons within 5 deg of  (195.13,4.27)<br> Energies: 100.0-1000000 MeV<br> Dates:    2008-08-04 15:46 - 2019-08-03 01:17<br>   MJD  :    54682.7          - 58698.1         <br>saving photon data to /tmp/light_curves/Geminga_photons.pkl<br>Load weights from file /mnt/c/users/thbur/OneDrive/fermi/weight_files/Geminga_weights.pkl<br>   Found: PSR J0633+1746 at (195.14, 4.27)<br> Applyng weights: 240 / 1313726 photon pixels are outside weight region<br>  233109 weights set to NaN<br>Processing 11 FITS files with GTI information ...  11 files, 63635 intervals with 3,322 days live time<br> GTI MJD range: 54682.66-58698.08, good fraction 0.83 <br>Processing 12 S/C history (FT2) files<br>  applying cuts cos(theta) < 0.4,  z < 100<br>    file /home/burnett/work/lat-data/ft2/ft2_2008.fits: 362996 entries, 360944 in GTI<br>   file /home/burnett/work/lat-data/ft2/ft2_2009.fits: 874661 entries, 870446 in GTI<br>   file /home/burnett/work/lat-data/ft2/ft2_2010.fits: 889547 entries, 884697 in GTI<br>   file /home/burnett/work/lat-data/ft2/ft2_2011.fits: 882832 entries, 871672 in GTI<br>   file /home/burnett/work/lat-data/ft2/ft2_2012.fits: 881317 entries, 868109 in GTI<br>   file /home/burnett/work/lat-data/ft2/ft2_2013.fits: 885307 entries, 867342 in GTI<br>   file /home/burnett/work/lat-data/ft2/ft2_2014.fits: 894730 entries, 886570 in GTI<br>   file /home/burnett/work/lat-data/ft2/ft2_2015.fits: 890006 entries, 886086 in GTI<br>   file /home/burnett/work/lat-data/ft2/ft2_2016.fits: 890933 entries, 884823 in GTI<br>   file /home/burnett/work/lat-data/ft2/ft2_2017.fits: 888349 entries, 883761 in GTI<br>   file /home/burnett/work/lat-data/ft2/ft2_2018.fits: 842824 entries, 830723 in GTI<br>   file /home/burnett/work/lat-data/ft2/ft2_2019.fits: 737029 entries, 514657 in GTI<br>   Found 9,609,830 S/C entries:  2,695,715 remain after zenith and theta cuts<br>Calculate exposure using the energy domain 100.0-1000000.0 4 bins/decade<br>saving exposure to /tmp/light_curves/Geminga_exposure.pkl<br>Time bins: 4015 intervals of 1 days, in range (54683.0, 58698.0)<br>Loaded 3873 / 4015 cells with exposure > 0.3 for light curve analysis<br>Fitting likelihoods with poisson representation<br>Saving the light curve at /tmp/light_curves/Geminga_lightcurve.pkl <br>Processing 11 FITS files with GTI information ...  11 files, 63635 intervals with 3,322 days live time<br>    cut from 63,635 to 7 - 63634, or 63,627 entries after MJD range selection<br>   GTI MJD range: 54683.16-58698.03, good fraction 0.83 <br>Loading  132 months from Arrow dataset /home/burnett/data/dataset<br>....................................................................................................................................<br>  Selected 215138 photons within 5 deg of  (305.10,57.06)<br> Energies: 100.0-1000000 MeV<br> Dates:    2008-08-05 04:39 - 2019-08-01 12:09<br>   MJD  :    54683.2          - 58696.5         <br>saving photon data to /tmp/light_curves/3C_279_photons.pkl<br>Load weights from file /mnt/c/users/thbur/OneDrive/fermi/weight_files/3C_279_weights.pkl<br> Found: P88Y3243 at (305.10, 57.07)<br>  Applyng weights: 2086 / 215138 photon pixels are outside weight region<br>  67649 weights set to NaN<br>Processing 11 FITS files with GTI information ...  11 files, 63635 intervals with 3,322 days live time<br>  cut from 63,635 to 7 - 63634, or 63,627 entries after MJD range selection<br>   GTI MJD range: 54683.16-58698.03, good fraction 0.83 <br>Processing 12 S/C history (FT2) files<br>  applying cuts cos(theta) < 0.4,  z < 100<br>    file /home/burnett/work/lat-data/ft2/ft2_2008.fits: 362996 entries, 360200 in GTI<br>   file /home/burnett/work/lat-data/ft2/ft2_2009.fits: 874661 entries, 870446 in GTI<br>   file /home/burnett/work/lat-data/ft2/ft2_2010.fits: 889547 entries, 884697 in GTI<br>   file /home/burnett/work/lat-data/ft2/ft2_2011.fits: 882832 entries, 871672 in GTI<br>   file /home/burnett/work/lat-data/ft2/ft2_2012.fits: 881317 entries, 868109 in GTI<br>   file /home/burnett/work/lat-data/ft2/ft2_2013.fits: 885307 entries, 867342 in GTI<br>   file /home/burnett/work/lat-data/ft2/ft2_2014.fits: 894730 entries, 886570 in GTI<br>   file /home/burnett/work/lat-data/ft2/ft2_2015.fits: 890006 entries, 886086 in GTI<br>   file /home/burnett/work/lat-data/ft2/ft2_2016.fits: 890933 entries, 884823 in GTI<br>   file /home/burnett/work/lat-data/ft2/ft2_2017.fits: 888349 entries, 883761 in GTI<br>   file /home/burnett/work/lat-data/ft2/ft2_2018.fits: 842824 entries, 830723 in GTI<br>   file /home/burnett/work/lat-data/ft2/ft2_2019.fits: 737029 entries, 514550 in GTI<br>   Found 9,608,979 S/C entries:  2,438,717 remain after zenith and theta cuts<br>Calculate exposure using the energy domain 100.0-1000000.0 4 bins/decade<br>saving exposure to /tmp/light_curves/3C_279_exposure.pkl<br>Time bins: 4014 intervals of 1 days, in range (54683.0, 58697.0)<br>Loaded 3845 / 4014 cells with exposure > 0.3 for light curve analysis<br>Fitting likelihoods with poisson representation<br>Saving the light curve at /tmp/light_curves/3C_279_lightcurve.pkl <br></pre></p> </details></p>
 <p><br>
 Test with Geminga:</p>
-<div class="jupydoc_fig"><figure>   <img src="images/plot_demo_fig_01.png" alt="Figure 1 at images/plot_demo_fig_01.png" >  <figcaption><b>Figure 1</b>. Geminga</figcaption></figure></div><p>and 3C 279</p>
-<div class="jupydoc_fig"><figure>   <img src="images/plot_demo_fig_02.png" alt="Figure 2 at images/plot_demo_fig_02.png" >  <figcaption><b>Figure 2</b>. 3C 279</figcaption></figure></div>
+<div class="jupydoc_fig"><a href="images/plot_demo_fig_01.png"<figure>   <img src="images/plot_demo_fig_01.png" alt="Figure 1 at images/plot_demo_fig_01.png" >  <figcaption><b>Figure 1</b>. Geminga</figcaption></figure></a></div><p>This is to be compared with Kerr's Figure 1:</p>
+<div class="jupydoc_fig"> <a href="images/kerr_fig1.png">  <figure>    <img src="images/kerr_fig1.png"         alt="Image kerr_fig1.png at images/kerr_fig1.png">
+  <figcaption></figcaption></figure></a></div><p>and 3C 279</p>
+<div class="jupydoc_fig"><a href="images/plot_demo_fig_02.png"<figure>   <img src="images/plot_demo_fig_02.png" alt="Figure 2 at images/plot_demo_fig_02.png" >  <figcaption><b>Figure 2</b>. 3C 279</figcaption></figure></a></div>
 </div>
 
 </div>

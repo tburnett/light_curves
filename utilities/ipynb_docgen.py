@@ -101,6 +101,73 @@ def capture_print( **kwargs):
 
     return Capture_print()
 
+def image(filename, 
+            caption='', 
+            width=None,height=None, 
+            browser_subfolder:'The subfolder in the HTML location'='images',
+            image_extensions=['.png', '.jpg', '.gif', '.jpeg'],
+            fig_style='jupydoc_fig',
+            )->'a JupydocImage object that generates HTML':
+    error=''
+    image_path = '../images'
+    # Get, and increment, current figure number, prepend to caption.
+    # self.object_replacer.figure_number +=1
+    # fignum =  self.object_replacer.figure_number
+    #caption = f'<b>Figure {fignum}</b>. '+caption
+
+    if not os.path.isfile(filename):
+        filename = os.path.join(image_path, filename)
+        if not os.path.isfile(filename):
+            error = f'Image file {filename} not found.'
+            print(error, sys.stderr)
+
+    if not error:
+        _, ext = os.path.splitext(filename)
+        if not ext in image_extensions:
+            error = f'File {filename} not an image? "{ext}" not in {image_extensions}' 
+            print(error, sys.stderr)
+
+
+    class NBdocImage(object):
+        def __init__(self, folders):
+            self.error = error
+            #self.fignum = fignum
+            if self.error: 
+                return
+            _, name=os.path.split(filename) 
+            # make tne name unique by appending current fig number
+            self.name = name #.replace('.', f'_fig_{fignum:02d}.')
+            self.set_browser_folder(browser_subfolder)
+            for folder in folders:
+                self.saveto(folder)
+            
+        def set_browser_folder(self, folder):
+            self.browser_subfolder = folder
+
+        def saveto(self, whereto):
+            import shutil
+            if self.error: return
+            full_path = os.path.join(whereto, self.browser_subfolder)
+            os.makedirs(full_path, exist_ok=True)
+            to = os.path.join(full_path,self.name) 
+            shutil.copyfile(filename, to )
+
+        def __str__(self):
+            if self.error:
+                return f'<p class="errorText"> <b>{self.error}</b></p>'
+            h = '' if not height else f'height={height}'
+            w  = '' if not width  else f'width={width}'
+            browser_fn = self.browser_subfolder+'/'+self.name
+            return\
+                f'<div class="{fig_style}">'\
+                f' <a href="{browser_fn}">'\
+                    '  <figure>'\
+                f'    <img src="{browser_fn}" {h} {w}'\
+                f'       alt="Image {self.name} at {browser_fn}">'\
+                f'\n  <figcaption>{caption}</figcaption>'\
+                '</figure></a></div>\n'
+    r = NBdocImage(folders = ['.', '../docs']) 
+    return r    
 
 """
 This defines a jupydoc helper which manages creation of HTML for objects of selected classes
@@ -155,7 +222,7 @@ if plt:
             # from kwargs
             self.folder_name=kwargs.pop('folder_name', 'figs')
             self.fig_folders=kwargs.pop('fig_folders', self.replacer.document_folders)
-            # print(f'***fig_folders: {self.fig_folders}')
+            print(f'***fig_folders: {self.fig_folders}')
 
             self.replacer.figure_number += 1
             self.number = self.replacer.figure_number
@@ -197,10 +264,11 @@ if plt:
                 # add the HTML as an attribute, to insert the image, including  caption
                 self._html =\
                     f'<div class="{self.fig_class}">'\
+                     f'<a href="{browser_fn}"'\
                       f'<figure>'\
                         f'   <img src="{browser_fn}" alt="Figure {n} at {browser_fn}" {img_width}>'\
                         f' {figcaption}' \
-                      '</figure>'\
+                      '</figure></a>'\
                     '</div>\n'
             return self._html
 
@@ -253,7 +321,7 @@ class ImageWrapper(Wrapper):
         self._image = self.obj
     def __str__(self):
         return self._image._repr_mimebundle_()
-# Placeholder until I figure out how IPyton does this in a notebook
+# Placeholder until I figure out how IPython does this in a notebook
 # Until then, must create jpeg or png, save with the document, link in in
 # wrappers['Image'] = (ImageWrapkper, {})
 
@@ -277,14 +345,7 @@ class ObjectReplacer(dict):
         self.figure_prefix = figure_prefix
         self.debug=False
         
-    # def add_rep(self, class_name:'name of class to replace', 
-    #                 out_class:'replacement class', 
-    #                 kwargs:'Any parameters to pass to output class'={}):
-    #     """
-    #     add a replacement entry
-    #     """
-    #     self[class_name] = (out_class, kwargs)
-    
+   
     def set_folders(self, folders):
         # folder management for these guys
         #global document_folders
@@ -358,9 +419,11 @@ def nbdoc(userfun:'a function'):
     """   
     import inspect
 
+    # these optional?
     import numpy as np
     import pandas as pd
     import matplotlib.pyplot as plt
+
     import IPython.display as display
 
     # now defined locally
