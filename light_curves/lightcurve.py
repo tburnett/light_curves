@@ -103,33 +103,42 @@ def get_lightcurve(config, files, source):
 
 
 # Cell
-def flux_plot(config, lightcurve, ts_max=9,  title=None, ax=None, fignum=1, **kwargs):
+def flux_plot(config, lightcurve, ts_min=9,  title=None, ax=None, fignum=1,
+              figsize=(12,4),
+              colors=('cornflowerblue','sandybrown'), fmt=' ',
+              **kwargs):
     """Make a plot of flux vs. MJD
 
     - lightcurve
-    - ts_max -- threshold for ploting limit
+    - ts_min -- threshold for ploting limit
+    - colors -- tuple of colors for signal, limit
     - kwargs -- apply to the Axis object
+
+    returns the Figure instance
     """
-    kw=dict(yscale='linear',xlabel='MJD', ylabel='relative flux',)
+    kw=dict(yscale='linear',xlabel='MJD', ylabel='relative flux')
     kw.update(**kwargs)
     df=lightcurve
     rep = config.likelihood_rep
     if rep =='poisson':
         ts = df.fit.apply(lambda f: f.ts)
-        limit = ts<ts_max
+        limit = ts<ts_min
         bar = df.loc[~limit,:]
         lim = df.loc[limit,:]
     else:
         bar=df; lim=[]
 
-    fig, ax = plt.subplots(figsize=(12,4), num=fignum) if ax is None else (ax.figure, ax)\
+    fig, ax = plt.subplots(figsize=figsize, num=fignum) if ax is None else (ax.figure, ax)\
         if ax is not None else (ax.figure,ax)
 
     # the points with error bars
     t = bar.index
     tw = bar.tw if 'tw' in bar.columns else np.full(len(t), config.time_interval)
     flux =  bar.fit.apply(lambda f: f.flux).values
-    error = bar.fit.apply(lambda f: np.array(f.errors)-f.flux).values
+    upper = bar.fit.apply(lambda f: f.errors[1]).values
+    lower = bar.fit.apply(lambda f: f.errors[0]).values
+    flux[:5], upper[:5], lower[:5]
+    error = np.array([upper-flux, flux-lower])
 
 #     if rep=='poisson':
 #         dy = [bar.errors.apply(lambda x: x[i]).clip(0,4) for i in range(2)]
@@ -137,9 +146,10 @@ def flux_plot(config, lightcurve, ts_max=9,  title=None, ax=None, fignum=1, **kw
 #         dy = bar.sig_flux.clip(0,4)
 #     else: assert False, f'Unrecognized likelihood rep: {rep}'
 
-    ax.errorbar(x=t, xerr=tw/2, y=flux, yerr=error, fmt=' ', color='silver')
+    ax.errorbar(x=t, xerr=tw/2, y=flux, yerr=error, fmt=fmt, color=colors[0])#'silver')
 
     # now do the limits (only for poisson rep)
+    error_size=2
     if len(lim)>0:
         t = lim.index
         tw = lim.tw
@@ -147,9 +157,9 @@ def flux_plot(config, lightcurve, ts_max=9,  title=None, ax=None, fignum=1, **kw
         y = lim.fit.apply(lambda f: f.limit).values
         yerr=0.2*(1 if kw['yscale']=='linear' else y)
         ax.errorbar(x=t, y=y, xerr=tw/2,
-                yerr=yerr,  color='lightsalmon',
-                uplims=True, ls='', lw=2, capsize=4, capthick=0,
-                alpha=0.5)
+                yerr=yerr,  color=colors[1],
+                uplims=True, ls='', lw=error_size, capsize=3*error_size, capthick=0,
+               )
 
     #ax.axhline(1., color='grey')
     ax.set(**kw)
