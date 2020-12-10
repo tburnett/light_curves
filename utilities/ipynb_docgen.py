@@ -4,15 +4,19 @@ Usage:
 
 from utilities import nbdoc
 
-def doc():
-    ''' text to show, with {} strings.
+def userdoc():
+    '''
+     text to show, with {} strings.
     '''
     # code
-nbdev(doc)
+    # 
+    return locals()
+nbdev(userdoc)
 
 """
 import sys, os, shutil, string, pprint
 
+__all__ = ['nbdoc', 'image', 'monospace', 'capture_print', 'shell',]
 
 def doc_formatter(
         text:'text string to process',
@@ -392,71 +396,42 @@ class ObjectReplacer(dict):
         print(f'{"-"*37}after {"-"*37}\n{x}\n{"-"*80}\n')
         return 
 
-def test_OR(previous=20):
-    # define a few figures, assign differned fignumbers
-    fig1, ax1 = plt.subplots(num=1) 
-    fig2, ax2 = plt.subplots(num=2) 
-    
-    # set up the replacer, to start after given value
-    r = ObjectReplacer(previous_fignumber=previous)
-    
-    # set up variable dictionary
-    vars = dict(fig1=fig1, fig2=fig2)
-    before = (vars['fig1'].number, vars['fig2'].number)
-    r(vars)
-    after = (vars['fig1'].number, vars['fig2'].number)
-    print(f'Figure nubers:\nbefore: {before}\nafter : {after}')
-    plt.close('all')
-    
-    assert after[0]==previous+1,f'Failed to set number: got {after[0]}'
 
 
-def nbdoc(userfun:'a function'):
-    """Assume called from a jupyter cell, with a function of no args
-    which has a docstring in markdown format. The code is extracted, a 
-    function call appended, and then executed.
-    """   
+def nbdoc(fun, name=None):
+    """Format the output from an IPython notebook cell using the functon's docstring and computed variables.
+     
+    If name is specified, use it instead of the function name to distinguish figure file names.
+    Will interpret the docstring as markdown. 
+    The function must end with "return locals()".
+    """
     import inspect
-
-    # these optional?
-    import numpy as np
-    import pandas as pd
-    import matplotlib.pyplot as plt
-
     import IPython.display as display
 
-    # now defined locally
-    # from jupydoc.replacer import ObjectReplacer
-    # from jupydoc.helpers import doc_formatter, monospace, capture_print, shell
+    # the the docstring and function name
+    doc = inspect.cleandoc(fun.__doc__)
+    name = name or fun.__name__
 
-    # process the function's code
-    source, _ = inspect.getsourcelines(userfun)
-    assert source[0].startswith('def '), 'Expect first line to be a "def"'
-    code = inspect.cleandoc(''.join(source[1:]))
-    name = userfun.__name__
+    # run it and collect its local symbol table
+    try:
+        vars = fun()
+    except Exception as exc:
+        print(f'User function {fun.__name__} failed: {exc}', file=sys.stderr)
+        return
 
-    # this object will replace references to objects that it recognizes, like "Figure"
-    # It needs to know where to put image files
-    ### TODO: figure out where the doc folder is. Now assume using nbs folder
+    if vars is None or  type(vars)!=dict:
+        print( 'The function {fun.__name__} must end with "return locals()"', file=sys.stderr)
+        return
+
+    # initialze the ObjectReplacer
     orep = ObjectReplacer(folders=['.','../docs'], figure_prefix=name)
-    
-    # get the function's docstring, assumed to be MD
-    doc = inspect.cleandoc(userfun.__doc__)
-    
-    # a call to this is added to end of the user code
-    def _generate(name):
-        # gets local symbols from calling function
-        back =inspect.currentframe().f_back
-        locs = inspect.getargvalues(back).locals
-        
-        vars = locs
-        # replace variable objects if recognized
-        orep(vars)
-        # format the doc string> replacing recognized {name} with a str(obj), where "name" is a key to the object obj
-        # in the local symbol table
-        md_data = doc_formatter(doc, vars)
-        # have IPython display it
-        display.display( md_data )  
 
-    # TODO: try -- except
-    exec(code + f'\n_generate("{name}")', globals(), locals())
+    # replace variable objects that are recognized
+    orep(vars)
+
+    # format the doc string replacing each recognized "{name}" with a str(obj), where "name" is a key to the object obj
+    # in the local symbol table
+    md_data = doc_formatter(doc, vars)
+
+    # have IPython display the generated markdown
+    display.display( md_data )  
