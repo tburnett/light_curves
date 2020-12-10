@@ -11,8 +11,7 @@ As pointed out there, it is based on a [paper](https://arxiv.org/pdf/1910.00140.
 And at the same time, I've ported some code from  my [jupydoc](https://github.com/tburnett/jupydoc) documention package to allow enhanced documentation combining Markdown and code. This is demonstrated below.
 
 ## Installation
-To enable the `nbdev_*` commands, after cloning, in its folder run the command
-`pip install -e .`
+Currently in pre-alpha, and must be cloned. But this brings up the `nbdev` stuff as well.
 
 ## [instructions](https://tburnett.github.io/light_curves/instructions.html) on set up / use
 

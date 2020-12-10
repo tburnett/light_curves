@@ -66,6 +66,7 @@ nb_path: "nbs/13_kerr_comparison.ipynb"
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">light_curves.config</span> <span class="kn">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Files</span><span class="p">,</span> <span class="n">PointSource</span>
     <span class="kn">from</span> <span class="nn">light_curves.lightcurve</span> <span class="kn">import</span> <span class="n">get_lightcurve</span><span class="p">,</span> <span class="n">flux_plot</span>
+
     
     <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
     <span class="n">files</span> <span class="o">=</span> <span class="n">Files</span><span class="p">()</span>
@@ -90,7 +91,7 @@ nb_path: "nbs/13_kerr_comparison.ipynb"
                          <span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="mi">54750</span><span class="p">,</span> <span class="mi">54750</span><span class="o">+</span><span class="mi">700</span><span class="p">),</span>   <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
         <span class="n">fig2</span><span class="o">.</span><span class="n">caption</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">source2</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span>
         <span class="n">fig2</span><span class="o">.</span><span class="n">width</span><span class="o">=</span><span class="mi">500</span>
-
+    <span class="k">return</span> <span class="nb">locals</span><span class="p">()</span>
 
 <span class="kn">from</span> <span class="nn">light_curves.config</span> <span class="kn">import</span> <span class="n">Files</span>
 <span class="k">if</span> <span class="n">Files</span><span class="p">()</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
