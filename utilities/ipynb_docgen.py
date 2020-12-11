@@ -108,70 +108,46 @@ def capture_print( **kwargs):
 def image(filename, 
             caption='', 
             width=None,height=None, 
-            browser_subfolder:'The subfolder in the HTML location'='images',
             image_extensions=['.png', '.jpg', '.gif', '.jpeg'],
-            fig_style='jupydoc_fig',
-            )->'a JupydocImage object that generates HTML':
+            )->'a NBimage object that generates HTML':
     error=''
-    image_path = '../images'
-    # Get, and increment, current figure number, prepend to caption.
-    # self.object_replacer.figure_number +=1
-    # fignum =  self.object_replacer.figure_number
-    #caption = f'<b>Figure {fignum}</b>. '+caption
 
-    if not os.path.isfile(filename):
-        filename = os.path.join(image_path, filename)
-        if not os.path.isfile(filename):
-            error = f'Image file {filename} not found.'
-            print(error, sys.stderr)
+
+    #  look in local, 'images' or up one, '../images' 
+    for image_path in ['.', 'images', '../images']:
+        fullfilename= os.path.join(image_path, filename)
+        found = os.path.isfile(fullfilename)
+        if found: break 
+    if not found:
+        error = f'Image file {filename} not found.'
+        print(error, file=sys.stderr)
 
     if not error:
         _, ext = os.path.splitext(filename)
         if not ext in image_extensions:
             error = f'File {filename} not an image? "{ext}" not in {image_extensions}' 
-            print(error, sys.stderr)
+            print(error, file=sys.stderr)
 
+    # class that will be recognized, and FigureWrapper will wrape it.
+    class NBimage(object):
 
-    class NBdocImage(object):
-        def __init__(self, folders):
-            self.error = error
-            #self.fignum = fignum
-            if self.error: 
-                return
-            _, name=os.path.split(filename) 
-            # make tne name unique by appending current fig number
-            self.name = name #.replace('.', f'_fig_{fignum:02d}.')
-            self.set_browser_folder(browser_subfolder)
-            for folder in folders:
-                self.saveto(folder)
-            
-        def set_browser_folder(self, folder):
-            self.browser_subfolder = folder
+        def __init__(self ):
+            self.width = width
+            self.height = height
+            self.caption = caption
+            self.fullfilename = fullfilename
 
-        def saveto(self, whereto):
-            import shutil
-            if self.error: return
-            full_path = os.path.join(whereto, self.browser_subfolder)
-            os.makedirs(full_path, exist_ok=True)
-            to = os.path.join(full_path,self.name) 
-            shutil.copyfile(filename, to )
+            if error: 
+                self._html = f'<b>{error}</b><br>'
+                self.failed = True
+     
+        def savefig(self, docfilename, **kwargs):
+            # call back from formatting -- maybe copy from source
+            if os.path.exists(docfilename): return
+            shutil.copyfile(self.fullfilename, docfilename )
+      
+    return NBimage()
 
-        def __str__(self):
-            if self.error:
-                return f'<p class="errorText"> <b>{self.error}</b></p>'
-            h = '' if not height else f'height={height}'
-            w  = '' if not width  else f'width={width}'
-            browser_fn = self.browser_subfolder+'/'+self.name
-            return\
-                f'<div class="{fig_style}">'\
-                f' <a href="{browser_fn}">'\
-                    '  <figure>'\
-                f'    <img src="{browser_fn}" {h} {w}'\
-                f'       alt="Image {self.name} at {browser_fn}">'\
-                f'\n  <figcaption>{caption}</figcaption>'\
-                '</figure></a></div>\n'
-    r = NBdocImage(folders = ['.', '../docs']) 
-    return r    
 
 """
 This defines a jupydoc helper which manages creation of HTML for objects of selected classes
@@ -212,73 +188,78 @@ class Wrapper(object):
         text = str(self.obj).replace('\n', '\n<br>')
         return f'<p style="margin-left: {self.indent}"><samp>{text}</samp></p>'
 
-if plt: 
 
-    class FigureWrapper(Wrapper,plt.Figure):
+
+class FigureWrapper(Wrapper): 
+    
+    def __init__(self, *pars, **kwargs): 
         
-        def __init__(self, *pars, **kwargs): 
+        super().__init__(*pars, **kwargs)
+
+        self.fig = fig = self.obj
+        self.__dict__.update(fig.__dict__)
+        if getattr(fig, 'failed', False): 
+            return
+
+        # from kwargs
+        self.folder_name=kwargs.pop('folder_name', 'images')
+        self.fig_folders=kwargs.pop('fig_folders', self.replacer.document_folders)
+
+        self.replacer.figure_number += 1
+        self.number = self.replacer.figure_number
+        self.prefix = self.replacer.figure_prefix
+        self.fig_class=kwargs.pop('fig_class', 'nbdoc_image') 
+
+        
+        for folder in self.fig_folders:
+            t = os.path.join(folder,  self.folder_name)
+            os.makedirs(t, exist_ok=True)
+            assert os.path.isdir(t), f'{t} not found'
+ 
+    def __str__(self):
+        
+        if not hasattr(self, '_html') :
+        
+            # only has to do this once:
+            fig=self.fig
+            n =self.number
+            prefix = self.prefix+'_' if self.prefix else ''
+
+            # the caption, which may be absent.
+            caption = getattr(fig,'caption', '')
+            if caption is not None:
+                caption = f'<b>Figure {n}</b>. ' + getattr(fig,'caption', '').format(**self.vars)
+                figcaption = f' <figcaption>{caption}</figcaption>'
+            else: figcaption=''
+
+            # assign, or get, a filename
+            name =fig.filename if hasattr(fig, 'filename')  else f'{prefix}fig_{n:02d}.png'
+            fn = os.path.join(self.folder_name, name )
+            browser_fn =fn
             
-            super().__init__(*pars, **kwargs)
-
-            fig = self.obj
-            self.__dict__.update(fig.__dict__)
-            self.fig = fig
-            # from kwargs
-            self.folder_name=kwargs.pop('folder_name', 'figs')
-            self.fig_folders=kwargs.pop('fig_folders', self.replacer.document_folders)
-
-            self.replacer.figure_number += 1
-            self.number = self.replacer.figure_number
-            self.prefix = self.replacer.figure_prefix
-            self.fig_class=kwargs.pop('fig_class', 'jupydoc_fig') 
-
+            # actually save it for the document, perhaps both in the local, and document folders
             for folder in self.fig_folders:
-                t = os.path.join(folder,  self.folder_name)
-                os.makedirs(t, exist_ok=True)
-                assert os.path.isdir(t), f'{t} not found'
-                # print(f'*** saving to {t}, with prefix {self.prefix}')
+                fig.savefig(os.path.join(folder,fn), bbox_inches='tight', pad_inches=0.5)#, **fig_kwargs)
+            if plt: plt.close(getattr(fig, 'number', None) )
+            img_width = f'width={fig.width}' if hasattr(fig,'width') else ''
 
-        def __str__(self):
-            
-            if not hasattr(self, '_html') :
-            
-                # only has to do this once:
-                fig=self.fig
-                n =self.number
-                prefix = self.prefix+'_' if self.prefix else ''
-
-                # the caption, which may be absent.
-                caption = getattr(fig,'caption', '')
-                if caption is not None:
-                    caption = f'<b>Figure {n}</b>. ' + getattr(fig,'caption', '').format(**self.vars)
-                    figcaption = f' <figcaption>{caption}</figcaption>'
-                else: figcaption=''
-
-                # save the figure to a file, then close it
-                fn = os.path.join(self.folder_name, f'{prefix}fig_{n:02d}.png')
-                browser_fn =fn
-                
-                # actually save it for the document, perhaps both in the local, and document folders
-                for folder in self.fig_folders:
-                    fig.savefig(os.path.join(folder,fn), bbox_inches='tight', pad_inches=0.5)#, **fig_kwargs)
-                plt.close(fig) 
-                img_width = f'width={fig.width}' if hasattr(fig,'width') else ''
-
-                # add the HTML as an attribute, to insert the image, including  caption
-                self._html =\
-                    f'<div class="{self.fig_class}">'\
-                     f'<a href="{browser_fn}"'\
-                      f'<figure>'\
-                        f'   <img src="{browser_fn}" alt="Figure {n} at {browser_fn}" {img_width}>'\
-                        f' {figcaption}' \
-                      '</figure></a>'\
-                    '</div>\n'
-            return self._html
+            # add the HTML as an attribute, to insert the image, including  caption
+            self._html =\
+                f'<div class="{self.fig_class}">\n'\
+                    f'<a href="{browser_fn}">'\
+                    f'<figure>'\
+                    f'\n   <img src="{browser_fn}" alt="Figure {n} at {browser_fn}" {img_width}>'\
+                    f' {figcaption}' \
+                    '\n</figure></a>'\
+                '</div>\n'
+            #print(f'HTML:\n{self._html}')
+        return self._html
 
     # def __str__(self):
     #     return str(self.img)
 
-    wrappers['Figure'] = (FigureWrapper, {'folder_name': 'images'}) # was 'figs', but this is OK, what nbdev wants
+if plt: wrappers['Figure']  = (FigureWrapper, {} )
+wrappers['NBimage'] = (FigureWrapper, {} )
 
 if pd:
     class DataFrameWrapper(Wrapper): 
@@ -423,8 +404,16 @@ def nbdoc(fun, name=None):
         print( 'The function {fun.__name__} must end with "return locals()"', file=sys.stderr)
         return
 
+    # check location. Expect the
+    if os.path.isdir('docs'):
+        # in the root
+        folders = ['docs']
+    elif os.path.isdir('../docs'):
+        folders = ['.', '../docs']
+    else:
+        raise Exception('did not find the "docs" folder')
     # initialze the ObjectReplacer
-    orep = ObjectReplacer(folders=['.','../docs'], figure_prefix=name)
+    orep = ObjectReplacer(folders=folders, figure_prefix=name)
 
     # replace variable objects that are recognized
     orep(vars)
