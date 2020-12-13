@@ -60,7 +60,7 @@ class _LightCurve(object):
             print(f'Fitting likelihoods with {rep_name} representation')
 
         # making output with reduced columns
-        self.ll_fits = cells['n fexp'.split()].copy()
+        self.ll_fits = cells['t n fexp'.split()].copy()
         self.ll_fits.loc[:,'tw'] = config.time_interval
         self.ll_fits.loc[:,'fit'] = cells.loglike.apply(repcl)
 
@@ -83,9 +83,9 @@ def get_lightcurve(config, files, source):
     """Returns a lightcurve table for the source
 
     """
-    fcache = files.cache/f'{source.filename}_lightcurve.pkl' if config.use_cache else None
+    fcache = files.cache/f'{source.filename}_lightcurve.pkl'
 
-    if fcache and fcache.exists():
+    if  config.use_cache and fcache.exists():
         if config.verbose>1:
             print(f'Restoring the light curve from {fcache} ' )
         lc = pd.read_pickle(fcache)
@@ -94,10 +94,10 @@ def get_lightcurve(config, files, source):
     all_cells = get_cells(config, files, source)
     lc = _LightCurve(config, all_cells, source).dataframe
 
-    if fcache:
-        if config.verbose>1:
-            print(f'Saving the light curve at {fcache} ')
-        lc.to_pickle(fcache)
+
+    if config.verbose>1:
+        print(f'Saving the light curve at {fcache} ')
+    lc.to_pickle(fcache)
 
     return lc
 
@@ -132,7 +132,7 @@ def flux_plot(config, lightcurve, ts_min=9,  title=None, ax=None, fignum=1,
         if ax is not None else (ax.figure,ax)
 
     # the points with error bars
-    t = bar.index
+    t = bar.t
     tw = bar.tw if 'tw' in bar.columns else np.full(len(t), config.time_interval)
     flux =  bar.fit.apply(lambda f: f.flux).values
     upper = bar.fit.apply(lambda f: f.errors[1]).values
@@ -151,7 +151,7 @@ def flux_plot(config, lightcurve, ts_min=9,  title=None, ax=None, fignum=1,
     # now do the limits (only for poisson rep)
     error_size=2
     if len(lim)>0:
-        t = lim.index
+        t = lim.t
         tw = lim.tw
 
         y = lim.fit.apply(lambda f: f.limit).values

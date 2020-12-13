@@ -68,7 +68,7 @@ nb_path: "nbs/13_kerr_comparison.ipynb"
     <span class="kn">from</span> <span class="nn">light_curves.lightcurve</span> <span class="kn">import</span> <span class="n">get_lightcurve</span><span class="p">,</span> <span class="n">flux_plot</span>
 
     
-    <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="n">use_cache</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">files</span> <span class="o">=</span> <span class="n">Files</span><span class="p">()</span>
     <span class="k">assert</span> <span class="n">files</span><span class="o">.</span><span class="n">valid</span>
     <span class="c1">#files.clear_cache()</span>
@@ -114,13 +114,23 @@ nb_path: "nbs/13_kerr_comparison.ipynb"
 in a <a href="https://arxiv.org/pdf/1910.00140.pdf">paper</a> by Matthew Kerr.</p>
 <p>Here I generate plots for two of the sources that he examined,
 and compare with figures from that paper.</p>
-<h4 id="A-bright-pulsar,-Geminga:">A bright pulsar, Geminga:<a class="anchor-link" href="#A-bright-pulsar,-Geminga:"> </a></h4><p><details class="descripton" ><summary data-open="Hide " data-close="Show "> printout from this analysis </summary> <p style="margin-left: 5%"><pre>Restoring the light curve from /tmp/light_curves/Geminga_lightcurve.pkl <br></pre></p> </details></p>
-<div class="jupydoc_fig"><a href="images/kerr_check_fig_01.png"<figure>   <img src="images/kerr_check_fig_01.png" alt="Figure 1 at images/kerr_check_fig_01.png" width=500>  <figcaption><b>Figure 1</b>. Geminga</figcaption></figure></a></div><p>This is to be compared with Kerr's Figure 1:</p>
-<div class="jupydoc_fig"> <a href="images/kerr_fig1.png">  <figure>    <img src="images/kerr_fig1.png"  width=500       alt="Image kerr_fig1.png at images/kerr_fig1.png">
-  <figcaption></figcaption></figure></a></div><h4 id="A-flaring-AGN,-3C-279">A flaring AGN, 3C 279<a class="anchor-link" href="#A-flaring-AGN,-3C-279"> </a></h4><p><details class="descripton" ><summary data-open="Hide " data-close="Show "> printout from this analysis </summary> <p style="margin-left: 5%"><pre>Restoring the light curve from /tmp/light_curves/3C_279_lightcurve.pkl <br></pre></p> </details></p>
-<div class="jupydoc_fig"><a href="images/kerr_check_fig_02.png"<figure>   <img src="images/kerr_check_fig_02.png" alt="Figure 2 at images/kerr_check_fig_02.png" width=500>  <figcaption><b>Figure 2</b>. 3C 279</figcaption></figure></a></div><p>This corresponds to the upper central panel in Kerr's Figure 2.</p>
-<div class="jupydoc_fig"> <a href="images/kerr_fig2.png">  <figure>    <img src="images/kerr_fig2.png"  width=500       alt="Image kerr_fig2.png at images/kerr_fig2.png">
-  <figcaption></figcaption></figure></a></div>
+<h4 id="A-bright-pulsar,-Geminga:">A bright pulsar, Geminga:<a class="anchor-link" href="#A-bright-pulsar,-Geminga:"> </a></h4><p><details class="descripton" ><summary data-open="Hide " data-close="Show "> printout from this analysis </summary> <p style="margin-left: 5%"><pre>restoring photon data from /tmp/light_curves/Geminga_photons.pkl <br>    Selected 1313726 photons within 5 deg of  (195.13,4.27)<br> Energies: 100.0-1000000 MeV<br> Dates:    2008-08-04 15:46 - 2019-08-03 01:17<br>   MJD  :    54682.7          - 58698.1         <br>Load weights from file /mnt/c/users/thbur/OneDrive/fermi/weight_files/Geminga_weights.pkl<br>  Found: PSR J0633+1746 at (195.14, 4.27)<br> Applyng weights: 240 / 1313726 photon pixels are outside weight region<br>  233109 weights set to NaN<br>restoring exposure from /tmp/light_curves/Geminga_exposure.pkl 2695715 entries, MJD 54683 - 58698<br>Time bins: 4015 intervals of 1 days, in range (54683.0, 58698.0)<br>Loaded 3873 / 4015 cells with exposure > 0.3 for light curve analysis<br>Fitting likelihoods with poisson representation<br>Saving the light curve at /tmp/light_curves/Geminga_lightcurve.pkl <br></pre></p> </details></p>
+<div class="nbdoc_image">
+<a href="images/kerr_check_fig_03.png"><figure>
+   <img src="images/kerr_check_fig_03.png" alt="Figure 3 at images/kerr_check_fig_03.png" width=500>  <figcaption><b>Figure 3</b>. Geminga</figcaption>
+</figure></a></div><p>This is to be compared with Kerr's Figure 1:</p>
+<div class="nbdoc_image">
+<a href="images/kerr_check_fig_01.png"><figure>
+   <img src="images/kerr_check_fig_01.png" alt="Figure 1 at images/kerr_check_fig_01.png" width=500>  <figcaption><b>Figure 1</b>. </figcaption>
+</figure></a></div><h4 id="A-flaring-AGN,-3C-279">A flaring AGN, 3C 279<a class="anchor-link" href="#A-flaring-AGN,-3C-279"> </a></h4><p><details class="descripton" ><summary data-open="Hide " data-close="Show "> printout from this analysis </summary> <p style="margin-left: 5%"><pre>restoring photon data from /tmp/light_curves/3C_279_photons.pkl <br> Selected 215158 photons within 5 deg of  (305.10,57.06)<br> Energies: 100.0-1000000 MeV<br> Dates:    2008-08-04 15:52 - 2019-08-03 01:50<br>   MJD  :    54682.7          - 58698.1         <br>Load weights from file /mnt/c/users/thbur/OneDrive/fermi/weight_files/3C_279_weights.pkl<br>   Found: P88Y3243 at (305.10, 57.07)<br>  Applyng weights: 2086 / 215158 photon pixels are outside weight region<br>  67655 weights set to NaN<br>restoring exposure from /tmp/light_curves/3C_279_exposure.pkl 2438906 entries, MJD 54683 - 58698<br>Time bins: 4015 intervals of 1 days, in range (54683.0, 58698.0)<br>Loaded 3845 / 4015 cells with exposure > 0.3 for light curve analysis<br>Fitting likelihoods with poisson representation<br>Saving the light curve at /tmp/light_curves/3C_279_lightcurve.pkl <br></pre></p> </details></p>
+<div class="nbdoc_image">
+<a href="images/kerr_check_fig_04.png"><figure>
+   <img src="images/kerr_check_fig_04.png" alt="Figure 4 at images/kerr_check_fig_04.png" width=500>  <figcaption><b>Figure 4</b>. 3C 279</figcaption>
+</figure></a></div><p>This corresponds to the upper central panel in Kerr's Figure 2.</p>
+<div class="nbdoc_image">
+<a href="images/kerr_check_fig_02.png"><figure>
+   <img src="images/kerr_check_fig_02.png" alt="Figure 2 at images/kerr_check_fig_02.png" width=500>  <figcaption><b>Figure 2</b>. </figcaption>
+</figure></a></div>
 </div>
 
 </div>

@@ -95,7 +95,9 @@ nb_path: "nbs/11_lightcurve.ipynb"
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Not testing since no files.&#39;</span><span class="p">)</span>
     <span class="n">lc</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="k">if</span> <span class="n">lc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">First cell fit: </span><span class="si">{</span><span class="n">lc</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;fit&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">lc</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">First cell contents:</span><span class="se">\n</span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">First cell fit: </span><span class="si">{</span><span class="n">c</span><span class="p">[</span><span class="s2">&quot;fit&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -110,6 +112,14 @@ nb_path: "nbs/11_lightcurve.ipynb"
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Loading cells with source Geminga 
 Restoring the light curve from /tmp/light_curves/Geminga_lightcurve.pkl 
+
+First cell contents:
+t                                                 54683.5
+n                                                     330
+fexp                                              1.26439
+tw                                                      1
+fit     light_curves.loglike.PoissonRep: flux: 0.927[1...
+Name: 54683.5, dtype: object
 
 First cell fit: light_curves.loglike.PoissonRep: flux: 0.927[1+0.076-0.079], limit: 1.05, ts: 481.9
 </pre>

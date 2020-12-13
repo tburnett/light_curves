@@ -14,6 +14,7 @@ index = {"MJD": "00_config.ipynb",
          "effective_area_plots": "01_effective_area.ipynb",
          "get_gti": "02_load_gti.ipynb",
          "get_exposure": "03_exposure.ipynb",
+         "get_contiguous_exposure": "03_exposure.ipynb",
          "get_photon_data": "04_photon_data.ipynb",
          "config": "05_weights.ipynb",
          "files": "05_weights.ipynb",
@@ -29,7 +30,14 @@ index = {"MJD": "00_config.ipynb",
          "PoissonRep": "10_loglike.ipynb",
          "PoissonRepTable": "10_loglike.ipynb",
          "get_lightcurve": "11_lightcurve.ipynb",
-         "flux_plot": "11_lightcurve.ipynb"}
+         "flux_plot": "11_lightcurve.ipynb",
+         "CountFitness": "14_bayesian.ipynb",
+         "LikelihoodFitness": "14_bayesian.ipynb",
+         "get_bb_partition": "14_bayesian.ipynb",
+         "CombinedLikelihood": "14_bayesian.ipynb",
+         "self": "14_bayesian.ipynb",
+         "y": "14_bayesian.ipynb",
+         "amax": "14_bayesian.ipynb"}
 
 modules = ["config.py",
            "effective_area.py",
@@ -40,7 +48,8 @@ modules = ["config.py",
            "cells.py",
            "poisson.py",
            "loglike.py",
-           "lightcurve.py"]
+           "lightcurve.py",
+           "bayesian.py"]
 
 doc_url = "https://tburnett.github.io/light_curves/"
 

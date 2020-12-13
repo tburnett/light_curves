@@ -15,8 +15,9 @@ nbdev(userdoc)
 
 """
 import sys, os, shutil, string, pprint
+import nbdev
 
-__all__ = ['nbdoc', 'image', 'monospace', 'capture_print', 'shell',]
+__all__ = ['nbdoc', 'image', 'monospace', 'capture_print', 'shell','show_doc']
 
 def doc_formatter(
         text:'text string to process',
@@ -82,7 +83,9 @@ def shell(text:'a shell command ', mono=True, **kwargs):
         ret = f'Command {text} failed : {e}'
     return monospace(ret, **kwargs) if mono else ret
 
-def capture_print( **kwargs):
+def capture_print(summary=None, **kwargs):
+    """
+    """
 
 
     class Capture_print(object):
@@ -101,7 +104,7 @@ def capture_print( **kwargs):
             setattr(sys, self._stream, self._old)
             
         def __str__(self):
-            return monospace(self._new.getvalue(), **kwargs)
+            return monospace(self._new.getvalue(), summary=summary, **kwargs)
 
     return Capture_print()
 
@@ -377,13 +380,18 @@ class ObjectReplacer(dict):
         print(f'{"-"*37}after {"-"*37}\n{x}\n{"-"*80}\n')
         return 
 
+# convenient interface to show_doc, with disp set to false
+def show_doc(elt, **kwargs):
+    kwargs.update(disp=False)
+    return nbdev.showdoc.show_doc(elt,  **kwargs)
 
-
-def nbdoc(fun, name=None):
+def nbdoc(fun, *pars, name=None, **kwargs):
     """Format the output from an IPython notebook cell using the functon's docstring and computed variables.
      
     If name is specified, use it instead of the function name to distinguish figure file names.
     Will interpret the docstring as markdown. 
+
+    kwargs will be passed to the user function -- a way to pass information from the notebook environment
     The function must end with "return locals()".
     """
     import inspect
@@ -395,10 +403,11 @@ def nbdoc(fun, name=None):
 
     # run it and collect its local symbol table
     try:
-        vars = fun()
-    except Exception as exc:
-        print(f'User function {fun.__name__} failed: {exc}', file=sys.stderr)
-        return
+        vars = fun(*pars, **kwargs)
+    except Exception as e:
+        print(f'Function {fun.__name__} failed: {e}', file=sys.stderr)
+        raise 
+        #return
 
     if vars is None or  type(vars)!=dict:
         print( 'The function {fun.__name__} must end with "return locals()"', file=sys.stderr)

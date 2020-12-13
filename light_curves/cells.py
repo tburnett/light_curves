@@ -45,7 +45,7 @@ def _get_binned_exposure(time_bins, exposure):
     edge_index = np.searchsorted(estop, time_bins)
     # return the exposure integrated over the intervals
     cum = cumexp[edge_index]
-    return np.diff(cum)/cum[-1] * (len(time_bins)-1)
+    return np.diff(cum)/(cum[-1]-cum[0]) * (len(time_bins)-1)
 
 # Cell
 class _WeightedCells(object):
@@ -54,26 +54,27 @@ class _WeightedCells(object):
     """
 
     def __init__(self, config, source,
-                  photon_data:'DataFrame with photon data',
-                  exposure: 'DataFrame with exposure',
-                  ):
+                 photon_data:'DataFrame with photon data',
+                 exposure: 'DataFrame with exposure',
+                 bins: 'time bins default if None'=None,
+                ):
         """
-        Use time binning and data (a TimedData) object to generate list of cells
+        Use time binning photon_data to generate list of cells
         """
         self.data = photon_data
         self.source_name =source.name
         self.verbose = config.verbose
 
-
-        self.bins = bins = _get_time_bins(config, exposure)
-
+        bins = bins if bins is not None else  _get_time_bins(config, exposure)
+        self.bins = bins
 
         self.N = len(bins)-1 # number of bins
         self.bin_centers = 0.5*(bins[1:]+bins[:-1])
+
+        # exposure binned as well
         self.fexposure = _get_binned_exposure(bins, exposure)
 
         # get the photon data with good weights, not NaN
-
         w = photon_data.weight
         good = np.logical_not(np.isnan(w))
         self.photons = photon_data.loc[good]
@@ -122,12 +123,10 @@ class _WeightedCells(object):
 
     @property
     def dataframe(self):
-        """ a view of the data as a DataFrame, using the MJD time as an index
+        """ combine all cells into a dataframe
         """
-        d = dict()
-        for cell in self:
-            d[cell['t']] = cell
-        return pd.DataFrame.from_dict(d, orient='index' )
+        df = pd.DataFrame([cell for cell in self])
+        return df
 
     def test_plots(self):
         """Make a set of plots of exposure, counts, properties of weights, if any
@@ -161,13 +160,14 @@ class _WeightedCells(object):
         fig.suptitle(self.source_name)
 
 # Cell
-def get_cells(config, files, source):
-    """Return a DataFrame with the cells
-
+def get_cells(config, files, source, bins=None):
+    """Return a cells DataFrame for the source
+    bins is an array of bin edges to define cells. Use default
+    binning from config is None
     """
 
     photon_data = get_photon_data(config, files,  source )
     add_weights(config, files, photon_data, source)
     exposure = get_exposure(config, files, None, source)
 
-    return _WeightedCells(config, source,photon_data, exposure).dataframe
+    return _WeightedCells(config, source,photon_data, exposure, bins).dataframe

@@ -101,7 +101,8 @@ class Files:
 
     def clear_cache(self):
         for f in self.cache.iterdir():
-            f.unlink()
+            if f.isfile:
+                f.unlink()
 
 # Cell
 class PointSource():
