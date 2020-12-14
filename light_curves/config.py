@@ -8,7 +8,7 @@ from astropy.coordinates import SkyCoord
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Tuple
-import os,glob
+import os, sys
 import numpy as np
 
 # Cell
@@ -69,7 +69,95 @@ class Config:
     def __repr__(self): return str(self)
 
 # Cell
+import pickle
+class _Cache(dict):
 
+    def __init__(self, path, clear=False):
+        self.path = Path(path)
+        self.index_file = self.path/'index.pkl'
+
+        if self.path.exists():
+            if clear:
+                print('Clearing cache!')
+                self.clear()
+            else:
+                self._load_index()
+        else:
+            self.path.mkdir()
+        self.index = len(list(self.path.iterdir()))
+
+    def _dump_index(self):
+        with open(self.index_file, 'wb') as file:
+            pickle.dump(self, file)
+
+    def _load_index(self):
+        if not self.index_file.exists():
+            self._dump_index()
+            return
+        with open(self.index_file, 'rb') as file:
+            self.update(pickle.load(file))
+
+    def add(self, key, object, exist_ok=False):
+        if key  in self:
+            if not exist_ok:
+                print(f'Warning: cached object for {key} exists', file=sys.stderr)
+            filename = self[key]
+        else:
+            filename = self.path/f'cache_file_{hex(key.__hash__())[2:]}.pkl'
+            self[key] = filename
+            self._dump_index()
+
+        with open(filename, 'wb') as file:
+            pickle.dump(object, file )
+
+
+    def get(self, key):
+        if key not in self:
+            return None
+        filename = self[key]
+        with open(filename, 'rb') as file:
+            ret = pickle.load(file)
+        return ret
+
+    def clear(self):
+
+        for f in self.path.iterdir():
+            if f.is_file:
+                f.unlink()
+        super().clear()
+
+        self._dump_index()
+
+    def remove(self, key):
+        """remove entry and associated file"""
+        if key not in self:
+            print(f'Cache: key {key} not found', file=sys.stderr)
+            return
+        filename = self[key]
+        filename.unlink()
+        super().pop(key)
+        self._dump_index()
+
+
+
+    def __call__(self, key,
+                 func:'user function',
+                 overwrite:'set to overwrite if exists'=False,
+                 *pars, **kwargs
+                ):
+        """
+        One-line usagge
+
+        cache = _Cache(path)
+        result = cache(key, function, *pars, **kwargs)
+        """
+        ret = self.get(key)
+        if ret is None or overwrite:
+            ret = func(*pars, **kwargs)
+            self.add(key, ret)
+        return ret
+
+# Cell
 @dataclass
 class Files:
     """ paths to the various files that we need"""
@@ -79,14 +167,15 @@ class Files:
     gti: str = '$HOME/work/lat-data/binned/'
     aeff:str = '$HOME/work/lat-data/aeff'
     weights: str = '$HOME/onedrive/fermi/weight_files'
-    cache: str = '/tmp/light_curves'
+    cachepath: str = '/tmp/lc_cache'
 
     # expand -- not implemented in Path
     def __post_init__(self):
         d = self.__dict__
         for name, value in d.items():
             d[name] = Path(os.path.expandvars(value))
-        self.cache.mkdir(exist_ok=True)
+        self.cachepath.mkdir(exist_ok=True)
+        self.cache = _Cache(self.cachepath, clear=False)
 
     @property
     def valid(self):
@@ -98,11 +187,6 @@ class Files:
         for name, value in self.__dict__.items():
             s += f'  {name:10s} : {value}\n'
         return s
-
-    def clear_cache(self):
-        for f in self.cache.iterdir():
-            if f.isfile:
-                f.unlink()
 
 # Cell
 class PointSource():

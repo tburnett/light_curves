@@ -17,7 +17,7 @@ nbdev(userdoc)
 import sys, os, shutil, string, pprint
 import nbdev
 
-__all__ = ['nbdoc', 'image', 'monospace', 'capture_print', 'shell','show_doc']
+__all__ = ['nbdoc', 'image', 'figure', 'monospace', 'capture_print', 'shell','show_doc']
 
 def doc_formatter(
         text:'text string to process',
@@ -145,26 +145,26 @@ def image(filename,
                 self.failed = True
      
         def savefig(self, docfilename, **kwargs):
-            # call back from formatting -- maybe copy from source
-            if os.path.exists(docfilename): return
+            # call back from formatting -- copy from source 
             shutil.copyfile(self.fullfilename, docfilename )
       
     return NBimage()
 
-
-"""
-This defines a jupydoc helper which manages creation of HTML for objects of selected classes
- 
-For such classes, replace the object in the variable dictionary with a new one that implements a __str__ function, which returns
-markdown, usually HTML.
-
-Implemented here: dict, wrappers for plt.Figure, pd.Dataframe
-"""
-
+def figure(fig, caption=None, width=None, height=None):
+    assert isinstance(fig, plt.Figure), 'Must be a plt.Figure object'
 
 try:
     import matplotlib.pyplot as plt
+    def figure(fig, caption=None, width=None, height=None):
+        """ Set the caption, and possibly width and height attributes of a plt.Figuare object
+        """
+        assert isinstance(fig, plt.Figure), 'Must be a plt.Figure object'
+        fig.caption=caption
+        if width: fig.width=width
+        if height: fig.height=height
+        return fig
 except:
+    def figure(): pass
     plt=None
 try: 
     import pandas as pd
@@ -229,7 +229,7 @@ class FigureWrapper(Wrapper):
             prefix = self.prefix+'_' if self.prefix else ''
 
             # the caption, which may be absent.
-            caption = getattr(fig,'caption', '')
+            caption = getattr(fig,'caption', None)
             if caption is not None:
                 caption = f'<b>Figure {n}</b>. ' + getattr(fig,'caption', '').format(**self.vars)
                 figcaption = f' <figcaption>{caption}</figcaption>'
@@ -388,17 +388,24 @@ def show_doc(elt, **kwargs):
 def nbdoc(fun, *pars, name=None, **kwargs):
     """Format the output from an IPython notebook cell using the functon's docstring and computed variables.
      
-    If name is specified, use it instead of the function name to distinguish figure file names.
-    Will interpret the docstring as markdown. 
+    If name is specified, use it instead of the function name to distinguish figure file names, say for separate
+    executions with differing parameters.
 
-    kwargs will be passed to the user function -- a way to pass information from the notebook environment
+    The required docstring will be interpret as markdown.
+
+    args and kwargs will be passed to the user function -- a way to pass information from the notebook environment
     The function must end with "return locals()".
     """
     import inspect
     import IPython.display as display
 
     # the the docstring and function name
-    doc = inspect.cleandoc(fun.__doc__)
+    rawdoc = fun.__doc__
+    if rawdoc is None:
+        print(f'Function {fun.__name__} must have a docstring', file=sys.stderr)
+        return
+
+    doc = inspect.cleandoc(rawdoc)
     name = name or fun.__name__
 
     # run it and collect its local symbol table

@@ -79,27 +79,25 @@ class _LightCurve(object):
 from .config import Config, Files, PointSource
 from .cells import get_cells
 
-def get_lightcurve(config, files, source):
+def get_lightcurve(config, files, source, bin_edges=None):
     """Returns a lightcurve table for the source
 
     """
-    fcache = files.cache/f'{source.filename}_lightcurve.pkl'
-
-    if  config.use_cache and fcache.exists():
-        if config.verbose>1:
-            print(f'Restoring the light curve from {fcache} ' )
-        lc = pd.read_pickle(fcache)
+    def doit():
+        all_cells = get_cells(config, files, source, bin_edges)
+        lc = _LightCurve(config, all_cells, source).dataframe
         return lc
 
-    all_cells = get_cells(config, files, source)
-    lc = _LightCurve(config, all_cells, source).dataframe
+    if bin_edges is None:
+        key = f'lightcurve_{source.name}'
+        # use cache only for full data set
+        if config.verbose>1:
+            print(f'using cache with key "{key}", exists: {key in files.cache}')
+        return files.cache(key, doit)
+
+    return doit()
 
 
-    if config.verbose>1:
-        print(f'Saving the light curve at {fcache} ')
-    lc.to_pickle(fcache)
-
-    return lc
 
 
 # Cell

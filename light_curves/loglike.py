@@ -18,7 +18,10 @@ poisson_tolerance = 0.2
 
 # Cell
 class LogLike(object):
-    """ implement Kerr Eqn 2 for a single interval, or cell"""
+    """ implement Kerr Eqn 2 for a single interval, or cell
+
+
+     """
 
     def __init__(self, cell):
         """ cell is a dict with t, tw, w, fexp

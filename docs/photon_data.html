@@ -80,8 +80,9 @@ source, use exposure to add exposures, return DataFrame</p>
 
 <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
 <span class="n">files</span> <span class="o">=</span> <span class="n">Files</span><span class="p">()</span>
-<span class="n">source</span> <span class="o">=</span> <span class="n">PointSource</span><span class="p">(</span><span class="s1">&#39;Geminga&#39;</span><span class="p">)</span>
-<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">files</span><span class="o">.</span><span class="n">aeff</span><span class="p">):</span>
+<span class="k">if</span> <span class="n">files</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="n">PointSource</span><span class="p">(</span><span class="s1">&#39;Geminga&#39;</span><span class="p">)</span>
+
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Test loading a photon data set, for source </span><span class="si">{</span><span class="n">source</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="n">photon_data</span> <span class="o">=</span> <span class="n">get_photon_data</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">source</span> <span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
@@ -99,13 +100,54 @@ source, use exposure to add exposures, return DataFrame</p>
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Test loading a photon data set, for source Geminga
-restoring photon data from /tmp/light_curves/Geminga_photons.pkl 
+Processing 11 FITS files with GTI information ...  11 files, 63635 intervals with 3,322 days live time
+	GTI MJD range: 54682.66-58698.08, good fraction 0.83 
+Loading  132 months from Arrow dataset /home/burnett/data/dataset
+....................................................................................................................................
 	Selected 1313726 photons within 5 deg of  (195.13,4.27)
 	Energies: 100.0-1000000 MeV
 	Dates:    2008-08-04 15:46 - 2019-08-03 01:17
 	MJD  :    54682.7          - 58698.1         
+added photons_Geminga to cache
 </pre>
 </div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">photon_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>band      6.000000e+00
+time      5.468266e+04
+pixel     6.738278e+06
+radius    6.983809e-01
+Name: 0, dtype: float64</pre>
+</div>
+
 </div>
 
 </div>

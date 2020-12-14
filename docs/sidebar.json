@@ -10,8 +10,9 @@
     "Cells": "cells.html",
     "poisson": "poisson.html",
     "Log Likelihood tools": "loglike.html",
-    "Light Curve": "lightcurve.html",
+    "Light Curve Generation": "lightcurve.html",
     "Instructions": "instructions.html",
-    "Kerr Comparison": "kerr_comparison.html"
+    "Kerr Comparison": "kerr_comparison.html",
+    "Bayesian Blocks": "bayesian.html"
   }
 }

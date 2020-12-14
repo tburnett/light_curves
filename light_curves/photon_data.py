@@ -32,15 +32,13 @@ def get_photon_data(config: 'configuration data',
         print(f'\tDates:    {UTC(ta):16} - {UTC(tb)}'
             f'\n\tMJD  :    {ta:<16.1f} - {tb:<16.1f}')
 
-    fcache = files.cache/f'{source.filename}_photons.pkl' if use_cache else None
-
-    if fcache and fcache.exists():
+    key = f'photons_{source.name}'
+    photon_data = files.cache.get(key)
+    if photon_data is not None:
         if config.verbose>1:
-            print(f'restoring photon data from {fcache} ' , end='')
-        photon_data = pd.read_pickle(fcache)
-        if config.verbose>1:
+            print(f'restored {key} from cache')
             summarize(photon_data)
-        return(photon_data)
+        return photon_data
 
     # check GTI
     if gti is None:
@@ -124,9 +122,9 @@ def get_photon_data(config: 'configuration data',
     if config.verbose>0:
         summarize(df)
 
-    if fcache:
-        if config.verbose>1:
-            print(f'saving photon data to {fcache}')
-        df.to_pickle(fcache)
+
+    files.cache.add(key, df)
+    if config.verbose>1:
+        print(f'added {key} to cache')
 
     return df

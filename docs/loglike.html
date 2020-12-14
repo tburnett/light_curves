@@ -29,6 +29,21 @@ nb_path: "nbs/10_loglike.ipynb"
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><p>Basic: the Kerr formula<br>
+{% raw %}
+$$ \displaystyle\log\mathcal{L}(\alpha,\beta\ |\ w,e) = \sum_{w}  \log \big( 1 + \alpha\ w + \beta\ (1-w) \big) - e\ (\alpha\ S + \beta\ B) $$
+{% endraw %}</p>
+</li>
+<li><p>Poisson: 3-paramter Poisson-like function</p>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -157,7 +172,7 @@ nb_path: "nbs/10_loglike.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="GaussianRep" class="doc_header"><code>class</code> <code>GaussianRep</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/loglike.py#L194" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>GaussianRep</code>(<strong><code>loglike</code></strong>, <strong><code>fix_beta</code></strong>=<em><code>True</code></em>)</p>
+<h2 id="GaussianRep" class="doc_header"><code>class</code> <code>GaussianRep</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/loglike.py#L197" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>GaussianRep</code>(<strong><code>loglike</code></strong>, <strong><code>fix_beta</code></strong>=<em><code>True</code></em>)</p>
 </blockquote>
 <p>Manage fits to the loglike object</p>
 
@@ -182,7 +197,7 @@ nb_path: "nbs/10_loglike.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Gaussian2dRep" class="doc_header"><code>class</code> <code>Gaussian2dRep</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/loglike.py#L209" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Gaussian2dRep</code>(<strong><code>loglike</code></strong>) :: <a href="/light_curves/loglike.html#GaussianRep"><code>GaussianRep</code></a></p>
+<h2 id="Gaussian2dRep" class="doc_header"><code>class</code> <code>Gaussian2dRep</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/loglike.py#L212" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Gaussian2dRep</code>(<strong><code>loglike</code></strong>) :: <a href="/light_curves/loglike.html#GaussianRep"><code>GaussianRep</code></a></p>
 </blockquote>
 <p>Manage fits to the loglike object</p>
 
@@ -248,7 +263,7 @@ nb_path: "nbs/10_loglike.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PoissonRep" class="doc_header"><code>class</code> <code>PoissonRep</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/loglike.py#L214" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PoissonRep</code>(<strong><code>loglike</code></strong>, <strong><code>tol</code></strong>=<em><code>0.2</code></em>)</p>
+<h2 id="PoissonRep" class="doc_header"><code>class</code> <code>PoissonRep</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/loglike.py#L217" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PoissonRep</code>(<strong><code>loglike</code></strong>, <strong><code>tol</code></strong>=<em><code>0.2</code></em>)</p>
 </blockquote>
 <p>Manage the representation of the log likelihood of a cell by a Poisson
 Notes: function assumes arg is the rate
@@ -323,7 +338,7 @@ Notes: function assumes arg is the rate
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PoissonRepTable" class="doc_header"><code>class</code> <code>PoissonRepTable</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/loglike.py#L304" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PoissonRepTable</code>(<strong><code>loglike</code></strong>) :: <a href="/light_curves/loglike.html#PoissonRep"><code>PoissonRep</code></a></p>
+<h2 id="PoissonRepTable" class="doc_header"><code>class</code> <code>PoissonRepTable</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/loglike.py#L307" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PoissonRepTable</code>(<strong><code>loglike</code></strong>) :: <a href="/light_curves/loglike.html#PoissonRep"><code>PoissonRep</code></a></p>
 </blockquote>
 <p>Manage the representation of the log likelihood of a cell by a Poisson
 Notes: function assumes arg is the rate

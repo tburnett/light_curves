@@ -33,11 +33,7 @@ index = {"MJD": "00_config.ipynb",
          "flux_plot": "11_lightcurve.ipynb",
          "CountFitness": "14_bayesian.ipynb",
          "LikelihoodFitness": "14_bayesian.ipynb",
-         "get_bb_partition": "14_bayesian.ipynb",
-         "CombinedLikelihood": "14_bayesian.ipynb",
-         "self": "14_bayesian.ipynb",
-         "y": "14_bayesian.ipynb",
-         "amax": "14_bayesian.ipynb"}
+         "get_bb_partition": "14_bayesian.ipynb"}
 
 modules = ["config.py",
            "effective_area.py",

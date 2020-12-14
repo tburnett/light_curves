@@ -37,7 +37,7 @@ entries:
       title: Log Likelihood tools
       url: loglike.html
     - output: web,pdf
-      title: Light Curve
+      title: Light Curve Generation
       url: lightcurve.html
     - output: web,pdf
       title: Instructions
@@ -45,6 +45,9 @@ entries:
     - output: web,pdf
       title: Kerr Comparison
       url: kerr_comparison.html
+    - output: web,pdf
+      title: Bayesian Blocks
+      url: bayesian.html
     output: web
     title: light_curves
   output: web

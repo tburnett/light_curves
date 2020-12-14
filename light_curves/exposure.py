@@ -130,25 +130,24 @@ def get_exposure(config, files, gti, source, use_cache=True):
     from  light_curves.load_gti import get_gti
     from .effective_area import EffectiveArea
 
-    fcache = files.cache/f'{source.filename}_exposure.pkl' if use_cache else None
+    key = f'exposure_{source.name}'
 
-    if fcache and fcache.exists():
-        if config.verbose>1:
-            print(f'restoring exposure from {fcache} ' , end='')
-        exposure = pd.read_pickle(fcache)
-        if config.verbose>1:
-            print(f'{len(exposure)} entries, MJD {exposure.iloc[0].start:.0f}'
-                  f' - {exposure.iloc[-1].stop:.0f}')
+    exposure = files.cache.get(key)
 
+    if exposure is not None:
+        if config.verbose>1:
+            print(f'restore {key} from cache')
     else:
         gti = gti or get_gti(config, files.gti)
         aeff = EffectiveArea(file_path = files.aeff)
         exposure =  _process_ft2(config, source, files.ft2, gti, aeff)
+        files.cache.add(key, exposure)
+        if config.verbose>1:
+            print(f'add {key} to cache')
 
-        if fcache:
-            if config.verbose>1:
-                print(f'saving exposure to {fcache}')
-            exposure.to_pickle(fcache)
+    if config.verbose>1:
+        print(f'{len(exposure)} entries, MJD {exposure.iloc[0].start:.0f}'
+              f' - {exposure.iloc[-1].stop:.0f}')
     return exposure
 
 # Cell

@@ -39,7 +39,7 @@ nb_path: "nbs/12_instructions.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">instructions</span><span class="p">():</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">road_map</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    ## Setup declarations</span>
 <span class="sd">    </span>
@@ -110,10 +110,11 @@ nb_path: "nbs/12_instructions.ipynb"
     <span class="n">files_text</span> <span class="o">=</span> <span class="n">monospace</span><span class="p">(</span><span class="n">Files</span><span class="p">())</span>
     <span class="n">files</span> <span class="o">=</span> <span class="n">Files</span><span class="p">()</span>
     <span class="k">assert</span> <span class="n">files</span><span class="o">.</span><span class="n">valid</span>
+    <span class="k">return</span> <span class="nb">locals</span><span class="p">()</span>
     
 <span class="kn">from</span> <span class="nn">light_curves.config</span> <span class="kn">import</span> <span class="n">Files</span>
 <span class="k">if</span> <span class="n">Files</span><span class="p">()</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
-    <span class="n">nbdoc</span><span class="p">(</span><span class="n">instructions</span><span class="p">)</span> 
+    <span class="n">nbdoc</span><span class="p">(</span><span class="n">road_map</span><span class="p">)</span> 
 </pre></div>
 
     </div>
@@ -130,7 +131,7 @@ nb_path: "nbs/12_instructions.ipynb"
 <div class="output_markdown rendered_html output_subarea ">
 <h2 id="Setup-declarations">Setup declarations<a class="anchor-link" href="#Setup-declarations"> </a></h2><p>The following describes the module <code>config</code>. The defaults are wired-in
 for now, but could be obtained from an editable yaml file.</p>
-<h3 id="config.Config----parameters">config.Config -- parameters<a class="anchor-link" href="#config.Config----parameters"> </a></h3><p style="margin-left: 5%"><pre>Configuration parameters <br>  verbose         : 3<br>  use_cache       : True<br>  mjd_range       : None<br>  radius          : 5<br>  cos_theta_max   : 0.4<br>  z_max           : 100<br>  time_interval   : 1<br>  nside           : 1024<br>  nest            : True<br>  bins_per_decade : 4<br>  base_spectrum   : lambda E: (E/1000)**-2.1<br>  energy_range    : (100.0, 1000000.0)<br>  likelihood_rep  : poisson<br></pre></p><h3 id="config.Files----default-file-paths">config.Files -- default file paths<a class="anchor-link" href="#config.Files----default-file-paths"> </a></h3><p style="margin-left: 5%"><pre>File paths for light curves<br>  data       : /home/burnett/data<br>  ft2        : /home/burnett/work/lat-data/ft2<br>  gti        : /home/burnett/work/lat-data/binned<br>  aeff       : /home/burnett/work/lat-data/aeff<br>  weights    : /home/burnett/onedrive/fermi/weight_files<br>  cache      : /tmp/light_curves<br></pre></p><p>The these are dataclass classes, and can be initialized with
+<h3 id="config.Config----parameters">config.Config -- parameters<a class="anchor-link" href="#config.Config----parameters"> </a></h3><p style="margin-left: 5%"><pre>Configuration parameters <br>  verbose         : 3<br>  use_cache       : True<br>  mjd_range       : None<br>  radius          : 5<br>  cos_theta_max   : 0.4<br>  z_max           : 100<br>  time_interval   : 1<br>  nside           : 1024<br>  nest            : True<br>  bins_per_decade : 4<br>  base_spectrum   : lambda E: (E/1000)**-2.1<br>  energy_range    : (100.0, 1000000.0)<br>  likelihood_rep  : poisson<br></pre></p><h3 id="config.Files----default-file-paths">config.Files -- default file paths<a class="anchor-link" href="#config.Files----default-file-paths"> </a></h3><p style="margin-left: 5%"><pre>File paths for light curves<br>  data       : /home/burnett/data<br>  ft2        : /home/burnett/work/lat-data/ft2<br>  gti        : /home/burnett/work/lat-data/binned<br>  aeff       : /home/burnett/work/lat-data/aeff<br>  weights    : /home/burnett/onedrive/fermi/weight_files<br>  cachepath  : /tmp/lc_cache<br>  cache      : {'photons_Geminga': Path('/tmp/lc_cache/cache_file_445c4f372e9ef6e6.pkl'), 'exposure_Geminga': Path('/tmp/lc_cache/cache_file_x7cd9b688ac424ae8.pkl'), 'lightcurve_Geminga': Path('/tmp/lc_cache/cache_file_x212414fb86e54e35.pkl'), 'photons_3C 279': Path('/tmp/lc_cache/cache_file_x60b03fd56aad4b.pkl'), 'exposure_3C 279': Path('/tmp/lc_cache/cache_file_x2dee3558c500d13a.pkl'), 'lightcurve_3C 279': Path('/tmp/lc_cache/cache_file_x4ce10d420e3dce7a.pkl')}<br></pre></p><p>The these are dataclass classes, and can be initialized with
 parameters. For example, to suppress printout</p>
 
 <pre><code>config = Config(verbose=0)</code></pre>
