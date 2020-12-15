@@ -12,7 +12,7 @@ from .weights import add_weights, check_source
 from .exposure import get_exposure
 
 # Cell
-def _get_time_bins(config, exposure):
+def _get_default_bins(config, exposure):
     """set up default bins from exposure; adjust stop to come out even
     # round to whole day
     """
@@ -61,12 +61,14 @@ class _WeightedCells(object):
         """
         Use time binning photon_data to generate list of cells
         """
-        self.data = photon_data
         self.source_name =source.name
         self.verbose = config.verbose
 
-        bins = bins if bins is not None else  _get_time_bins(config, exposure)
+        bins = bins if bins is not None else  _get_default_bins(config, exposure)
         self.bins = bins
+
+        # restrict photons to range of bin times
+        photons = photon_data.query(f'{bins[0]}<time<{bins[-1]}')
 
         self.N = len(bins)-1 # number of bins
         self.bin_centers = 0.5*(bins[1:]+bins[:-1])
@@ -75,10 +77,11 @@ class _WeightedCells(object):
         self.fexposure = _get_binned_exposure(bins, exposure)
 
         # get the photon data with good weights, not NaN
-        w = photon_data.weight
+        w = photons.weight
         good = np.logical_not(np.isnan(w))
-        self.photons = photon_data.loc[good]
+        self.photons = photons.loc[good]
         self.weights = w = self.photons.weight.values
+
         # estimates for averate signal and background per cell
         self.S = np.sum(w)/self.N
         self.B = np.sum(1-w)/self.N
@@ -96,7 +99,7 @@ class _WeightedCells(object):
         """ get info for ith time bin and return dict with
             t : MJD
             tw: bin width,
-            fexp: exposure as fraction of total,
+            e: exposure as fraction of total,
             n : number of photons in bin
             w : list of weights as uint8 integers<=255
             S,B:  value
@@ -105,17 +108,17 @@ class _WeightedCells(object):
 
         wts = np.array(self.weights[k[i]:k[i+1]]*256, np.uint8)
         n = len(wts)
-        fexp = self.fexposure[i]
+        e = self.fexposure[i]
         tw  = self.bins[i+1]-self.bins[i]
 
         return dict(
                 t=self.bin_centers[i], # time
                 tw = tw,  # bin width
-                fexp=fexp,
+                e=e, # moving to this name
                 n=n, # number of photons in bin
                 w=wts,
-                S= fexp*self.S,
-                B= fexp*self.B,
+                S= e *self.S,
+                B= e *self.B,
                 )
 
     def __len__(self):
@@ -128,36 +131,6 @@ class _WeightedCells(object):
         df = pd.DataFrame([cell for cell in self])
         return df
 
-    def test_plots(self):
-        """Make a set of plots of exposure, counts, properties of weights, if any
-        """
-        import matplotlib.pyplot as plt
-
-        has_weights = len(self.weights)>0
-        fig, axx = plt.subplots( 5 if has_weights else 3, 1,
-                    figsize=(12,10 if has_weights else 6),
-                    sharex=True,
-                    gridspec_kw=dict(hspace=0,top=0.95),)
-        times=[]; vals = []
-
-        for cell in self:
-            t, e, n, w = [cell[q] for q in 't fexp n w'.split()]
-            if e==0:
-                continue
-            times.append(t)
-            v =  [e, n, n/e ]
-            if has_weights:
-                v= v + [ w.mean(), np.sum(w**2)/sum(w)]
-            vals.append(v)
-        vals = np.array(vals).T
-        labels =  ['rel exp','counts','count rate']
-        if has_weights: labels = labels +  ['mean weight', 'rms/mean weight']
-        for ax, v, ylabel in zip(axx, vals,labels):
-            ax.plot(times, v, '+b')
-            ax.set(ylabel=ylabel)
-            ax.grid(alpha=0.5)
-        axx[-1].set(xlabel='MJD')
-        fig.suptitle(self.source_name)
 
 # Cell
 def get_cells(config, files, source, bins=None):

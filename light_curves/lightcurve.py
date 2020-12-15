@@ -14,11 +14,11 @@ class _LightCurve(object):
     """ Apply likelihood fits to a set of cells
 
     parameters:
-       - cells : a table with index t, columns  tw, n, fexp, w, S, B
+       - cells : a table with index t, columns  tw, n, e, w, S, B
        - min_exp : minimum fractional exposure allowed
        - rep_name : represention to use
 
-    Generates a DataTable with columns n, fexp, fit
+    Generates a DataTable with columns n, ep, fit
 
     """
 
@@ -39,15 +39,15 @@ class _LightCurve(object):
 
         self.source_name = source.name
 
-
         # select the set of cells
-        cells = all_cells.query(f'fexp>{min_exp}').copy()
+        cells = all_cells.query(f'e>{min_exp}').copy()
 
         # generate a list of LogLike objects for each
         cells.loc[:,'loglike'] = cells.apply(LogLike, axis=1)
         if config.verbose>0:
             print(f'Loaded {len(cells)} / {len(all_cells)} cells with exposure >'\
                   f' {min_exp} for light curve analysis')
+            print(f'first cell: {cells.iloc[0]}')
 
         # analyze using selected rep
         rep_name = rep_name or config.likelihood_rep
@@ -60,8 +60,7 @@ class _LightCurve(object):
             print(f'Fitting likelihoods with {rep_name} representation')
 
         # making output with reduced columns
-        self.ll_fits = cells['t n fexp'.split()].copy()
-        self.ll_fits.loc[:,'tw'] = config.time_interval
+        self.ll_fits = cells['t tw n e'.split()].copy()
         self.ll_fits.loc[:,'fit'] = cells.loglike.apply(repcl)
 
     def __repr__(self):
@@ -84,8 +83,8 @@ def get_lightcurve(config, files, source, bin_edges=None):
 
     """
     def doit():
-        all_cells = get_cells(config, files, source, bin_edges)
-        lc = _LightCurve(config, all_cells, source).dataframe
+        cells = get_cells(config, files, source, bin_edges)
+        lc = _LightCurve(config, cells, source).dataframe
         return lc
 
     if bin_edges is None:
@@ -94,11 +93,8 @@ def get_lightcurve(config, files, source, bin_edges=None):
         if config.verbose>1:
             print(f'using cache with key "{key}", exists: {key in files.cache}')
         return files.cache(key, doit)
-
-    return doit()
-
-
-
+    else:
+        return doit()
 
 # Cell
 def flux_plot(config, lightcurve, ts_min=9,  title=None, ax=None, fignum=1,

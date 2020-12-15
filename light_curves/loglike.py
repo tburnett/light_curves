@@ -24,7 +24,7 @@ class LogLike(object):
      """
 
     def __init__(self, cell):
-        """ cell is a dict with t, tw, w, fexp
+        """ cell is a dict with t, tw, w, e
             w may be an array of np.uint8: if so, divide by 256
 
         """
@@ -44,7 +44,7 @@ class LogLike(object):
             #return None
             raise RuntimeError(f'Fit failure: {self}')
         hess = self.hessian(pars)
-        outdict = dict(t=self.t, tw=self.tw, fexp=self.fexp, counts=len(self.w) )
+        outdict = dict(t=self.t, tw=self.tw, e=self.e, counts=len(self.w) )
         if len(pars)==1:
             outdict.update(flux=pars[0], sig_flux=np.sqrt(1/hess[0]))
         else:
@@ -75,7 +75,7 @@ class LogLike(object):
 
     def __repr__(self):
         return f'{self.__class__.__module__}.{self.__class__.__name__}:'\
-        f' time {self.t:.3f}, {self.n} weights,  exposure {self.fexp:.2f}, S {self.S:.0f}, B {self.B:.0f}'
+        f' time {self.t:.3f}, {self.n} weights,  exposure {self.e:.2f}, S {self.S:.0f}, B {self.B:.0f}'
 
     def gradient(self, pars ):
         """gradient of the log likelihood with respect to alpha=flux-1 and beta, or just alpha
@@ -242,7 +242,7 @@ class PoissonRep(object):
         self.poiss=self.pf.poiss
         p = self
         self.fit= dict(t=loglike.t, tw=loglike.tw, counts=len(loglike.w),
-                       fexp=loglike.fexp,
+                       e=loglike.e,
                        flux=np.round(p.flux,4),
                        errors=np.abs(np.array(p.errors)-p.flux).round(3),
                        limit=np.round(p.limit, 3),

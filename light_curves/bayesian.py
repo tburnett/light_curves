@@ -20,7 +20,7 @@ class CountFitness(FitnessFunc):
     """
 
     def __init__(self, lc, p0=0.05,):
-        """lc  : a LightCurve data table, with  exposure (fexp) and counts (n),
+        """lc  : a LightCurve data table, with  exposure (e) and counts (n),
             as well as a representation of the likelihood for each cell
         """
         self.p0=p0
@@ -44,8 +44,8 @@ class CountFitness(FitnessFunc):
         assert min(self.nn)>0, 'Attempt to Include a cell with no contents'
 
         # edges and block_length use exposure as "time"
-        fexp = df.fexp.values
-        self.edges = np.concatenate([[0], np.cumsum(fexp)])
+        e = df.e.values
+        self.edges = np.concatenate([[0], np.cumsum(e)])
         self.block_length = self.edges[-1] - self.edges
 
     def __str__(self):

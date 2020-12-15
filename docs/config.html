@@ -31,7 +31,12 @@ nb_path: "nbs/00_config.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="time-conversion">time conversion<a class="anchor-link" href="#time-conversion"> </a></h2>
+<h2 id="Time-conversion">Time conversion<a class="anchor-link" href="#Time-conversion"> </a></h2><ul>
+<li>MET: mission elapsed time</li>
+<li>MJD: modified Julian date (days)</li>
+<li>UTC: ISO time</li>
+</ul>
+
 </div>
 </div>
 </div>
@@ -133,7 +138,7 @@ nb_path: "nbs/00_config.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Config" class="doc_header"><code>class</code> <code>Config</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/config.py#L36" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Config</code>(<strong><code>verbose</code></strong>:<code>int</code>=<em><code>3</code></em>, <strong><code>use_cache</code></strong>:<code>bool</code>=<em><code>True</code></em>, <strong><code>mjd_range</code></strong>:<code>Tuple</code>=<em><code>None</code></em>, <strong><code>radius</code></strong>:<code>float</code>=<em><code>5</code></em>, <strong><code>cos_theta_max</code></strong>:<code>float</code>=<em><code>0.4</code></em>, <strong><code>z_max</code></strong>:<code>float</code>=<em><code>100</code></em>, <strong><code>time_interval</code></strong>:<code>int</code>=<em><code>1</code></em>, <strong><code>nside</code></strong>:<code>int</code>=<em><code>1024</code></em>, <strong><code>nest</code></strong>:<code>bool</code>=<em><code>True</code></em>, <strong><code>bins_per_decade</code></strong>:<code>int</code>=<em><code>4</code></em>, <strong><code>base_spectrum</code></strong>:<code>str</code>=<em><code>'lambda E: (E/1000)**-2.1'</code></em>, <strong><code>energy_range</code></strong>:<code>Tuple</code>=<em><code>(100.0, 1000000.0)</code></em>, <strong><code>likelihood_rep</code></strong>:<code>str</code>=<em><code>'poisson'</code></em>)</p>
+<h2 id="Config" class="doc_header"><code>class</code> <code>Config</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/config.py#L36" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Config</code>(<strong><code>verbose</code></strong>:<code>int</code>=<em><code>3</code></em>, <strong><code>mjd_range</code></strong>:<code>Tuple</code>=<em><code>None</code></em>, <strong><code>radius</code></strong>:<code>float</code>=<em><code>5</code></em>, <strong><code>cos_theta_max</code></strong>:<code>float</code>=<em><code>0.4</code></em>, <strong><code>z_max</code></strong>:<code>float</code>=<em><code>100</code></em>, <strong><code>time_interval</code></strong>:<code>int</code>=<em><code>1</code></em>, <strong><code>nside</code></strong>:<code>int</code>=<em><code>1024</code></em>, <strong><code>nest</code></strong>:<code>bool</code>=<em><code>True</code></em>, <strong><code>bins_per_decade</code></strong>:<code>int</code>=<em><code>4</code></em>, <strong><code>base_spectrum</code></strong>:<code>str</code>=<em><code>'lambda E: (E/1000)**-2.1'</code></em>, <strong><code>energy_range</code></strong>:<code>Tuple</code>=<em><code>(100.0, 1000000.0)</code></em>, <strong><code>likelihood_rep</code></strong>:<code>str</code>=<em><code>'poisson'</code></em>)</p>
 </blockquote>
 <p>Default light curve configuration parameters</p>
 
@@ -178,7 +183,6 @@ nb_path: "nbs/00_config.ipynb"
 <div class="output_text output_subarea output_execute_result">
 <pre>Configuration parameters 
   verbose         : 3
-  use_cache       : True
   mjd_range       : None
   radius          : 5
   cos_theta_max   : 0.4
@@ -204,6 +208,109 @@ nb_path: "nbs/00_config.ipynb"
     
 <div class="cell border-box-sizing code_cell rendered">
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="Cache" class="doc_header"><code>class</code> <code>Cache</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/config.py#L73" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Cache</code>(<strong><code>path</code></strong>:<code>a Path,  filepath, or None</code>, <strong><code>clear</code></strong>=<em><code>False</code></em>) :: <code>dict</code></p>
+</blockquote>
+<p>File cache</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary data-open="Hide Code" data-close="Show Code"></summary>
+        <summary></summary>
+        <div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">cache_test</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">Cache</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">clear</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># simmple interface</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;one&#39;</span><span class="p">);</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">)</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">)</span> <span class="c1"># getnerates warning</span>
+    <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;two&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;two&#39;</span>
+
+    <span class="c1"># test function interface</span>
+    <span class="n">func</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="sa">f</span><span class="s1">&#39;value: </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="n">r1</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="s1">&#39;four&#39;</span><span class="p">,</span>  <span class="n">func</span><span class="p">,</span>  <span class="mi">4</span><span class="p">)</span>
+    <span class="n">r2</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="s1">&#39;four&#39;</span><span class="p">,</span>  <span class="n">func</span><span class="p">,</span>  <span class="mi">5</span><span class="p">)</span> <span class="c1">#should not get called</span>
+    <span class="k">assert</span> <span class="n">c</span><span class="o">.</span><span class="n">path</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">r1</span><span class="o">==</span><span class="n">r2</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">r1</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">r2</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Before remove: </span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;four&#39;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="s1">&#39;four&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">c</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="n">cache_test</span><span class="p">(</span><span class="s1">&#39;/tmp/test_cache&#39;</span><span class="p">)</span>
+<span class="c1"># disabled</span>
+<span class="n">cache_test</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Clearing cache!
+Before remove: Cache contents
+ key                          size  filename
+  one                           13  /tmp/test_cache/cache_file_cc8f3771b48c34f.pkl
+  two                           13  /tmp/test_cache/cache_file_f47d88a66dd5aff.pkl
+  four                          18  /tmp/test_cache/cache_file_d55874c5d861385.pkl
+
+Cache contents
+ key                          size  filename
+  one                           13  /tmp/test_cache/cache_file_cc8f3771b48c34f.pkl
+  two                           13  /tmp/test_cache/cache_file_f47d88a66dd5aff.pkl
+
+Before remove: Cache not enabled
+Cache not enabled
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Warning: cached object for key &#34;two&#34; exists
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
@@ -218,7 +325,7 @@ nb_path: "nbs/00_config.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Files" class="doc_header"><code>class</code> <code>Files</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/config.py#L162" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Files</code>(<strong><code>data</code></strong>:<code>str</code>=<em><code>'$HOME/data'</code></em>, <strong><code>ft2</code></strong>:<code>str</code>=<em><code>'$HOME/work/lat-data/ft2'</code></em>, <strong><code>gti</code></strong>:<code>str</code>=<em><code>'$HOME/work/lat-data/binned/'</code></em>, <strong><code>aeff</code></strong>:<code>str</code>=<em><code>'$HOME/work/lat-data/aeff'</code></em>, <strong><code>weights</code></strong>:<code>str</code>=<em><code>'$HOME/onedrive/fermi/weight_files'</code></em>, <strong><code>cachepath</code></strong>:<code>str</code>=<em><code>'/tmp/lc_cache'</code></em>)</p>
+<h2 id="Files" class="doc_header"><code>class</code> <code>Files</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/config.py#L181" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Files</code>(<strong><code>data</code></strong>:<code>str</code>=<em><code>'$HOME/data'</code></em>, <strong><code>ft2</code></strong>:<code>str</code>=<em><code>'$HOME/work/lat-data/ft2'</code></em>, <strong><code>gti</code></strong>:<code>str</code>=<em><code>'$HOME/work/lat-data/binned/'</code></em>, <strong><code>aeff</code></strong>:<code>str</code>=<em><code>'$HOME/work/lat-data/aeff'</code></em>, <strong><code>weights</code></strong>:<code>str</code>=<em><code>'$HOME/onedrive/fermi/weight_files'</code></em>, <strong><code>cachepath</code></strong>:<code>str</code>=<em><code>'/tmp/lc_cache'</code></em>)</p>
 </blockquote>
 <p>paths to the various files that we need</p>
 
@@ -242,47 +349,6 @@ nb_path: "nbs/00_config.ipynb"
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">files</span> <span class="o">=</span> <span class="n">Files</span><span class="p">()</span>
-<span class="n">files</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>File paths for light curves
-  data       : /home/burnett/data
-  ft2        : /home/burnett/work/lat-data/ft2
-  gti        : /home/burnett/work/lat-data/binned
-  aeff       : /home/burnett/work/lat-data/aeff
-  weights    : /home/burnett/onedrive/fermi/weight_files
-  cachepath  : /tmp/lc_cache
-  cache      : {}</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 <div class="output_wrapper">
 <div class="output">
@@ -291,7 +357,7 @@ nb_path: "nbs/00_config.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PointSource" class="doc_header"><code>class</code> <code>PointSource</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/config.py#L192" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PointSource</code>(<strong><code>name</code></strong>, <strong><code>position</code></strong>=<em><code>None</code></em>)</p>
+<h2 id="PointSource" class="doc_header"><code>class</code> <code>PointSource</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/config.py#L211" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PointSource</code>(<strong><code>name</code></strong>, <strong><code>position</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Manage the position and name of a point source</p>
 
@@ -323,7 +389,7 @@ nb_path: "nbs/00_config.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="PointSource.fk5" class="doc_header"><code>PointSource.fk5</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/config.py#L225" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>PointSource.fk5</code>(<strong><code>name</code></strong>, <strong><code>position</code></strong>)</p>
+<h4 id="PointSource.fk5" class="doc_header"><code>PointSource.fk5</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/config.py#L244" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>PointSource.fk5</code>(<strong><code>name</code></strong>, <strong><code>position</code></strong>)</p>
 </blockquote>
 <p>position: (ra,dec) tuple</p>
 
@@ -352,40 +418,6 @@ nb_path: "nbs/00_config.ipynb"
 </pre></div>
 
     </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">files</span> <span class="o">=</span> <span class="n">Files</span><span class="p">()</span>
-<span class="n">files</span><span class="o">.</span><span class="n">cache</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>{}</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
