@@ -198,6 +198,7 @@ class FigureWrapper(Wrapper):
     def __init__(self, *pars, **kwargs): 
         
         super().__init__(*pars, **kwargs)
+        self.indent = kwargs.pop('indent', '5%')
 
         self.fig = fig = self.obj
         self.__dict__.update(fig.__dict__)
@@ -250,7 +251,7 @@ class FigureWrapper(Wrapper):
             self._html =\
                 f'<div class="{self.fig_class}">\n'\
                     f'<a href="{browser_fn}">'\
-                    f'<figure>'\
+                    f'<figure style="margin-left: {self.indent}">'\
                     f'\n   <img src="{browser_fn}" alt="Figure {n} at {browser_fn}" {img_width}>'\
                     f' {figcaption}' \
                     '\n</figure></a>'\

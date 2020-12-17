@@ -13,7 +13,7 @@ from .config import MJD, UTC
 from .load_gti import get_gti
 
 def get_photon_data(config: 'configuration data',
-                    files:  'file locations',
+#                     files:  'file locations',
                     source: 'Source data',
                     gti:   'Good Time Interval'=None,
                     use_cache=True,
@@ -33,7 +33,8 @@ def get_photon_data(config: 'configuration data',
             f'\n\tMJD  :    {ta:<16.1f} - {tb:<16.1f}')
 
     key = f'photons_{source.name}'
-    photon_data = files.cache.get(key)
+    files = config.files
+    photon_data = config.cache.get(key)
     if photon_data is not None:
         if config.verbose>1:
             print(f'restored {key} from cache')
@@ -123,7 +124,7 @@ def get_photon_data(config: 'configuration data',
         summarize(df)
 
 
-    files.cache.add(key, df)
+    config.cache.add(key, df)
     if config.verbose>1:
         print(f'added {key} to cache')
 

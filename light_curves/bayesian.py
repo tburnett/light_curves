@@ -7,7 +7,8 @@ import os
 import numpy as np
 import pandas as pd
 from astropy.stats.bayesian_blocks import FitnessFunc
-from .lightcurve import get_lightcurve, flux_plot
+from .lightcurve import get_lightcurve, fit_cells, flux_plot
+from .cells import get_cells, partition_cells
 
 
 # Cell
@@ -15,13 +16,16 @@ class CountFitness(FitnessFunc):
     """
     Adapted version of a astropy.stats.bayesian_blocks.FitnessFunc
     Considerably modified to give the `fitness function` access to the cell data.
+
     Implements the Event model using exposure instead of time.
 
     """
 
     def __init__(self, lc, p0=0.05,):
-        """lc  : a LightCurve data table, with  exposure (e) and counts (n),
+        """
+        - lc  -- a LightCurve data table, with  exposure (e) and counts (n),
             as well as a representation of the likelihood for each cell
+        - p0 --
         """
         self.p0=p0
         self.df= df= lc

@@ -123,32 +123,34 @@ def _exposure(config, effective_area, livetime, pcosine):
     return (aeff*livetime)
 
 # Cell
-def get_exposure(config, files, gti, source, use_cache=True):
+def get_exposure(config,  gti, source):
     """Return the exposure for the source
     If gti is None, regenerate it
     """
     from  light_curves.load_gti import get_gti
     from .effective_area import EffectiveArea
 
-    key = f'exposure_{source.name}'
+    no_gti = gti is None
 
-    exposure = files.cache.get(key)
 
-    if exposure is not None:
-        if config.verbose>1:
-            print(f'restore {key} from cache')
-    else:
-        gti = gti or get_gti(config, files.gti)
+    def getit():
+        files = config.files
+        if no_gti:
+            gti = get_gti(config, files.gti)
+        else:
+            raise Exception('Need to handle GTI better')
         aeff = EffectiveArea(file_path = files.aeff)
         exposure =  _process_ft2(config, source, files.ft2, gti, aeff)
-        files.cache.add(key, exposure)
         if config.verbose>1:
-            print(f'add {key} to cache')
+            print(f'{len(exposure)} entries, MJD {exposure.iloc[0].start:.0f}'
+                  f' - {exposure.iloc[-1].stop:.0f}')
+        return exposure
 
+    key = f'exposure_{source.name}'
     if config.verbose>1:
-        print(f'{len(exposure)} entries, MJD {exposure.iloc[0].start:.0f}'
-              f' - {exposure.iloc[-1].stop:.0f}')
-    return exposure
+        print(f'using cache with key "{key}", exists: {key in config.cache}')
+    return config.cache(key, getit)
+
 
 # Cell
 from .config import day

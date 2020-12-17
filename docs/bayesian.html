@@ -59,7 +59,7 @@ likelihoods for a set of sequential cells. There are two such, using the number 
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">light_curves.config</span> <span class="kn">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Files</span><span class="p">,</span> <span class="n">PointSource</span><span class="p">,</span> <span class="n">Cache</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">light_curves.config</span> <span class="kn">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">PointSource</span>
 
 <span class="n">lcs</span> <span class="o">=</span><span class="p">{}</span>
 <span class="k">def</span> <span class="nf">data_setup</span><span class="p">(</span><span class="n">lcs</span> <span class="o">=</span> <span class="n">lcs</span><span class="p">,</span> <span class="n">mjd_query</span><span class="o">=</span><span class="s1">&#39;54750&lt;t&lt;54855&#39;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Geminga&#39;</span><span class="p">,</span><span class="s1">&#39;3C 279&#39;</span><span class="p">]):</span>
@@ -67,7 +67,7 @@ likelihoods for a set of sequential cells. There are two such, using the number 
 <span class="sd">    ## Generate data sets for an AGN and a pulsar</span>
 <span class="sd">    {printout}</span>
 <span class="sd">    </span>
-<span class="sd">    Choose the time interval, {mjd_query} to bracket a modest flare of the AGN.</span>
+<span class="sd">    Choose the time interval, {mjd_query} ({days} days) to bracket a modest flare of the AGN.</span>
 <span class="sd">     </span>
 <span class="sd">    &lt;table&gt;</span>
 <span class="sd">    &lt;tr&gt; &lt;td&gt;Pulsar&lt;/td&gt;&lt;td&gt;AGN&lt;/td&gt;&lt;/tr&gt;</span>
@@ -77,25 +77,24 @@ likelihoods for a set of sequential cells. There are two such, using the number 
 <span class="sd">    &lt;/table&gt;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
-    <span class="kn">from</span> <span class="nn">light_curves.config</span> <span class="kn">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Files</span><span class="p">,</span> <span class="n">PointSource</span>
+    <span class="kn">from</span> <span class="nn">light_curves.config</span> <span class="kn">import</span> <span class="n">Config</span><span class="p">,</span>  <span class="n">PointSource</span>
     <span class="kn">from</span> <span class="nn">light_curves.lightcurve</span> <span class="kn">import</span> <span class="n">get_lightcurve</span><span class="p">,</span> <span class="n">flux_plot</span>
     <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
-    <span class="n">files</span> <span class="o">=</span> <span class="n">Files</span><span class="p">()</span>
     <span class="n">figs</span><span class="o">=</span><span class="p">[]</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;font&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
     <span class="k">with</span> <span class="n">capture_print</span><span class="p">(</span><span class="s1">&#39;printout&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">printout</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">names</span><span class="p">):</span>
-            <span class="n">lcfull</span> <span class="o">=</span> <span class="n">get_lightcurve</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">PointSource</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
-            <span class="k">if</span> <span class="n">mjd_query</span><span class="p">:</span> <span class="n">lcfull</span>
+            <span class="n">lcfull</span> <span class="o">=</span> <span class="n">get_lightcurve</span><span class="p">(</span><span class="n">config</span><span class="p">,</span>  <span class="n">PointSource</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
             <span class="n">lc</span> <span class="o">=</span> <span class="n">lcs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">lcfull</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">mjd_query</span><span class="p">)</span> <span class="k">if</span> <span class="n">mjd_query</span> <span class="k">else</span> <span class="n">lcfull</span>
             <span class="n">fig</span><span class="o">=</span> <span class="n">flux_plot</span><span class="p">(</span><span class="n">config</span><span class="p">,</span><span class="n">lc</span><span class="p">,</span> <span class="n">fignum</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
             <span class="n">figs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">figure</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">400</span><span class="p">))</span>
     <span class="n">fig1</span><span class="p">,</span> <span class="n">fig2</span> <span class="o">=</span> <span class="n">figs</span>
     <span class="n">mjd_query</span> <span class="o">=</span> <span class="n">mjd_query</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&lt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&amp;lt;&#39;</span><span class="p">)</span>
+    <span class="n">days</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lc</span><span class="p">)</span>
     <span class="k">return</span> <span class="nb">locals</span><span class="p">()</span>
 
-<span class="k">if</span> <span class="n">Files</span><span class="p">()</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
-    <span class="n">nbdoc</span><span class="p">(</span><span class="n">data_setup</span><span class="p">,</span> <span class="n">lcs</span><span class="p">,</span> <span class="n">mjd_query</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">Config</span><span class="p">()</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
+    <span class="n">nbdoc</span><span class="p">(</span><span class="n">data_setup</span><span class="p">,</span> <span class="n">lcs</span><span class="p">,</span> <span class="n">mjd_query</span><span class="o">=</span><span class="s1">&#39;54750&lt;t&lt;54855&#39;</span><span class="p">,</span> <span class="p">)</span>
 </pre></div>
 
     </div>
@@ -111,7 +110,7 @@ likelihoods for a set of sequential cells. There are two such, using the number 
 
 <div class="output_markdown rendered_html output_subarea ">
 <h2 id="Generate-data-sets-for-an-AGN-and-a-pulsar">Generate data sets for an AGN and a pulsar<a class="anchor-link" href="#Generate-data-sets-for-an-AGN-and-a-pulsar"> </a></h2><p><details class="descripton" ><summary data-open="Hide " data-close="Show "> printout </summary> <p style="margin-left: 5%"><pre>using cache with key "lightcurve_Geminga", exists: True<br>using cache with key "lightcurve_3C 279", exists: True<br></pre></p> </details></p>
-<p>Choose the time interval,  to bracket a modest flare of the AGN.</p>
+<p>Choose the time interval, 54750&lt;t&lt;54855 (105 days) to bracket a modest flare of the AGN.</p>
 <table>
 <tr> <td>Pulsar</td><td>AGN</td></tr>
 <tr>
@@ -139,45 +138,6 @@ likelihoods for a set of sequential cells. There are two such, using the number 
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">light_curves.config</span> <span class="kn">import</span> <span class="n">Cache</span>
-<span class="n">Cache</span><span class="p">(</span><span class="s1">&#39;/tmp/lc_cache&#39;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>{&#39;photons_Geminga&#39;: Path(&#39;/tmp/lc_cache/cache_file_270870a16929d2.pkl&#39;),
- &#39;exposure_Geminga&#39;: Path(&#39;/tmp/lc_cache/cache_file_52ab4b3386fa0447.pkl&#39;),
- &#39;lightcurve_Geminga&#39;: Path(&#39;/tmp/lc_cache/cache_file_25033e18d005d04.pkl&#39;),
- &#39;photons_3C 279&#39;: Path(&#39;/tmp/lc_cache/cache_file_d72f17a84dfd2e7.pkl&#39;),
- &#39;exposure_3C 279&#39;: Path(&#39;/tmp/lc_cache/cache_file_8762d8153c1b249.pkl&#39;),
- &#39;lightcurve_3C 279&#39;: Path(&#39;/tmp/lc_cache/cache_file_11d230d1c44af32.pkl&#39;)}</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 <div class="output_wrapper">
 <div class="output">
@@ -186,11 +146,11 @@ likelihoods for a set of sequential cells. There are two such, using the number 
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="CountFitness" class="doc_header"><code>class</code> <code>CountFitness</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/bayesian.py#L14" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>CountFitness</code>(<strong><code>lc</code></strong>, <strong><code>p0</code></strong>=<em><code>0.05</code></em>) :: <code>FitnessFunc</code></p>
+<h2 id="CountFitness" class="doc_header"><code>class</code> <code>CountFitness</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/bayesian.py#L15" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>CountFitness</code>(<strong><code>lc</code></strong>, <strong><code>p0</code></strong>=<em><code>0.05</code></em>) :: <code>FitnessFunc</code></p>
 </blockquote>
 <p>Adapted version of a astropy.stats.bayesian_blocks.FitnessFunc
-Considerably modified to give the <code>fitness function</code> access to the cell data.
-Implements the Event model using exposure instead of time.</p>
+Considerably modified to give the <code>fitness function</code> access to the cell data.</p>
+<p>Implements the Event model using exposure instead of time.</p>
 
 </div>
 
@@ -263,7 +223,7 @@ Implements the Event model using exposure instead of time.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="LikelihoodFitness" class="doc_header"><code>class</code> <code>LikelihoodFitness</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/bayesian.py#L115" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>LikelihoodFitness</code>(<strong><code>lc</code></strong>, <strong><code>p0</code></strong>=<em><code>0.05</code></em>, <strong><code>npt</code></strong>=<em><code>25</code></em>) :: <a href="/light_curves/bayesian.html#CountFitness"><code>CountFitness</code></a></p>
+<h2 id="LikelihoodFitness" class="doc_header"><code>class</code> <code>LikelihoodFitness</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/bayesian.py#L119" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>LikelihoodFitness</code>(<strong><code>lc</code></strong>, <strong><code>p0</code></strong>=<em><code>0.05</code></em>, <strong><code>npt</code></strong>=<em><code>25</code></em>) :: <a href="/light_curves/bayesian.html#CountFitness"><code>CountFitness</code></a></p>
 </blockquote>
 <p>Fitness function that uses the full likelihood</p>
 
@@ -291,7 +251,7 @@ Implements the Event model using exposure instead of time.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">Files</span><span class="p">()</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">Config</span><span class="p">()</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
     <span class="n">nbdoc</span><span class="p">(</span><span class="n">doc_countfitness</span><span class="p">,</span> <span class="n">LikelihoodFitness</span><span class="p">,</span> <span class="n">light_curve_dict</span> <span class="o">=</span> <span class="n">lcs</span><span class="p">,</span> <span class="n">source_name</span><span class="o">=</span><span class="s1">&#39;Geminga&#39;</span><span class="p">)</span>
     <span class="n">nbdoc</span><span class="p">(</span><span class="n">doc_countfitness</span><span class="p">,</span> <span class="n">LikelihoodFitness</span><span class="p">,</span> <span class="n">light_curve_dict</span> <span class="o">=</span> <span class="n">lcs</span><span class="p">,</span> <span class="n">source_name</span><span class="o">=</span><span class="s1">&#39;3C 279&#39;</span><span class="p">)</span>
      
@@ -309,31 +269,10 @@ Implements the Event model using exposure instead of time.</p>
 
 <div class="output_markdown rendered_html output_subarea ">
 <h3 id="LikelihoodFitness-test-with-source-Geminga">LikelihoodFitness test with source Geminga<a class="anchor-link" href="#LikelihoodFitness-test-with-source-Geminga"> </a></h3><p>Create object: <code>bbfitter = LikelihoodFitness(lc)</code></p>
-<p>Object description:   LikelihoodFitness: 3873 cells,  prior=6.6</p>
+<p>Object description:   LikelihoodFitness: 105 cells,  prior=4.9</p>
 <p>Then <code>bbfitter(10)</code> returns the values
-    [-4. -3. -3. -2. -1. -1. -1. -1. -0. -0. -0.]</p>
-<p>Finally, the partition algorithm, 'bbfitter.fit()' returns [54683. 55371. 55385. 55736. 55760. 56466. 56506. 56519. 56828. 56931.</p>
-<ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li>58637. 58697.]</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
+    [-4. -4. -2. -2. -1. -1. -0. -0. -0. -0. -0.]</p>
+<p>Finally, the partition algorithm, 'bbfitter.fit()' returns [54750. 54793. 54855.]</p>
 
 </div>
 
@@ -344,469 +283,15 @@ Implements the Event model using exposure instead of time.</p>
 
 <div class="output_markdown rendered_html output_subarea ">
 <h3 id="LikelihoodFitness-test-with-source-3C-279">LikelihoodFitness test with source 3C 279<a class="anchor-link" href="#LikelihoodFitness-test-with-source-3C-279"> </a></h3><p>Create object: <code>bbfitter = LikelihoodFitness(lc)</code></p>
-<p>Object description:   LikelihoodFitness: 3845 cells,  prior=6.6</p>
+<p>Object description:   LikelihoodFitness: 105 cells,  prior=4.9</p>
 <p>Then <code>bbfitter(10)</code> returns the values
-    [-7. -6. -5. -5. -4. -4. -2. -2. -1. -0. -0.]</p>
-<p>Finally, the partition algorithm, 'bbfitter.fit()' returns [54683. 54774. 54785. 54789. 54809. 54827. 54843. 54877. 54889. 54898.</p>
-<ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li>55046. 55091. 55107. 55123.</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li>55583. 55655. 55667. 55670.</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li>55845. 55961. 56204. 56215.</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li>56621. 56630. 56635. 56639.</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li>56717. 56719. 56742. 56744.</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li>56787. 56799. 56856. 56866.</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li>56994. 57037. 57093. 57100.</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li>57190. 57191. 57193. 57196.</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li>57335. 57363. 57406. 57442.</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li>57613. 57659. 57680. 57707.</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li>57837. 57841. 57844. 57848.</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li>57893. 57894. 57901. 57926.</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li>57952. 57963. 57965. 57969.</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li>58042. 58046. 58063. 58078.</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li>58117. 58118. 58119. 58120.</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li>58137. 58138. 58142. 58147.</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li>58184. 58220. 58222. 58223.</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li>58231. 58235. 58240. 58245.</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li>58268. 58269. 58272. 58273.</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li>58311. 58342. 58344. 58354.</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li><ol>
-<li>58502. 58507. 58536. 58551.</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><ol>
-<li><ol>
-<li><ol>
-<li>58697.]</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
+    [-9. -9. -8. -7. -6. -6. -5. -4. -3. -3. -0.]</p>
+<p>Finally, the partition algorithm, 'bbfitter.fit()' returns [54750. 54779. 54785. 54789. 54809. 54827. 54843. 54855.]</p>
 
 </div>
 
 </div>
 
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">binned_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">contiguous</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; </span>
-<span class="sd">    Parameter:</span>
-<span class="sd">        bins : None | float | array</span>
-<span class="sd">            if None, use defaults</span>
-<span class="sd">            Otherwise an array of MJD bin edges</span>
-<span class="sd">        contiguous : bool</span>
-<span class="sd">            if True ignore bins arg and use a list of contiguous exposure intervals</span>
-
-<span class="sd">    Returns: a BinnedWeight object for access to each set of binned weights</span>
-<span class="sd">        The object can be indexed, or used in a for loop</span>
-<span class="sd">        bw[i] returns a  dict (t, tw, e, w, S, B)</span>
-<span class="sd">        where t   : bin center time (MJD)</span>
-<span class="sd">              tw  : bin width in days (assume 1 if not preseent)</span>
-<span class="sd">              e   : associated fractional exposure</span>
-<span class="sd">              w   : array of weights for the time range</span>
-<span class="sd">              S,B : predicted source, background counts for this bin</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">contiguous</span><span class="p">:</span>
-        <span class="k">assert</span> <span class="n">bins</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;contiguous selected&#39;</span>
-        <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_contiguous_exposures</span><span class="p">()</span>
-        <span class="n">edges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">edges</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">edges</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">+</span><span class="n">b</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-        <span class="n">edges</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">bins</span> <span class="o">=</span> <span class="n">edges</span>
-    <span class="k">return</span> <span class="n">BinnedWeights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>   
-</pre></div>
-
-    </div>
 </div>
 </div>
 
@@ -824,7 +309,7 @@ Implements the Event model using exposure instead of time.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_bb_partition" class="doc_header"><code>get_bb_partition</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/bayesian.py#L150" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_bb_partition</code>(<strong><code>config</code></strong>, <strong><code>lc</code></strong>, <strong><code>fitness_class</code></strong>=<em><code>CountFitness</code></em>, <strong><code>p0</code></strong>=<em><code>0.05</code></em>)</p>
+<h4 id="get_bb_partition" class="doc_header"><code>get_bb_partition</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/bayesian.py#L154" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_bb_partition</code>(<strong><code>config</code></strong>, <strong><code>lc</code></strong>, <strong><code>fitness_class</code></strong>=<em><code>CountFitness</code></em>, <strong><code>p0</code></strong>=<em><code>0.05</code></em>)</p>
 </blockquote>
 <p>Perform Bayesian Block partition of the cells found in a light curve</p>
 <ul>
@@ -866,9 +351,9 @@ Implements the Event model using exposure instead of time.</p>
 <span class="sd">    </span>
 <span class="sd">    {lc_fig}</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">files</span> <span class="o">=</span> <span class="n">Files</span><span class="p">()</span>
+
     <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
-    
+     
     <span class="n">lc</span> <span class="o">=</span> <span class="n">lcs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
     <span class="n">edges</span> <span class="o">=</span> <span class="n">get_bb_partition</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">lc</span><span class="p">,</span> <span class="n">fitness</span><span class="p">)</span> 
     <span class="n">lc_fig</span> <span class="o">=</span> <span class="n">flux_plot</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">lc</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> partition with </span><span class="si">{</span><span class="n">fitness</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -883,7 +368,7 @@ Implements the Event model using exposure instead of time.</p>
         <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;cyan&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="nb">locals</span><span class="p">()</span>
 
-<span class="k">if</span> <span class="n">Files</span><span class="p">()</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">Config</span><span class="p">()</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
     <span class="n">nbdoc</span><span class="p">(</span><span class="n">test_bb</span><span class="p">,</span> <span class="n">lcs</span><span class="p">,</span> <span class="s1">&#39;3C 279&#39;</span><span class="p">,</span> <span class="n">CountFitness</span><span class="p">)</span>
     <span class="n">nbdoc</span><span class="p">(</span><span class="n">test_bb</span><span class="p">,</span> <span class="n">lcs</span><span class="p">,</span> <span class="s1">&#39;3C 279&#39;</span><span class="p">,</span> <span class="n">LikelihoodFitness</span><span class="p">)</span>
 </pre></div>
@@ -899,7 +384,7 @@ Implements the Event model using exposure instead of time.</p>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Partitioned 3845 cells into 195 blocks, with prior 6.6 using CountFitness 
+<pre>Partitioned 105 cells into 6 blocks, with prior 4.9 using CountFitness 
 </pre>
 </div>
 </div>
@@ -919,7 +404,7 @@ Implements the Event model using exposure instead of time.</p>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Partitioned 3845 cells into 224 blocks, with prior 6.6 using LikelihoodFitness 
+<pre>Partitioned 105 cells into 7 blocks, with prior 4.9 using LikelihoodFitness 
 </pre>
 </div>
 </div>
@@ -942,6 +427,12 @@ Implements the Event model using exposure instead of time.</p>
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Test-fitting-the-new-cells-from-the-partition">Test fitting the new cells from the partition<a class="anchor-link" href="#Test-fitting-the-new-cells-from-the-partition"> </a></h2>
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -951,9 +442,7 @@ Implements the Event model using exposure instead of time.</p>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">source</span> <span class="o">=</span> <span class="n">PointSource</span><span class="p">(</span><span class="s1">&#39;Geminga&#39;</span><span class="p">)</span>
 <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
-<span class="n">files</span> <span class="o">=</span> <span class="n">Files</span><span class="p">()</span>
-<span class="n">edges</span> <span class="o">=</span> <span class="n">get_bb_partition</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">lcs</span><span class="p">[</span><span class="s1">&#39;Geminga&#39;</span><span class="p">],</span> <span class="n">LikelihoodFitness</span><span class="p">)</span> 
-<span class="n">lcx</span> <span class="o">=</span> <span class="n">get_lightcurve</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">edges</span><span class="p">)</span>
+<span class="n">cells</span> <span class="o">=</span> <span class="n">get_cells</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -966,30 +455,18 @@ Implements the Event model using exposure instead of time.</p>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Partitioned 3873 cells into 17 blocks, with prior 6.6 using LikelihoodFitness 
-restored photons_Geminga from cache
+<pre>restored photons_Geminga from cache
 
 	Selected 1313726 photons within 5 deg of  (195.13,4.27)
 	Energies: 100.0-1000000 MeV
 	Dates:    2008-08-04 15:46 - 2019-08-03 01:17
 	MJD  :    54682.7          - 58698.1         
-Load weights from file /mnt/d/OneDrive/fermi/weight_files/Geminga_weights.pkl
+Load weights from file /mnt/c/users/thbur/OneDrive/fermi/weight_files/Geminga_weights.pkl
 	Found: PSR J0633+1746 at (195.14, 4.27)
 	Applyng weights: 240 / 1313726 photon pixels are outside weight region
 	233109 weights set to NaN
-restore exposure_Geminga from cache
-2695715 entries, MJD 54683 - 58698
-Loaded 9 / 17 cells with exposure &gt; 0.3 for light curve analysis
-first cell: t                                                      55027
-tw                                                       688
-e                                                    3.28107
-n                                                     207832
-w          [244, 214, 174, 5, 246, 150, 187, 65, 91, 215,...
-S                                                     138237
-B                                                    70291.5
-loglike    light_curves.loglike.LogLike: time 55027.000, ...
-Name: 0, dtype: object
-Fitting likelihoods with poisson representation
+using cache with key &#34;exposure_Geminga&#34;, exists: True
+Time bins: 4015 intervals of 1 days, in range (54683.0, 58698.0)
 </pre>
 </div>
 </div>
@@ -1000,6 +477,13 @@ Fitting likelihoods with poisson representation
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Partition it:</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -1007,7 +491,9 @@ Fitting likelihoods with poisson representation
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">flux_plot</span><span class="p">(</span><span class="n">config</span><span class="p">,</span><span class="n">lcx</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lcx</span> <span class="o">=</span>  <span class="n">lcs</span><span class="p">[</span><span class="s1">&#39;Geminga&#39;</span><span class="p">]</span>
+<span class="n">edges</span> <span class="o">=</span> <span class="n">get_bb_partition</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">lcx</span><span class="p">,</span> <span class="n">LikelihoodFitness</span><span class="p">)</span> 
+<span class="c1">#lcx = get_lightcurve(config,  source, edges)</span>
 </pre></div>
 
     </div>
@@ -1019,62 +505,10 @@ Fitting likelihoods with poisson representation
 
 <div class="output_area">
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-23-1977cae57787&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>fig <span class="ansi-blue-fg">=</span> flux_plot<span class="ansi-blue-fg">(</span>config<span class="ansi-blue-fg">,</span>lcx<span class="ansi-blue-fg">,</span> step<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">;</span>
-
-<span class="ansi-green-fg">/mnt/d/OneDrive/work/light_curves/light_curves/lightcurve.py</span> in <span class="ansi-cyan-fg">flux_plot</span><span class="ansi-blue-fg">(config, lightcurve, ts_min, title, ax, fignum, figsize, colors, fmt, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    157</span> 
-<span class="ansi-green-intense-fg ansi-bold">    158</span>     <span class="ansi-red-fg">#ax.axhline(1., color=&#39;grey&#39;)</span>
-<span class="ansi-green-fg">--&gt; 159</span><span class="ansi-red-fg">     </span>ax<span class="ansi-blue-fg">.</span>set<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">**</span>kw<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    160</span>     ax<span class="ansi-blue-fg">.</span>set_title<span class="ansi-blue-fg">(</span>title<span class="ansi-blue-fg">)</span> <span class="ansi-red-fg"># or f&#39;{source_name}, rep {self.rep}&#39;)</span>
-<span class="ansi-green-intense-fg ansi-bold">    161</span>     ax<span class="ansi-blue-fg">.</span>grid<span class="ansi-blue-fg">(</span>alpha<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">0.5</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">~/miniconda3/lib/python3.7/site-packages/matplotlib/artist.py</span> in <span class="ansi-cyan-fg">set</span><span class="ansi-blue-fg">(self, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1069</span>             sorted(kwargs.items(), reverse=True,
-<span class="ansi-green-intense-fg ansi-bold">   1070</span>                    key=lambda x: (self._prop_order.get(x[0], 0), x[0])))
-<span class="ansi-green-fg">-&gt; 1071</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> self<span class="ansi-blue-fg">.</span>update<span class="ansi-blue-fg">(</span>props<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1072</span> 
-<span class="ansi-green-intense-fg ansi-bold">   1073</span>     <span class="ansi-green-fg">def</span> findobj<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> match<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> include_self<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">~/miniconda3/lib/python3.7/site-packages/matplotlib/artist.py</span> in <span class="ansi-cyan-fg">update</span><span class="ansi-blue-fg">(self, props)</span>
-<span class="ansi-green-intense-fg ansi-bold">    972</span> 
-<span class="ansi-green-intense-fg ansi-bold">    973</span>         <span class="ansi-green-fg">with</span> cbook<span class="ansi-blue-fg">.</span>_setattr_cm<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> eventson<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">False</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 974</span><span class="ansi-red-fg">             </span>ret <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span>_update_property<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> k<span class="ansi-blue-fg">,</span> v<span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">for</span> k<span class="ansi-blue-fg">,</span> v <span class="ansi-green-fg">in</span> props<span class="ansi-blue-fg">.</span>items<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">    975</span> 
-<span class="ansi-green-intense-fg ansi-bold">    976</span>         <span class="ansi-green-fg">if</span> len<span class="ansi-blue-fg">(</span>ret<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">~/miniconda3/lib/python3.7/site-packages/matplotlib/artist.py</span> in <span class="ansi-cyan-fg">&lt;listcomp&gt;</span><span class="ansi-blue-fg">(.0)</span>
-<span class="ansi-green-intense-fg ansi-bold">    972</span> 
-<span class="ansi-green-intense-fg ansi-bold">    973</span>         <span class="ansi-green-fg">with</span> cbook<span class="ansi-blue-fg">.</span>_setattr_cm<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> eventson<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">False</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 974</span><span class="ansi-red-fg">             </span>ret <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span>_update_property<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> k<span class="ansi-blue-fg">,</span> v<span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">for</span> k<span class="ansi-blue-fg">,</span> v <span class="ansi-green-fg">in</span> props<span class="ansi-blue-fg">.</span>items<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">    975</span> 
-<span class="ansi-green-intense-fg ansi-bold">    976</span>         <span class="ansi-green-fg">if</span> len<span class="ansi-blue-fg">(</span>ret<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">~/miniconda3/lib/python3.7/site-packages/matplotlib/artist.py</span> in <span class="ansi-cyan-fg">_update_property</span><span class="ansi-blue-fg">(self, k, v)</span>
-<span class="ansi-green-intense-fg ansi-bold">    968</span>                 <span class="ansi-green-fg">if</span> <span class="ansi-green-fg">not</span> callable<span class="ansi-blue-fg">(</span>func<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    969</span>                     raise AttributeError(&#39;{!r} object has no property {!r}&#39;
-<span class="ansi-green-fg">--&gt; 970</span><span class="ansi-red-fg">                                          .format(type(self).__name__, k))
-</span><span class="ansi-green-intense-fg ansi-bold">    971</span>                 <span class="ansi-green-fg">return</span> func<span class="ansi-blue-fg">(</span>v<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    972</span> 
-
-<span class="ansi-red-fg">AttributeError</span>: &#39;AxesSubplot&#39; object has no property &#39;step&#39;</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Partitioned 105 cells into 2 blocks, with prior 4.9 using LikelihoodFitness 
+</pre>
 </div>
-</div>
-
-<div class="output_area">
-
-
-
-<div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
-"
->
-</div>
-
 </div>
 
 </div>
@@ -1083,6 +517,13 @@ Fitting likelihoods with poisson representation
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Use the edges to partition the original cells</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -1090,8 +531,31 @@ Fitting likelihoods with poisson representation
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">flux_plot</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">lcx</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pcells</span> <span class="o">=</span> <span class="n">partition_cells</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">cells</span><span class="p">,</span> <span class="n">edges</span><span class="p">);</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Likelihood fits to the new cells</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fit_cells</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">pcells</span><span class="p">,</span> <span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1103,77 +567,11 @@ Fitting likelihoods with poisson representation
 
 <div class="output_area">
 
-
-
-<div class="output_png output_subarea output_execute_result">
-<img src="data:image/png;base64,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
-"
->
-</div>
-
-</div>
-
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Loaded 2 / 2 cells with exposure &gt; 0.3 for fitting
+</pre>
 </div>
 </div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lcx</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">len</span><span class="p">(</span><span class="n">lcx</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>(t                                                  55027
- tw                                                   688
- n                                                 207832
- e                                                3.28107
- fit    light_curves.loglike.PoissonRep: flux: 0.998[1...
- Name: 0, dtype: object,
- 9)</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lcx</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
 
 <div class="output_area">
 
@@ -1207,75 +605,19 @@ Fitting likelihoods with poisson representation
   <tbody>
     <tr>
       <th>0</th>
-      <td>55027.0</td>
-      <td>688.0</td>
-      <td>207832</td>
-      <td>3.281069</td>
-      <td>light_curves.loglike.PoissonRep: flux: 0.998[1...</td>
+      <td>54771.5</td>
+      <td>43.0</td>
+      <td>14080</td>
+      <td>1.263585</td>
+      <td>flux: 0.953[1+0.012-0.012], limit: 0.97, ts: ...</td>
     </tr>
     <tr>
-      <th>2</th>
-      <td>55560.5</td>
-      <td>351.0</td>
-      <td>96416</td>
-      <td>1.527257</td>
-      <td>light_curves.loglike.PoissonRep: flux: 0.985[1...</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>56113.0</td>
-      <td>706.0</td>
-      <td>190965</td>
-      <td>3.020903</td>
-      <td>light_curves.loglike.PoissonRep: flux: 0.991[1...</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>56673.5</td>
-      <td>309.0</td>
-      <td>84043</td>
-      <td>1.334203</td>
-      <td>light_curves.loglike.PoissonRep: flux: 0.989[1...</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>56879.5</td>
-      <td>103.0</td>
-      <td>28168</td>
-      <td>0.434166</td>
-      <td>light_curves.loglike.PoissonRep: flux: 1.027[1...</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>56972.5</td>
-      <td>83.0</td>
-      <td>20961</td>
-      <td>0.336465</td>
-      <td>light_curves.loglike.PoissonRep: flux: 0.966[1...</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>57109.0</td>
-      <td>176.0</td>
-      <td>45616</td>
-      <td>0.708227</td>
-      <td>light_curves.loglike.PoissonRep: flux: 1.003[1...</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>57723.0</td>
-      <td>1050.0</td>
-      <td>285243</td>
-      <td>4.501777</td>
-      <td>light_curves.loglike.PoissonRep: flux: 0.992[1...</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>58468.5</td>
-      <td>337.0</td>
-      <td>74075</td>
-      <td>1.161036</td>
-      <td>light_curves.loglike.PoissonRep: flux: 0.991[1...</td>
+      <th>1</th>
+      <td>54824.0</td>
+      <td>62.0</td>
+      <td>20872</td>
+      <td>1.236235</td>
+      <td>flux: 1.019[1+0.009-0.009], limit: 1.04, ts: ...</td>
     </tr>
   </tbody>
 </table>

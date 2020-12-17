@@ -31,6 +31,9 @@ entries:
       title: Cells
       url: cells.html
     - output: web,pdf
+      title: Simulation
+      url: simulation.html
+    - output: web,pdf
       title: poisson
       url: poisson.html
     - output: web,pdf
@@ -41,7 +44,7 @@ entries:
       url: lightcurve.html
     - output: web,pdf
       title: Instructions
-      url: instructions.html
+      url: roadmap.html
     - output: web,pdf
       title: Kerr Comparison
       url: kerr_comparison.html

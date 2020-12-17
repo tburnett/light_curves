@@ -20,13 +20,13 @@ poisson_tolerance = 0.2
 class LogLike(object):
     """ implement Kerr Eqn 2 for a single interval, or cell
 
-
-     """
-
-    def __init__(self, cell):
-        """ cell is a dict with t, tw, w, e
+     - cell -- a dict with  w, S, B <br>
             w may be an array of np.uint8: if so, divide by 256
 
+    """
+
+    def __init__(self, cell):
+        """
         """
         self.__dict__.update(cell)
         assert self.n>0, f'No data for cell {cell}'
@@ -44,7 +44,7 @@ class LogLike(object):
             #return None
             raise RuntimeError(f'Fit failure: {self}')
         hess = self.hessian(pars)
-        outdict = dict(t=self.t, tw=self.tw, e=self.e, counts=len(self.w) )
+        outdict = dict( counts=len(self.w) )
         if len(pars)==1:
             outdict.update(flux=pars[0], sig_flux=np.sqrt(1/hess[0]))
         else:
@@ -74,8 +74,9 @@ class LogLike(object):
         return np.sum( np.log(tmp)) - alpha*self.S - beta*self.B
 
     def __repr__(self):
+        time = f' time {self.t:.3f},' if hasattr(self, 't') else ''
         return f'{self.__class__.__module__}.{self.__class__.__name__}:'\
-        f' time {self.t:.3f}, {self.n} weights,  exposure {self.e:.2f}, S {self.S:.0f}, B {self.B:.0f}'
+        f' {time} {self.n} weights, S {self.S:.1f}, B {self.B:.1f}'
 
     def gradient(self, pars ):
         """gradient of the log likelihood with respect to alpha=flux-1 and beta, or just alpha
@@ -207,7 +208,7 @@ class GaussianRep(object):
         return None # TODO if needed
 
     def __repr__(self):
-        return f'{self.__class__.__module__}.{self.__class__.__name__}: {self.fit}'
+        return f'{self.__class__.__module__}.{self.__class__.__name__}:\n{pd.Series(self.fit)}'
 
 class Gaussian2dRep(GaussianRep):
     def __init__(self, loglike):
@@ -241,8 +242,11 @@ class PoissonRep(object):
         self.loglike = loglike
         self.poiss=self.pf.poiss
         p = self
-        self.fit= dict(t=loglike.t, tw=loglike.tw, counts=len(loglike.w),
-                       e=loglike.e,
+        # pass on t, tw, e if there else enter 0,1,1
+        self.fit= dict(t= loglike.t if hasattr(loglike, 't') else 0,
+                       tw=loglike.tw if hasattr(loglike, 'tw') else 1,
+                       counts=len(loglike.w),
+                       e=loglike.e if hasattr(loglike, 'e') else 1,
                        flux=np.round(p.flux,4),
                        errors=np.abs(np.array(p.errors)-p.flux).round(3),
                        limit=np.round(p.limit, 3),
@@ -255,9 +259,8 @@ class PoissonRep(object):
 
     def __repr__(self):
         relerr = np.abs(np.array(self.errors)/self.flux-1) if self.flux>0 else [0,0]
-        return  f'{self.__class__.__module__}.{self.__class__.__name__}:'\
-                f' flux: {self.flux:.3f}[1+{relerr[0]:.3f}-{relerr[1]:.3f}], '\
-                f'limit: {self.limit:.2f}, ts: {self.ts:.1f}'
+        return  f'  {self.flux:.3f}[1+{relerr[0]:.3f}-{relerr[1]:.3f}], '\
+                f'< {self.limit:.2f}'
     @property
     def flux(self):
         return self.poiss.flux
