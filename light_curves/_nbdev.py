@@ -2,13 +2,13 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"MJD": "00_config.ipynb",
+index = {"Cache": "00_config.ipynb",
+         "Files": "00_config.ipynb",
+         "Config": "00_config.ipynb",
+         "MJD": "00_config.ipynb",
          "UTC": "00_config.ipynb",
          "day": "00_config.ipynb",
          "first_data": "00_config.ipynb",
-         "Cache": "00_config.ipynb",
-         "Files": "00_config.ipynb",
-         "Config": "00_config.ipynb",
          "PointSource": "00_config.ipynb",
          "EffectiveArea": "01_effective_area.ipynb",
          "InterpTable": "01_effective_area.ipynb",
