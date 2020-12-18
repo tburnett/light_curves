@@ -125,6 +125,56 @@ nb_path: "nbs/00_config.ipynb"
     
 <div class="cell border-box-sizing code_cell rendered">
 
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary data-open="Hide Code" data-close="Show Code"></summary>
+        <summary></summary>
+        <div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">show_doc</span><span class="p">(</span><span class="n">Cache</span><span class="p">)</span>
+<span class="n">show_doc</span><span class="p">(</span><span class="n">Cache</span><span class="o">.</span><span class="fm">__call__</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">cache_test</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">Cache</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">clear</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># simmple interface</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;one&#39;</span><span class="p">);</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">)</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">)</span> <span class="c1"># getnerates warning</span>
+    <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;two&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;two&#39;</span>
+
+    <span class="c1"># test function interface</span>
+    <span class="n">func</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="sa">f</span><span class="s1">&#39;value: </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span>
+    
+    <span class="n">r1</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="s1">&#39;four&#39;</span><span class="p">,</span>  <span class="n">func</span><span class="p">,</span>  <span class="mi">4</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Test&#39;</span><span class="p">)</span>
+    <span class="n">r2</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="s1">&#39;four&#39;</span><span class="p">,</span>  <span class="n">func</span><span class="p">,</span>  <span class="mi">5</span><span class="p">,</span>  <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Test&#39;</span><span class="p">)</span> <span class="c1">#should not get called</span>
+    <span class="k">assert</span> <span class="n">c</span><span class="o">.</span><span class="n">path</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">r1</span><span class="o">==</span><span class="n">r2</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">r1</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">r2</span><span class="si">}</span><span class="s1">&#39;</span>
+    
+    <span class="c1"># remaving an entry</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Before remove:</span><span class="se">\n</span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="s1">&#39;four&#39;</span> <span class="ow">in</span> <span class="n">c</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;four&#39;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="s1">&#39;four&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">c</span>
+   
+    
+    <span class="n">c</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="n">cache_test</span><span class="p">(</span><span class="s1">&#39;/tmp/test_cache&#39;</span><span class="p">)</span>
+<span class="c1"># disabled should ignore</span>
+<span class="c1">#cache_test(None)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -132,23 +182,66 @@ nb_path: "nbs/00_config.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Cache" class="doc_header"><code>class</code> <code>Cache</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/config.py#L37" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Cache</code>(<strong><code>path</code></strong>:<code>a Path,  filepath, or None</code>, <strong><code>clear</code></strong>=<em><code>False</code></em>) :: <code>dict</code></p>
+<h2 id="Cache" class="doc_header"><code>class</code> <code>Cache</code><a href="" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Cache</code>(<strong><code>path</code></strong>, <strong><code>clear</code></strong>:<code>bool</code>=<em><code>False</code></em>) :: <code>dict</code></p>
 </blockquote>
-<p>File cache</p>
+<p>Manage a file cache</p>
+<ul>
+<li><code>path</code> -- string or <code>filepath</code> object</li>
+<li><code>clear</code> -- set True to clear the cache</li>
+</ul>
 
 </div>
 
 </div>
 
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="Cache.__call__" class="doc_header"><code>Cache.__call__</code><a href="__main__.py#L86" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Cache.__call__</code>(<strong><code>key</code></strong>, <strong><code>func</code></strong>, <strong>*<code>pars</code></strong>, <strong><code>description</code></strong>=<em><code>''</code></em>, <strong><code>overwrite</code></strong>=<em><code>False</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+</blockquote>
+<p>One-line usage interface for cache use</p>
+<ul>
+<li><code>key</code> -- key to use, usually a string. Must be hashable <br>
+  If none, ignore cache and return the function evaluation</li>
+<li><code>func</code> -- user function that will return an object that can be pickled</li>
+<li><code>pars</code>, <code>kwargs</code> -- pass to <code>func</code></li>
+<li><code>description</code> -- optional string that will be printed</li>
+</ul>
+<p>cache = Cache(path)
+result = cache(key, function, *pars, **kwargs)</p>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Clearing cache!
+Test: Saving to cache with key &#34;four&#34;
+Test: Restoring from cache with key &#34;four&#34;
+Before remove:
+Cache contents
+ key                          size  time                 name, in folder /tmp/test_cache
+  one                           13  2020-12-18 11:41     cache_file_ac7e2a60d9fabd7.pkl
+  two                           13  2020-12-18 11:41     cache_file_22987d33f0b88e6b.pkl
+  four                          18  2020-12-18 11:41     cache_file_ff995442207ccca.pkl
+
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Warning: cached object for key &#34;two&#34; exists
+</pre>
 </div>
 </div>
 
 </div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
 </div>
     {% endraw %}
@@ -170,7 +263,7 @@ nb_path: "nbs/00_config.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Files" class="doc_header"><code>class</code> <code>Files</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/config.py#L153" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Files</code>(<strong><code>data</code></strong>:<code>str</code>=<em><code>'$HOME/data'</code></em>, <strong><code>ft2</code></strong>:<code>str</code>=<em><code>'$HOME/work/lat-data/ft2'</code></em>, <strong><code>gti</code></strong>:<code>str</code>=<em><code>'$HOME/work/lat-data/binned/'</code></em>, <strong><code>aeff</code></strong>:<code>str</code>=<em><code>'$HOME/work/lat-data/aeff'</code></em>, <strong><code>weights</code></strong>:<code>str</code>=<em><code>'$HOME/onedrive/fermi/weight_files'</code></em>, <strong><code>cachepath</code></strong>:<code>str</code>=<em><code>'/tmp/lc_cache'</code></em>)</p>
+<h2 id="Files" class="doc_header"><code>class</code> <code>Files</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/config.py#L161" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Files</code>(<strong><code>data</code></strong>:<code>str</code>=<em><code>'$HOME/data'</code></em>, <strong><code>ft2</code></strong>:<code>str</code>=<em><code>'$HOME/work/lat-data/ft2'</code></em>, <strong><code>gti</code></strong>:<code>str</code>=<em><code>'$HOME/work/lat-data/binned/'</code></em>, <strong><code>aeff</code></strong>:<code>str</code>=<em><code>'$HOME/work/lat-data/aeff'</code></em>, <strong><code>weights</code></strong>:<code>str</code>=<em><code>'$HOME/onedrive/fermi/weight_files'</code></em>, <strong><code>cachepath</code></strong>:<code>str</code>=<em><code>'/tmp/lc_cache'</code></em>)</p>
 </blockquote>
 <p>paths to the various files that we need</p>
 
@@ -241,7 +334,7 @@ nb_path: "nbs/00_config.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Config" class="doc_header"><code>class</code> <code>Config</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/config.py#L184" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Config</code>(<strong><code>verbose</code></strong>:<code>int</code>=<em><code>3</code></em>, <strong><code>files</code></strong>:<code>`=*</code>None<code>*, **</code>mjd_range<code>**:</code>Tuple<code>=*</code>None<code>*, **</code>radius<code>**:</code>float<code>=*</code>5<code>*, **</code>cos_theta_max<code>**:</code>float<code>=*</code>0.4<code>*, **</code>z_max<code>**:</code>float<code>=*</code>100<code>*, **</code>time_interval<code>**:</code>int<code>=*</code>1<code>*, **</code>nside<code>**:</code>int<code>=*</code>1024<code>*, **</code>nest<code>**:</code>bool<code>=*</code>True<code>*, **</code>bins_per_decade<code>**:</code>int<code>=*</code>4<code>*, **</code>base_spectrum<code>**:</code>str<code>=*</code>'lambda E: (E/1000)<strong>-2.1'`*, </strong><code>energy_range</code><strong>:<code>Tuple</code>=<em><code>(100.0, 1000000.0)</code></em>, </strong><code>likelihood_rep</code>*<em>:<code>str</code>=</em><code>'poisson'</code>*)</p>
+<h2 id="Config" class="doc_header"><code>class</code> <code>Config</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/config.py#L192" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Config</code>(<strong><code>verbose</code></strong>:<code>int</code>=<em><code>3</code></em>, <strong><code>files</code></strong>:<code>`=*</code>None<code>*, **</code>mjd_range<code>**:</code>Tuple<code>=*</code>None<code>*, **</code>radius<code>**:</code>float<code>=*</code>5<code>*, **</code>cos_theta_max<code>**:</code>float<code>=*</code>0.4<code>*, **</code>z_max<code>**:</code>float<code>=*</code>100<code>*, **</code>time_interval<code>**:</code>int<code>=*</code>1<code>*, **</code>nside<code>**:</code>int<code>=*</code>1024<code>*, **</code>nest<code>**:</code>bool<code>=*</code>True<code>*, **</code>bins_per_decade<code>**:</code>int<code>=*</code>4<code>*, **</code>base_spectrum<code>**:</code>str<code>=*</code>'lambda E: (E/1000)<strong>-2.1'`*, </strong><code>energy_range</code><strong>:<code>Tuple</code>=<em><code>(100.0, 1000000.0)</code></em>, </strong><code>likelihood_rep</code>*<em>:<code>str</code>=</em><code>'poisson'</code>*)</p>
 </blockquote>
 <p>Default light curve configuration parameters</p>
 
@@ -285,94 +378,19 @@ nb_path: "nbs/00_config.ipynb"
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Cache contents
  key                          size  time                 name, in folder /tmp/lc_cache
-  photons_Geminga         22334705  2020-12-16 09:30     cache_file_4a84f63857d1c9a3.pkl
-  exposure_Geminga        86263776  2020-12-16 09:45     cache_file_182589c7e0f8790.pkl
-  lightcurve_Geminga      12193571  2020-12-16 10:33     cache_file_a9d8ebe67d06375.pkl
-  photons_3C 279           3658709  2020-12-16 10:33     cache_file_d9dee5bea1f367c.pkl
-  exposure_3C 279         78039840  2020-12-16 10:35     cache_file_362e2b09854b1d3.pkl
-  lightcurve_3C 279        4687713  2020-12-16 10:35     cache_file_8e8b14a8a34f4.pkl
+  gti                      1018319  2020-12-17 15:17     cache_file_26e0b050cac876b4.pkl
+  exposure_Geminga        86263776  2020-12-17 15:47     cache_file_3d18a74e668c437.pkl
+  lightcurve_Geminga      12193571  2020-12-17 15:50     cache_file_5f8c1fe2233119ff.pkl
+  photons_3C 279           3659049  2020-12-17 15:50     cache_file_005a8b245230afe.pkl
+  exposure_3C 279         78040992  2020-12-17 15:51     cache_file_86f97125c87ecd8.pkl
+  lightcurve_3C 279        4687729  2020-12-17 15:51     cache_file_509522c898fe52.pkl
+  photons_Geminga         22334705  2020-12-18 06:39     cache_file_52b89da960a98f6.pkl
+  cells_Geminga            1500794  2020-12-18 08:48     cache_file_6f2eb7e7fa4947f8.pkl
+                           1500794  2020-12-18 08:51     cache_file_.pkl
+  lightfcurve_Geminga     12193634  2020-12-18 09:06     cache_file_f721860d03c0aa7.pkl
+  cells_3C 279              557725  2020-12-18 09:06     cache_file_3e45b0fd33e29f7.pkl
+  lightfcurve_3C 279       4687739  2020-12-18 09:06     cache_file_446256afd621452.pkl
 
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary data-open="Hide Code" data-close="Show Code"></summary>
-        <summary></summary>
-        <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">cache_test</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-    <span class="n">c</span> <span class="o">=</span> <span class="n">Cache</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">clear</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-    <span class="c1"># simmple interface</span>
-    <span class="n">c</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;one&#39;</span><span class="p">);</span>
-    <span class="n">c</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">)</span>
-    <span class="n">c</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">)</span> <span class="c1"># getnerates warning</span>
-    <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">assert</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;two&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;two&#39;</span>
-
-    <span class="c1"># test function interface</span>
-    <span class="n">func</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="sa">f</span><span class="s1">&#39;value: </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span>
-    <span class="n">r1</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="s1">&#39;four&#39;</span><span class="p">,</span>  <span class="n">func</span><span class="p">,</span>  <span class="mi">4</span><span class="p">)</span>
-    <span class="n">r2</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="s1">&#39;four&#39;</span><span class="p">,</span>  <span class="n">func</span><span class="p">,</span>  <span class="mi">5</span><span class="p">)</span> <span class="c1">#should not get called</span>
-    <span class="k">assert</span> <span class="n">c</span><span class="o">.</span><span class="n">path</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">r1</span><span class="o">==</span><span class="n">r2</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">r1</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">r2</span><span class="si">}</span><span class="s1">&#39;</span>
-    
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Before remove:</span><span class="se">\n</span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="n">c</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;four&#39;</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="s1">&#39;four&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">c</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-    <span class="n">c</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-<span class="n">cache_test</span><span class="p">(</span><span class="s1">&#39;/tmp/test_cache&#39;</span><span class="p">)</span>
-<span class="c1"># disabled should ignore</span>
-<span class="n">cache_test</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-    </details>
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Clearing cache!
-Before remove:
-Cache contents
- key                          size  time                 name, in folder /tmp/test_cache
-  one                           13  2020-12-17 14:23     cache_file_06bf0ab6f74332f.pkl
-  two                           13  2020-12-17 14:23     cache_file_e98140ac6b5a328.pkl
-  four                          18  2020-12-17 14:23     cache_file_761371bca03be7f8.pkl
-
-Cache contents
- key                          size  time                 name, in folder /tmp/test_cache
-  one                           13  2020-12-17 14:23     cache_file_06bf0ab6f74332f.pkl
-  two                           13  2020-12-17 14:23     cache_file_e98140ac6b5a328.pkl
-
-Before remove:
-Cache not enabled
-Cache not enabled
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>Warning: cached object for key &#34;two&#34; exists
 </pre>
 </div>
 </div>
@@ -394,7 +412,7 @@ Cache not enabled
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PointSource" class="doc_header"><code>class</code> <code>PointSource</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/config.py#L232" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PointSource</code>(<strong><code>name</code></strong>, <strong><code>position</code></strong>=<em><code>None</code></em>)</p>
+<h2 id="PointSource" class="doc_header"><code>class</code> <code>PointSource</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/config.py#L240" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PointSource</code>(<strong><code>name</code></strong>, <strong><code>position</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Manage the position and name of a point source</p>
 
@@ -426,7 +444,7 @@ Cache not enabled
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="PointSource.fk5" class="doc_header"><code>PointSource.fk5</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/config.py#L265" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>PointSource.fk5</code>(<strong><code>name</code></strong>, <strong><code>position</code></strong>)</p>
+<h4 id="PointSource.fk5" class="doc_header"><code>PointSource.fk5</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/config.py#L273" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>PointSource.fk5</code>(<strong><code>name</code></strong>, <strong><code>position</code></strong>)</p>
 </blockquote>
 <p>position: (ra,dec) tuple</p>
 

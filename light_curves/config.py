@@ -35,13 +35,16 @@ def UTC(mjd):
 import pickle
 
 class Cache(dict):
-    """File cache
+    """
+    Manage a file cache
+
+    - `path` -- string or `filepath` object
+    - `clear` -- set True to clear the cache
 
     """
 
-    def __init__(self, path:'a Path,  filepath, or None', clear=False):
-        """
-        """
+    def __init__(self, path, clear:bool=False):
+
 
         self.path = Path(path) if path else None
         if not self.path: return
@@ -113,13 +116,17 @@ class Cache(dict):
         self._dump_index()
 
 
-    def __call__(self, key,
-                 func:'user function',
-                 *pars: 'pass to func',
-                 **kwargs:'pass to func, except extract "overwrite"'
+    def __call__(self, key, func, *pars, description='', overwrite=False, **kwargs,
                 ):
         """
-        One-line usagge
+        One-line usage interface for cache use
+
+        - `key` -- key to use, usually a string. Must be hashable <br>
+            If none, ignore cache and return the function evaluation
+        - `func` -- user function that will return an object that can be pickled
+        - `pars`, `kwargs` -- pass to `func`
+        - `description` -- optional string that will be printed
+
 
         cache = Cache(path)
         result = cache(key, function, *pars, **kwargs)
@@ -129,7 +136,8 @@ class Cache(dict):
             return func(*pars, **kwargs)
 
         ret = self.get(key)
-        overwrite = kwargs.pop('overwrite', False)
+        if description:
+            print(f'{description}: {"Saving to" if key not in self else "Restoring from"} cache with key "{key}"')
 
         if ret is None or overwrite:
             ret = func(*pars, **kwargs)

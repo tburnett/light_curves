@@ -105,8 +105,12 @@ def fit_cells(config,
 from .config import Config,  PointSource
 from .cells import get_cells
 
-def get_lightcurve(config,  source, bin_edges=None):
+def get_lightcurve(config,  source, bin_edges=None, key=''):
     """Returns a lightcurve table for the source
+
+    - `source` -- a PointSource object
+    - `bin_edges` -- optional to select other than default described in config
+    - `key` -- optional cache key. Set to None to disable cache use
 
     """
     def doit():
@@ -115,11 +119,10 @@ def get_lightcurve(config,  source, bin_edges=None):
         return lc
 
     if bin_edges is None:
-        key = f'lightcurve_{source.name}'
-        # use cache only for full data set
-        if config.verbose>1:
-            print(f'using cache with key "{key}", exists: {key in config.cache}')
-        return config.cache(key, doit)
+        # use cache only with default bins
+        key = f'lightfcurve_{source.name}' if key=='' else  key
+        description = f'Light curve for {source.name}' if config.verbose>0 and key is not None else ''
+        return config.cache(key, doit, description=description)
     else:
         return doit()
 
@@ -184,7 +187,7 @@ def flux_plot(config, lightcurve, ts_min=9,
         xerr = df.tw.values/2;
         x = np.append(t-xerr, [t[-1]+xerr[-1]]);
         y = np.append(allflux, [allflux[-1]])
-        ax.step(x, y, color=colors[2], where='post', )
+        ax.step(x, y, color=colors[2], where='post', lw=2)
 
 
     # now do the limits (only for poisson rep)

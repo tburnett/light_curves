@@ -36,10 +36,166 @@ nb_path: "nbs/05_weights.ipynb"
 </div>
     {% endraw %}
 
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">files</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span><span class="o">.</span><span class="n">files</span><span class="p">;</span> <span class="n">files</span><span class="o">.</span><span class="n">weights</span><span class="o">/</span><span class="s1">&#39;test.pkl&#39;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>PosixPath(&#39;/home/burnett/onedrive/fermi/weight_files/test.pkl&#39;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="check_weights" class="doc_header"><code>check_weights</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/weights.py#L14" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>check_weights</code>(<strong><code>config</code></strong>, <strong><code>source</code></strong>)</p>
+</blockquote>
+<p>Check that weights for the source are available: if so, return the weight file name</p>
+<ul>
+<li>source -- A PointSource object with information on source location</li>
+</ul>
+<p>Returns the filepath to the file if successful, otherwise, print a message abount available files</p>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Check not found
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Source &#34;test&#34; at: (l,b)=(0.000,0.000) not found in list of weight files at
+	 /home/burnett/onedrive/fermi/weight_files.
+ Available:
+[&#39;3C454.3&#39; &#39;3C_279&#39; &#39;504F-0961&#39; &#39;504F-1164&#39; &#39;504F-1916&#39; &#39;504H-0058&#39;
+ &#39;504H-0261&#39; &#39;504H-0309&#39; &#39;504H-0316&#39; &#39;504N-0010&#39; &#39;504N-0717&#39; &#39;504N-0748&#39;
+ &#39;504N-1076&#39; &#39;504N-1324&#39; &#39;504N-1409&#39; &#39;504N-1637&#39; &#39;504N-1663&#39; &#39;504N-1714&#39;
+ &#39;504P-0573&#39; &#39;504P-0614&#39; &#39;504P-0777&#39; &#39;504P-0910&#39; &#39;504P-1095&#39; &#39;504P-1407&#39;
+ &#39;504S-0683&#39; &#39;504S-1612&#39; &#39;605F-0679&#39; &#39;605F-1081&#39; &#39;605N-0485&#39; &#39;605N-0940&#39;
+ &#39;605P-0285&#39; &#39;605P-0459&#39; &#39;998N-0408&#39; &#39;998N-0517&#39; &#39;B2_1520p31&#39; &#39;Geminga&#39;
+ &#39;P88Y4655&#39; &#39;P88Y4661&#39; &#39;P88Y4744&#39; &#39;P88Y5469&#39; &#39;P88Y5732&#39; &#39;P88Y5839&#39;
+ &#39;P88Y6341&#39; &#39;PSR_B1259-63&#39; &#39;PSR_J1302-6350&#39; &#39;PSR_J1909-3744&#39;
+ &#39;PSR_J1913p1011&#39; &#39;PSR_J2022p3842&#39; &#39;PSR_J2032p4127&#39; &#39;S8008-1189&#39;
+ &#39;S8008-2111&#39; &#39;S8008-2205&#39; &#39;S8008-2883&#39; &#39;X_Cyg_x-3&#39;]
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Source &#34;Geminga&#34; at: (l,b)=(195.134,4.266) Should be found: file at /home/burnett/onedrive/fermi/weight_files/Geminga_weights.pkl 
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="add_weights" class="doc_header"><code>add_weights</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/weights.py#L99" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>add_weights</code>(<strong><code>config</code></strong>, <strong><code>photon_data</code></strong>, <strong><code>source</code></strong>)</p>
+</blockquote>
+<p>add weights for the source to the photon data</p>
+<ul>
+<li><p>photon_data -- DataFrame with photon data</p>
+</li>
+<li><p>source -- <a href="/light_curves/config.html#PointSource"><code>PointSource</code></a> object</p>
+</li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Set up photon data for tests</p>
-
+<h3 id="Test-adding-weights">Test adding weights<a class="anchor-link" href="#Test-adding-weights"> </a></h3>
 </div>
 </div>
 </div>
@@ -50,13 +206,17 @@ nb_path: "nbs/05_weights.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span> <span class="c1">#mjd_range=(54682,55000 ))</span>
-<span class="n">files</span> <span class="o">=</span> <span class="n">Files</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span> 
 <span class="n">source</span> <span class="o">=</span> <span class="n">PointSource</span><span class="p">(</span><span class="s1">&#39;Geminga&#39;</span><span class="p">)</span>
 
-<span class="k">if</span> <span class="n">files</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Loading photon data for using source </span><span class="si">{</span><span class="n">source</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1"> to test adding weights&#39;</span><span class="p">)</span>
-    <span class="n">photon_data</span> <span class="o">=</span> <span class="n">get_photon_data</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span>  <span class="n">source</span> <span class="p">)</span>
+<span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Loading photon data for source </span><span class="si">{</span><span class="n">source</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1"> to test adding weights&#39;</span><span class="p">)</span>
+    <span class="n">photon_data</span> <span class="o">=</span> <span class="n">get_photon_data</span><span class="p">(</span><span class="n">config</span><span class="p">,</span>  <span class="n">source</span> <span class="p">)</span>
+    <span class="n">add_weights</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">photon_data</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Head of modified photon_data</span><span class="se">\n</span><span class="s1"> </span><span class="si">{</span><span class="n">photon_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;font&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">photon_data</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">51</span><span class="p">),</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;step&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Weights for source </span><span class="si">{</span><span class="n">source</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Not testing since no files.&#39;</span><span class="p">)</span>
 </pre></div>
@@ -71,186 +231,40 @@ nb_path: "nbs/05_weights.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Loading photon data for using source Geminga to test adding weights
-restoring photon data from /tmp/light_curves/Geminga_photons.pkl 
+<pre>Loading photon data for source Geminga to test adding weights
+restored photons_Geminga from cache
+
 	Selected 1313726 photons within 5 deg of  (195.13,4.27)
 	Energies: 100.0-1000000 MeV
 	Dates:    2008-08-04 15:46 - 2019-08-03 01:17
 	MJD  :    54682.7          - 58698.1         
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">files</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
-    <span class="n">weight_file</span> <span class="o">=</span>  <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">files</span><span class="o">.</span><span class="n">weights</span><span class="p">,</span> <span class="n">source</span><span class="o">.</span><span class="n">name</span><span class="o">+</span><span class="s1">&#39;_weights.pkl&#39;</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span> <span class="n">weight_file</span> <span class="p">),</span> <span class="s1">&#39;Failed check for weights&#39;</span>
-    <span class="n">wts</span><span class="p">,</span> <span class="n">wt_pix</span><span class="p">,</span> <span class="n">nside_wt</span> <span class="o">=</span> <span class="n">_load_weights</span><span class="p">(</span><span class="n">weight_file</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Load weights from file /mnt/c/users/thbur/OneDrive/fermi/weight_files/Geminga_weights.pkl
+Load weights from file /mnt/c/users/thbur/OneDrive/fermi/weight_files/Geminga_weights.pkl
 	Found: PSR J0633+1746 at (195.14, 4.27)
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>For each photon, add a weight appropriate for its energy and position</p>
-
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">files</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
-    <span class="n">_add_weights</span><span class="p">(</span><span class="n">wts</span><span class="p">,</span> <span class="n">wt_pix</span><span class="p">,</span> <span class="n">nside_wt</span> <span class="p">,</span> <span class="n">photon_data</span><span class="p">)</span>
-    <span class="n">photon_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>	Applyng weights: 240 / 1313726 photon pixels are outside weight region
+	Applyng weights: 240 / 1313726 photon pixels are outside weight region
 	233109 weights set to NaN
+Head of modified photon_data
+    band          time    pixel    radius    weight
+0     6  54682.657022  6738278  0.698381  0.782784
+1     3  54682.657934  6761152  2.498099       NaN
+2     4  54682.658637  6739138  0.290310  0.955831
+3     1  54682.658760  6714890  3.276757       NaN
+4    11  54682.659099  6736721  4.899003  0.002628
 </pre>
 </div>
 </div>
 
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The photon data now has a weight columnn:</p>
-
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
 <div class="output_area">
 
 
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="check_source" class="doc_header"><code>check_source</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/weights.py#L82" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>check_source</code>(<strong><code>files</code></strong>, <strong><code>source</code></strong>)</p>
-</blockquote>
 
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
 </div>
 
 </div>
 
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="add_weights" class="doc_header"><code>add_weights</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/weights.py#L93" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>add_weights</code>(<strong><code>xconfig</code></strong>, <strong><code>xfiles</code></strong>, <strong><code>photon_data</code></strong>, <strong><code>source</code></strong>)</p>
-</blockquote>
-<p>add weights for the source to the photon data</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
 </div>
 </div>
 

@@ -1,5 +1,5 @@
 # The `light_curve` package
-> Code for generating fermi-LAT light curves. <a href='https://tburnett.github.io/light_curves/'>link to this document</a>
+> Code for generating fermi-LAT light curves. <br>
 
 
 ## Background
