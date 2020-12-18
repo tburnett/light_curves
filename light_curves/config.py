@@ -45,6 +45,7 @@ class Cache(dict):
 
         self.path = Path(path) if path else None
         if not self.path: return
+        self.path.mkdir(exist_ok=True)
         assert self.path.exists()
         self.index_file = self.path/'index.pkl'
 
@@ -55,7 +56,7 @@ class Cache(dict):
             else:
                 self._load_index()
         else:
-            self.path.mkdir()
+            self.path.mkdir(exist_ok=True)
 
     def _dump_index(self):
         with open(self.index_file, 'wb') as file:
@@ -124,6 +125,9 @@ class Cache(dict):
         result = cache(key, function, *pars, **kwargs)
         """
 
+        if key is None:
+            return func(*pars, **kwargs)
+
         ret = self.get(key)
         overwrite = kwargs.pop('overwrite', False)
 
@@ -137,6 +141,7 @@ class Cache(dict):
         if not self.path: return 'Cache not enabled'
         s = f'Cache contents\n {"key":20}   {"size":>10}  {"time":20} {"name"}, in folder {self.path}\n'
         for name, value in self.items():
+            if name is None: continue
             stat = value.stat()
             size = stat.st_size
             mtime= str(datetime.datetime.fromtimestamp(stat.st_mtime))[:16]

@@ -15,8 +15,6 @@ from .load_gti import get_gti
 def get_photon_data(config: 'configuration data',
 #                     files:  'file locations',
                     source: 'Source data',
-                    gti:   'Good Time Interval'=None,
-                    use_cache=True,
                     nest=True):
     """
     Read photon data from a Parquet dataset, select cone around the
@@ -42,8 +40,7 @@ def get_photon_data(config: 'configuration data',
         return photon_data
 
     # check GTI
-    if gti is None:
-        gti = get_gti(config, files.gti)
+    gti = get_gti(config)
 
     # cone geometry stuff: get corresponding pixels and center vector
     l,b,radius = source.l, source.b, config.radius

@@ -170,7 +170,7 @@ nb_path: "nbs/00_config.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Files" class="doc_header"><code>class</code> <code>Files</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/config.py#L148" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Files</code>(<strong><code>data</code></strong>:<code>str</code>=<em><code>'$HOME/data'</code></em>, <strong><code>ft2</code></strong>:<code>str</code>=<em><code>'$HOME/work/lat-data/ft2'</code></em>, <strong><code>gti</code></strong>:<code>str</code>=<em><code>'$HOME/work/lat-data/binned/'</code></em>, <strong><code>aeff</code></strong>:<code>str</code>=<em><code>'$HOME/work/lat-data/aeff'</code></em>, <strong><code>weights</code></strong>:<code>str</code>=<em><code>'$HOME/onedrive/fermi/weight_files'</code></em>, <strong><code>cachepath</code></strong>:<code>str</code>=<em><code>'/tmp/lc_cache'</code></em>)</p>
+<h2 id="Files" class="doc_header"><code>class</code> <code>Files</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/config.py#L153" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Files</code>(<strong><code>data</code></strong>:<code>str</code>=<em><code>'$HOME/data'</code></em>, <strong><code>ft2</code></strong>:<code>str</code>=<em><code>'$HOME/work/lat-data/ft2'</code></em>, <strong><code>gti</code></strong>:<code>str</code>=<em><code>'$HOME/work/lat-data/binned/'</code></em>, <strong><code>aeff</code></strong>:<code>str</code>=<em><code>'$HOME/work/lat-data/aeff'</code></em>, <strong><code>weights</code></strong>:<code>str</code>=<em><code>'$HOME/onedrive/fermi/weight_files'</code></em>, <strong><code>cachepath</code></strong>:<code>str</code>=<em><code>'/tmp/lc_cache'</code></em>)</p>
 </blockquote>
 <p>paths to the various files that we need</p>
 
@@ -241,7 +241,7 @@ nb_path: "nbs/00_config.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Config" class="doc_header"><code>class</code> <code>Config</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/config.py#L179" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Config</code>(<strong><code>verbose</code></strong>:<code>int</code>=<em><code>3</code></em>, <strong><code>files</code></strong>:<code>`=*</code>None<code>*, **</code>mjd_range<code>**:</code>Tuple<code>=*</code>None<code>*, **</code>radius<code>**:</code>float<code>=*</code>5<code>*, **</code>cos_theta_max<code>**:</code>float<code>=*</code>0.4<code>*, **</code>z_max<code>**:</code>float<code>=*</code>100<code>*, **</code>time_interval<code>**:</code>int<code>=*</code>1<code>*, **</code>nside<code>**:</code>int<code>=*</code>1024<code>*, **</code>nest<code>**:</code>bool<code>=*</code>True<code>*, **</code>bins_per_decade<code>**:</code>int<code>=*</code>4<code>*, **</code>base_spectrum<code>**:</code>str<code>=*</code>'lambda E: (E/1000)<strong>-2.1'`*, </strong><code>energy_range</code><strong>:<code>Tuple</code>=<em><code>(100.0, 1000000.0)</code></em>, </strong><code>likelihood_rep</code>*<em>:<code>str</code>=</em><code>'poisson'</code>*)</p>
+<h2 id="Config" class="doc_header"><code>class</code> <code>Config</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/config.py#L184" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Config</code>(<strong><code>verbose</code></strong>:<code>int</code>=<em><code>3</code></em>, <strong><code>files</code></strong>:<code>`=*</code>None<code>*, **</code>mjd_range<code>**:</code>Tuple<code>=*</code>None<code>*, **</code>radius<code>**:</code>float<code>=*</code>5<code>*, **</code>cos_theta_max<code>**:</code>float<code>=*</code>0.4<code>*, **</code>z_max<code>**:</code>float<code>=*</code>100<code>*, **</code>time_interval<code>**:</code>int<code>=*</code>1<code>*, **</code>nside<code>**:</code>int<code>=*</code>1024<code>*, **</code>nest<code>**:</code>bool<code>=*</code>True<code>*, **</code>bins_per_decade<code>**:</code>int<code>=*</code>4<code>*, **</code>base_spectrum<code>**:</code>str<code>=*</code>'lambda E: (E/1000)<strong>-2.1'`*, </strong><code>energy_range</code><strong>:<code>Tuple</code>=<em><code>(100.0, 1000000.0)</code></em>, </strong><code>likelihood_rep</code>*<em>:<code>str</code>=</em><code>'poisson'</code>*)</p>
 </blockquote>
 <p>Default light curve configuration parameters</p>
 
@@ -285,48 +285,15 @@ nb_path: "nbs/00_config.ipynb"
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Cache contents
  key                          size  time                 name, in folder /tmp/lc_cache
-  photons_Geminga         22334715  2020-12-15 07:57     cache_file_270870a16929d2.pkl
-  exposure_Geminga        86263782  2020-12-15 08:00     cache_file_52ab4b3386fa0447.pkl
-  lightcurve_Geminga      12193525  2020-12-15 08:00     cache_file_25033e18d005d04.pkl
-  photons_3C 279           3658719  2020-12-15 08:03     cache_file_d72f17a84dfd2e7.pkl
-  exposure_3C 279         78039846  2020-12-15 08:05     cache_file_8762d8153c1b249.pkl
-  lightcurve_3C 279        4687667  2020-12-15 08:06     cache_file_11d230d1c44af32.pkl
+  photons_Geminga         22334705  2020-12-16 09:30     cache_file_4a84f63857d1c9a3.pkl
+  exposure_Geminga        86263776  2020-12-16 09:45     cache_file_182589c7e0f8790.pkl
+  lightcurve_Geminga      12193571  2020-12-16 10:33     cache_file_a9d8ebe67d06375.pkl
+  photons_3C 279           3658709  2020-12-16 10:33     cache_file_d9dee5bea1f367c.pkl
+  exposure_3C 279         78039840  2020-12-16 10:35     cache_file_362e2b09854b1d3.pkl
+  lightcurve_3C 279        4687713  2020-12-16 10:35     cache_file_8e8b14a8a34f4.pkl
 
 </pre>
 </div>
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">config</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">cachepath</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>Path(&#39;/tmp/lc_cache&#39;)</pre>
-</div>
-
 </div>
 
 </div>
@@ -386,14 +353,14 @@ nb_path: "nbs/00_config.ipynb"
 Before remove:
 Cache contents
  key                          size  time                 name, in folder /tmp/test_cache
-  one                           13  2020-12-15 17:00     cache_file_72f6905f2b3c69fc.pkl
-  two                           13  2020-12-15 17:00     cache_file_5945c182b651ccb1.pkl
-  four                          18  2020-12-15 17:00     cache_file_085c24b3ea0e05.pkl
+  one                           13  2020-12-17 14:23     cache_file_06bf0ab6f74332f.pkl
+  two                           13  2020-12-17 14:23     cache_file_e98140ac6b5a328.pkl
+  four                          18  2020-12-17 14:23     cache_file_761371bca03be7f8.pkl
 
 Cache contents
  key                          size  time                 name, in folder /tmp/test_cache
-  one                           13  2020-12-15 17:00     cache_file_72f6905f2b3c69fc.pkl
-  two                           13  2020-12-15 17:00     cache_file_5945c182b651ccb1.pkl
+  one                           13  2020-12-17 14:23     cache_file_06bf0ab6f74332f.pkl
+  two                           13  2020-12-17 14:23     cache_file_e98140ac6b5a328.pkl
 
 Before remove:
 Cache not enabled
@@ -427,7 +394,7 @@ Cache not enabled
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PointSource" class="doc_header"><code>class</code> <code>PointSource</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/config.py#L227" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PointSource</code>(<strong><code>name</code></strong>, <strong><code>position</code></strong>=<em><code>None</code></em>)</p>
+<h2 id="PointSource" class="doc_header"><code>class</code> <code>PointSource</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/config.py#L232" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PointSource</code>(<strong><code>name</code></strong>, <strong><code>position</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Manage the position and name of a point source</p>
 
@@ -459,7 +426,7 @@ Cache not enabled
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="PointSource.fk5" class="doc_header"><code>PointSource.fk5</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/config.py#L260" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>PointSource.fk5</code>(<strong><code>name</code></strong>, <strong><code>position</code></strong>)</p>
+<h4 id="PointSource.fk5" class="doc_header"><code>PointSource.fk5</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/config.py#L265" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>PointSource.fk5</code>(<strong><code>name</code></strong>, <strong><code>position</code></strong>)</p>
 </blockquote>
 <p>position: (ra,dec) tuple</p>
 

@@ -330,6 +330,10 @@ div#toc >ul::before {
     padding-left:10px;
 }
 
+.nbdoc_image {
+    margin-left: 50px;
+}
+
 li.dropdownActive a {
     font-weight: bold;
 }

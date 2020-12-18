@@ -144,7 +144,7 @@ def get_cells(config,  source, bins=None):
 
     photon_data = get_photon_data(config,   source )
     add_weights(config, config.files, photon_data, source)
-    exposure = get_exposure(config,  None, source)
+    exposure = get_exposure(config,  source)
 
     return _WeightedCells(config, source,photon_data, exposure, bins).dataframe
 

@@ -123,22 +123,20 @@ def _exposure(config, effective_area, livetime, pcosine):
     return (aeff*livetime)
 
 # Cell
-def get_exposure(config,  gti, source):
+def get_exposure(config,  source, gti_key='gti'):
     """Return the exposure for the source
-    If gti is None, regenerate it
+
     """
     from  light_curves.load_gti import get_gti
     from .effective_area import EffectiveArea
 
-    no_gti = gti is None
+
 
 
     def getit():
         files = config.files
-        if no_gti:
-            gti = get_gti(config, files.gti)
-        else:
-            raise Exception('Need to handle GTI better')
+
+        gti = get_gti(config, gti_key)
         aeff = EffectiveArea(file_path = files.aeff)
         exposure =  _process_ft2(config, source, files.ft2, gti, aeff)
         if config.verbose>1:

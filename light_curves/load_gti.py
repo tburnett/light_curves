@@ -9,11 +9,13 @@ import pandas as pd
 
 from .config import MJD
 
-def get_gti(config, gti_files):
+# Cell
+def _get(config):
     """Combine the GTI intervals that fall within the gti range
-    Return a function that tests a list of times
+    return an array of alternate start/stop times
     """
-    gti_files = list(gti_files.glob('*.fits'))
+
+    gti_files = list(config.files.gti.glob('*.fits'))
     if config.verbose>1:
         print(f'Processing {len(gti_files)} FITS files with GTI information ... ', end='')
     starts=[]
@@ -43,27 +45,34 @@ def get_gti(config, gti_files):
             sel = slice(a,b)
 
 
-    class GTI(object):
-        """ functor class that tests for being in the GTI range
-        """
-        def __init__(config, start, stop):
-            # prepare single merged array with even, odd entries start and stop
-            a,b =start, stop
-            config.fraction = np.sum(b-a)/(b[-1]-a[0])
-            assert len(a)==len(b)
-            config.g = np.array([a,b]).T.flatten()
-            assert np.sum(np.diff(config.g)<0)==0, 'Bad GTI ordering'
+    a,b =start[sel], stop[sel]
+    fraction = np.sum(b-a)/(b[-1]-a[0])
+    assert len(a)==len(b)
+    gtimes = np.array([a,b]).T.flatten()
+    assert np.sum(np.diff(gtimes)<0)==0, 'Bad GTI ordering'
 
-        def __call__(config, time):
-            # use digitize to find if in good/bad interval by odd/even
-            x = np.digitize(time, config.g)
+    return gtimes
+
+# Cell
+def get_gti(config, key='gti'):
+    """
+    Return a GTI functor that checks a list of times
+
+    - key -- the cache key to use to save/restore interval times
+    """
+
+    class GTI():
+
+        def __init__(self, config, key=key):
+
+            self.gtimes = config.cache(key, _get, config)
+
+        def __call__(self, time):
+
+            x = np.digitize(time, self.gtimes)
             return np.bitwise_and(x,1).astype(bool)
+        def __repr__(self):
+            g = self.gtimes
+            return f'GTI: {len(g)/2} intervals from {g[0]:.1f} to {g[1]:.1f}'
 
-        def __repr__(config):
-            return  f'{config.__class__.__name__} MJD range: {config.g[0]:.2f}-{config.g[-1]:.2f}'\
-                    f', good fraction {config.fraction:.2f} '
-
-    gti =  GTI(start[sel],stop[sel])
-    if config.verbose>1:
-        print(f'\t{gti}')
-    return gti
+    return GTI(config, key)
