@@ -29,6 +29,27 @@ nb_path: "nbs/11_lightcurve.ipynb"
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A "light curve" is a table with columns</p>
+<ul>
+<li><code>t</code> -- time in MJD </li>
+<li><code>tw</code> -- the cell width</li>
+<li><code>n</code>  -- number of photons</li>
+<li><code>e</code>  -- relative exposure</li>
+<li><code>fit</code> -- the fit object, containing info about the flux. This is usually a <a href="/light_curves/loglike.html#PoissonRep"><code>PoissonRep</code></a> object</li>
+</ul>
+<p>It is generated from a set of cells</p>
+<p>Implemented here:</p>
+<ul>
+<li><a href="/light_curves/lightcurve.html#get_lightcurve"><code>get_lightcurve</code></a></li>
+<li><a href="/light_curves/lightcurve.html#fit_cells"><code>fit_cells</code></a></li>
+<li><a href="/light_curves/lightcurve.html#flux_plot"><code>flux_plot</code></a></li>
+</ul>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">

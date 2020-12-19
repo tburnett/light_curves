@@ -9,43 +9,7 @@ import pandas as pd
 from .config import Config,  PointSource, Cache
 from .photon_data import get_photon_data
 from .weights import add_weights, check_weights
-from .exposure import get_exposure
-
-# Cell
-def _get_default_bins(config, exposure):
-    """set up default bins from exposure; adjust stop to come out even
-    # round to whole day
-    """
-
-    start = np.round(exposure.start.values[0])
-    stop =  np.round(exposure.stop.values[-1])
-    if config.mjd_range is None:
-        config.mjd_range = (start,stop)
-
-    step = config.time_interval
-    nbins = int(round((stop-start)/step))
-    tb =time_bins = np.linspace(start, stop, nbins+1)
-    if config.verbose>0:
-        print(f'Time bins: {nbins} intervals of {step} days, '\
-              f'in range ({time_bins[0]:.1f}, {time_bins[-1]:.1f})')
-    return time_bins
-
-# Cell
-def _get_binned_exposure(time_bins, exposure):
-
-    # get stuff from photon data, exposure calculation
-    exp   = exposure.exposure.values
-    estart= exposure.start.values
-    estop = exposure.stop.values
-
-    #use cumulative exposure to integrate over larger periods
-    cumexp = np.concatenate(([0],np.cumsum(exp)) )
-
-    # get index into tstop array of the bin edges
-    edge_index = np.searchsorted(estop, time_bins)
-    # return the exposure integrated over the intervals
-    cum = cumexp[edge_index]
-    return np.diff(cum)/(cum[-1]-cum[0]) * (len(time_bins)-1)
+from .exposure import get_exposure, get_binned_exposure, get_default_bins
 
 # Cell
 class _WeightedCells(object):
@@ -55,7 +19,6 @@ class _WeightedCells(object):
 
     def __init__(self, config, source,
                  photon_data:'DataFrame with photon data',
-                 exposure: 'DataFrame with exposure',
                  bins: 'time bins default if None'=None,
                 ):
         """
@@ -64,17 +27,16 @@ class _WeightedCells(object):
         self.source_name =source.name
         self.verbose = config.verbose
 
-        bins = bins if bins is not None else  _get_default_bins(config, exposure)
+        # exposure binned as well
+        self.fexposure, bins = get_binned_exposure(config, source=source, time_bins=bins, ) #bins, exposure)
+
+        # manage bins
+        self.N = len(bins)-1 # number of bins
         self.bins = bins
+        self.bin_centers = 0.5*(bins[1:]+bins[:-1])
 
         # restrict photons to range of bin times
         photons = photon_data.query(f'{bins[0]}<time<{bins[-1]}')
-
-        self.N = len(bins)-1 # number of bins
-        self.bin_centers = 0.5*(bins[1:]+bins[:-1])
-
-        # exposure binned as well
-        self.fexposure = _get_binned_exposure(bins, exposure)
 
         # get the photon data with good weights, not NaN
         w = photons.weight
@@ -144,8 +106,8 @@ def get_cells(config,  source, bins=None, key=''):
     def doit(config, source, bins):
         photon_data = get_photon_data(config,   source )
         add_weights(config,  photon_data, source)
-        exposure = get_exposure(config,  source)
-        return _WeightedCells(config, source,photon_data, exposure, bins).dataframe
+
+        return _WeightedCells(config, source,photon_data, bins).dataframe
 
     key = f'cells_{source.name}' if key=='' else  key
     description = f'Cell data for {source.name}' if config.verbose>0 and key is not None else ''

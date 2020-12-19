@@ -28,20 +28,20 @@ entries:
       title: Weights
       url: weights.html
     - output: web,pdf
-      title: Cells
-      url: cells.html
-    - output: web,pdf
       title: poisson
       url: poisson.html
     - output: web,pdf
-      title: Simulation
-      url: simulation.html
+      title: Cells
+      url: cells.html
     - output: web,pdf
       title: Log Likelihood tools
       url: loglike.html
     - output: web,pdf
       title: Light Curve Generation
       url: lightcurve.html
+    - output: web,pdf
+      title: Simulation
+      url: simulation.html
     - output: web,pdf
       title: Instructions
       url: roadmap.html

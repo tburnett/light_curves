@@ -7,11 +7,11 @@
     "Exposure": "exposure.html",
     "Photon Data": "photon_data.html",
     "Weights": "weights.html",
-    "Cells": "cells.html",
     "poisson": "poisson.html",
-    "Simulation": "simulation.html",
+    "Cells": "cells.html",
     "Log Likelihood tools": "loglike.html",
     "Light Curve Generation": "lightcurve.html",
+    "Simulation": "simulation.html",
     "Instructions": "roadmap.html",
     "Kerr Comparison": "kerr_comparison.html",
     "Bayesian Blocks": "bayesian.html"

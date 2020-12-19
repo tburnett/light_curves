@@ -56,20 +56,6 @@ nb_path: "nbs/07_cells.ipynb"
 </div>
     {% endraw %}
 
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Create the binned exposure, and make a histogram of its output, the exposure per bin
@@ -93,10 +79,8 @@ relative to the aveage.</p>
     <span class="n">check_weights</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span>
     <span class="n">photon_data</span> <span class="o">=</span> <span class="n">get_photon_data</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">source</span> <span class="p">)</span>
     <span class="n">add_weights</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">photon_data</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span>
-    <span class="n">exposure</span> <span class="o">=</span> <span class="n">get_exposure</span><span class="p">(</span><span class="n">config</span><span class="p">,</span>  <span class="n">source</span><span class="p">)</span>
-
-    <span class="n">time_bins</span> <span class="o">=</span>  <span class="n">_get_default_bins</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">exposure</span><span class="p">)</span>
-    <span class="n">binned_exposure</span> <span class="o">=</span> <span class="n">_get_binned_exposure</span><span class="p">(</span><span class="n">time_bins</span><span class="p">,</span> <span class="n">exposure</span><span class="p">)</span>
+    <span class="n">binned_exposure</span><span class="p">,</span> <span class="n">time_bins</span> <span class="o">=</span> <span class="n">get_binned_exposure</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span>
+    
     <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">binned_exposure</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="mi">50</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;stepfilled&#39;</span><span class="p">);</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Relative exposure/timebin&#39;</span><span class="p">);</span>
 <span class="k">else</span><span class="p">:</span>
@@ -124,8 +108,7 @@ Load weights from file /mnt/c/users/thbur/OneDrive/fermi/weight_files/Geminga_we
 	Found: PSR J0633+1746 at (195.14, 4.27)
 	Applyng weights: 240 / 1313726 photon pixels are outside weight region
 	233109 weights set to NaN
-using cache with key &#34;exposure_Geminga&#34;, exists: True
-Time bins: 4015 intervals of 1 days, in range (54683.0, 58698.0)
+binned exposure for source Geminga: Restoring from cache with key &#34;binned_exposure_Geminga&#34;
 </pre>
 </div>
 </div>
@@ -173,7 +156,7 @@ Time bins: 4015 intervals of 1 days, in range (54683.0, 58698.0)
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_cells" class="doc_header"><code>get_cells</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/cells.py#L136" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_cells</code>(<strong><code>config</code></strong>, <strong><code>source</code></strong>, <strong><code>bins</code></strong>=<em><code>None</code></em>, <strong><code>key</code></strong>=<em><code>''</code></em>)</p>
+<h4 id="get_cells" class="doc_header"><code>get_cells</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/cells.py#L98" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_cells</code>(<strong><code>config</code></strong>, <strong><code>source</code></strong>, <strong><code>bins</code></strong>=<em><code>None</code></em>, <strong><code>key</code></strong>=<em><code>''</code></em>)</p>
 </blockquote>
 <p>Return a cells DataFrame for the source</p>
 <ul>
@@ -198,6 +181,48 @@ Time bins: 4015 intervals of 1 days, in range (54683.0, 58698.0)
 </div>
 </div>
 </div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
+    <span class="n">cells</span> <span class="o">=</span> <span class="n">get_cells</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Photon data: Restoring from cache with key &#34;photons_Geminga&#34;
+
+	Selected 1,313,726 photons within 5 deg of  (195.13,4.27)
+	Energies: 100.0-1000000 MeV
+	Dates:    2008-08-04 15:46 - 2019-08-03 01:17
+	MJD  :    54682.7          - 58698.1         
+Load weights from file /mnt/c/users/thbur/OneDrive/fermi/weight_files/Geminga_weights.pkl
+	Found: PSR J0633+1746 at (195.14, 4.27)
+	Applyng weights: 240 / 1313726 photon pixels are outside weight region
+	233109 weights set to NaN
+binned exposure for source Geminga: Restoring from cache with key &#34;binned_exposure_Geminga&#34;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>A look at the contents of the first cell</p>
@@ -205,6 +230,45 @@ Time bins: 4015 intervals of 1 days, in range (54683.0, 58698.0)
 </div>
 </div>
 </div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">cells</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>t                                               54683.5
+tw                                                    1
+e                                               1.26456
+n                                                   330
+w     [244, 214, 174, 5, 246, 150, 187, 65, 91, 215,...
+S                                               225.585
+B                                               114.707
+Name: 0, dtype: object
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>An important check of the procedure is a comparison of the sum of weights in a cell with the exposure for that time interval.</p>
@@ -261,6 +325,13 @@ Time bins: 4015 intervals of 1 days, in range (54683.0, 58698.0)
     
 <div class="cell border-box-sizing code_cell rendered">
 
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 <div class="output_wrapper">
 <div class="output">
 
@@ -268,7 +339,7 @@ Time bins: 4015 intervals of 1 days, in range (54683.0, 58698.0)
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="partition_cells" class="doc_header"><code>partition_cells</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/cells.py#L156" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>partition_cells</code>(<strong><code>config</code></strong>, <strong><code>cells</code></strong>, <strong><code>edges</code></strong>)</p>
+<h4 id="partition_cells" class="doc_header"><code>partition_cells</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/cells.py#L118" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>partition_cells</code>(<strong><code>config</code></strong>, <strong><code>cells</code></strong>, <strong><code>edges</code></strong>)</p>
 </blockquote>
 <p>Partition a set of cells</p>
 <ul>
@@ -289,6 +360,43 @@ Time bins: 4015 intervals of 1 days, in range (54683.0, 58698.0)
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test partition by selecting subset of current bin edges&#39;</span><span class="p">)</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="n">cells</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">values</span><span class="o">-</span><span class="n">cells</span><span class="o">.</span><span class="n">tw</span><span class="o">.</span><span class="n">values</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">width</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">newbins</span> <span class="o">=</span> <span class="n">edges</span><span class="p">[:</span><span class="mi">20</span><span class="p">:</span><span class="n">width</span> <span class="p">];</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.precision&#39;</span><span class="p">,</span><span class="mi">2</span> <span class="p">)</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_seq_items&#39;</span><span class="p">,</span><span class="mi">4</span> <span class="p">)</span>
+    <span class="n">newcells</span> <span class="o">=</span> <span class="n">partition_cells</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">cells</span><span class="p">,</span> <span class="n">newbins</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">newcells</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Test partition by selecting subset of current bin edges
+         t   tw     e     n       S       B                         w
+0  54685.0  4.0  1.27  1394  904.65  460.01   [244, 214, 174, 5, ...]
+1  54689.0  4.0  1.27  1380  906.13  460.75  [246, 185, 82, 163, ...]
+2  54693.0  4.0  1.07  1202  766.07  389.54   [240, 33, 231, 22, ...]
+3  54697.0  4.0  0.89   938  636.59  323.70  [150, 43, 185, 235, ...]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
 
 </div>
     {% endraw %}
