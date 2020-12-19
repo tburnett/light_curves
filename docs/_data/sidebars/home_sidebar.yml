@@ -17,7 +17,7 @@ entries:
       url: effective_area.html
     - output: web,pdf
       title: GTI, or Good Time Interval
-      url: load_gti.html
+      url: gti.html
     - output: web,pdf
       title: Exposure
       url: exposure.html
@@ -31,11 +31,11 @@ entries:
       title: Cells
       url: cells.html
     - output: web,pdf
-      title: Simulation
-      url: simulation.html
-    - output: web,pdf
       title: poisson
       url: poisson.html
+    - output: web,pdf
+      title: Simulation
+      url: simulation.html
     - output: web,pdf
       title: Log Likelihood tools
       url: loglike.html

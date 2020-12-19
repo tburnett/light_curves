@@ -9,7 +9,7 @@ import pickle
 import pandas as pd
 import numpy as np
 import pyarrow.parquet as pq
-from .config import MJD, UTC
+from .config import MJD, UTC, Cache
 from .load_gti import get_gti
 
 # Cell

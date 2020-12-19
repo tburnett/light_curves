@@ -7,7 +7,7 @@ from astropy.io import fits
 import numpy as np
 import pandas as pd
 from scipy.integrate import simps
-from .config import MJD
+from .config import MJD, Cache
 
 # Cell
 def _process_ft2(config, source, ft2_file_path, gti, effective_area):

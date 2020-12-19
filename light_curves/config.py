@@ -17,8 +17,13 @@ class Cache(dict):
     """
     Manage a file cache
 
-    - `path` -- string or `filepath` object
-    - `clear` -- set True to clear the cache
+    - `path` -- string or `filepath` object <br> This is the folder where the index and data files are saved.
+    - `clear` -- set True to clear the cache on initialization
+
+    This uses pickle to save objects, associated with a hashable key, which is used to index the
+    filename in a file `index.pkl` in the same folder.
+
+    The `__call__` function is a convenient way to use it, so one call may either store a new entry or retrieve an existing one.
 
     """
 
@@ -205,10 +210,20 @@ class Config:
 
     def __post_init__(self):
         if self.files is None: self.files=Files()
-        chpath = self.files.cachepath
-        chpath.mkdir(exist_ok=True)
-        self.cache = Cache(chpath, clear=False)
-
+#         try:
+#             chpath = self.files.cachepath
+#             chpath.mkdir(exist_ok=True)
+#             self.cache = Cache(chpath, clear=False)
+#         except Exception as e:
+#             print(f'Could not create cache, {e}', file=sys.stderr)
+#             raise
+#             self.cache = None
+    @property
+    def cache(self):
+        from .config import Cache
+        if not hasattr(self, '_cache'):
+            self._cache = Cache(self.files.cachepath, clear=False)
+        return self._cache
 
     @property
     def valid(self):
@@ -217,7 +232,7 @@ class Config:
     def __str__(self):
         s = 'Configuration parameters \n'
         for name, value in self.__dict__.items():
-            if name=='files': continue
+            if name=='files' or name.startswith('_'): continue
             s += f'  {name:15s} : {value}\n'
         return s
 
