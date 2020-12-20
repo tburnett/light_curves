@@ -33,18 +33,172 @@ nb_path: "nbs/index.ipynb"
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Background">Background<a class="anchor-link" href="#Background"> </a></h2><p>This package has code that is being adapted to the <a href="https://nbdev.fast.ai/">nbdev</a> environment from <a href="https://github.com/tburnett/lat-timing">github package lat-timing</a> to manage light curves of Fermi-LAT sources.</p>
 <p>As pointed out there, it is based on a <a href="https://arxiv.org/pdf/1910.00140.pdf">paper</a> by Matthew Kerr,</p>
-<p>And at the same time, I've ported some code from  my <a href="https://github.com/tburnett/jupydoc">jupydoc</a> documention package to allow enhanced documentation combining Markdown and code. This is demonstrated below.</p>
+<p>And at the same time, I've ported some code from  my <a href="https://github.com/tburnett/jupydoc">jupydoc</a> documention package to allow enhanced documentation combining Markdown and code.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Installation">Installation<a class="anchor-link" href="#Installation"> </a></h2><p>Currently in pre-alpha, and must be cloned. But this brings up the <code>nbdev</code> stuff as well.</p>
-<h2 id="instructions-on-set-up-/-use"><a href="https://tburnett.github.io/light_curves/instructions.html">instructions</a> on set up / use<a class="anchor-link" href="#instructions-on-set-up-/-use"> </a></h2>
+<h2 id="Installation">Installation<a class="anchor-link" href="#Installation"> </a></h2><p>Currently in pre-alpha, and must be cloned. This brings up the <code>nbdev</code> stuff as well.</p>
+
 </div>
 </div>
 </div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary data-open="Hide Code" data-close="Show Code"></summary>
+        <summary></summary>
+        <div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">road_map</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ## Setup declarations</span>
+<span class="sd">    </span>
+<span class="sd">    The following describes the module `config`. The defaults are wired-in</span>
+<span class="sd">    for now, but could be obtained from an editable yaml file.</span>
+<span class="sd">    </span>
+<span class="sd">    ### config.Config -- parameters</span>
+<span class="sd">    </span>
+<span class="sd">    {config_text}</span>
+<span class="sd">    </span>
+<span class="sd">    ### config.Files -- default file paths</span>
+<span class="sd">    {files_text}</span>
+<span class="sd"> </span>
+<span class="sd">    These are dataclass classes, and can be initialized with</span>
+<span class="sd">    parameters. For example, to suppress printout </span>
+<span class="sd">        </span>
+<span class="sd">    ```</span>
+<span class="sd">    config = Config(verbose=0)</span>
+<span class="sd">    ```</span>
+<span class="sd">    </span>
+<span class="sd">    </span>
+<span class="sd">    ### config.cache -- a file cache</span>
+<span class="sd">    The class `Cache`, available from `config.cache` implements a file cache.</span>
+<span class="sd">    </span>
+<span class="sd">    {cache_text}</span>
+<span class="sd">    </span>
+
+
+<span class="sd">    </span>
+<span class="sd">    ## The light curve</span>
+<span class="sd">    </span>
+<span class="sd">    The light curve can be represented by plots of flux vs. time. The time range,</span>
+<span class="sd">    limited by &#39;config.mjd_range`, if set. The actual livetime, during which *Fermi* is</span>
+<span class="sd">    collecting data, is further limited by the GTI, for good-time interval. This is a list</span>
+<span class="sd">    of start,stop pairs.</span>
+<span class="sd">    </span>
+<span class="sd">    The module [gti](/light_curves/lgti.html) defines `get_gti`.</span>
+<span class="sd">    </span>
+<span class="sd">    During the valid times, a the flux, or rate, is estimated by counting the number </span>
+<span class="sd">    of photons and dividing by the exposure.</span>
+<span class="sd">    </span>
+<span class="sd">    The source is defined by instantiating a [PointSource(/light_curves/config#PointSource) object, defined in </span>
+<span class="sd">    </span>
+<span class="sd">    </span>
+<span class="sd">    ### Exposure</span>
+<span class="sd">    </span>
+<span class="sd">    The exposure for the specified source is calculated from the  [exposure](/light_curves/exposure.html) module,</span>
+<span class="sd">    which implements `get_exposure`. It depends on:</span>
+
+<span class="sd">    - Space craft info (FT2)</span>
+<span class="sd">    The FT2 file(s) contain spacecraft position and orientation as a function of time.</span>
+<span class="sd">    </span>
+<span class="sd">    - Efffective Area</span>
+<span class="sd">    The module [effective_area](light_curves/effective_area.html) defines the functor class</span>
+<span class="sd">    `EffectiveArea`, needed to calculate the exposure</span>
+<span class="sd">    </span>
+<span class="sd">    </span>
+<span class="sd">    ### Photon data</span>
+<span class="sd">    </span>
+<span class="sd">    ### Weights</span>
+<span class="sd">    </span>
+<span class="sd">    Each photon </span>
+<span class="sd">    </span>
+<span class="sd">    ### Cells</span>
+<span class="sd">    </span>
+<span class="sd">    A &quot;cell&quot; represents a time interval to measure the flux.</span>
+<span class="sd">    </span>
+<span class="sd">    This is where the ...</span>
+<span class="sd">    </span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">light_curves.config</span> <span class="kn">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Files</span><span class="p">,</span> <span class="n">PointSource</span>
+    <span class="kn">from</span> <span class="nn">light_curves.lightcurve</span> <span class="kn">import</span> <span class="n">get_lightcurve</span><span class="p">,</span> <span class="n">flux_plot</span>
+    
+    <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+    <span class="n">config_text</span> <span class="o">=</span> <span class="n">monospace</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="s1">&#39;config parameter list&#39;</span><span class="p">)</span>
+    <span class="n">files_text</span> <span class="o">=</span> <span class="n">monospace</span><span class="p">(</span><span class="n">Files</span><span class="p">(),</span> <span class="n">summary</span><span class="o">=</span><span class="s1">&#39;file list&#39;</span><span class="p">)</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="n">Files</span><span class="p">()</span>
+ 
+    <span class="n">cache_text</span> <span class="o">=</span> <span class="n">monospace</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">cache</span><span class="p">,</span> <span class="s1">&#39;cache contents&#39;</span> <span class="p">)</span>
+    <span class="k">assert</span> <span class="n">files</span><span class="o">.</span><span class="n">valid</span>
+    <span class="k">return</span> <span class="nb">locals</span><span class="p">()</span>
+    
+<span class="kn">from</span> <span class="nn">light_curves.config</span> <span class="kn">import</span> <span class="n">Files</span>
+<span class="k">if</span> <span class="n">Files</span><span class="p">()</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
+    <span class="n">nbdoc</span><span class="p">(</span><span class="n">road_map</span><span class="p">)</span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="Setup-declarations">Setup declarations<a class="anchor-link" href="#Setup-declarations"> </a></h2><p>The following describes the module <code>config</code>. The defaults are wired-in
+for now, but could be obtained from an editable yaml file.</p>
+<h3 id="config.Config----parameters">config.Config -- parameters<a class="anchor-link" href="#config.Config----parameters"> </a></h3><p><details class="descripton" ><summary data-open="Hide " data-close="Show "> config parameter list </summary> <p style="margin-left: 5%"><pre>Configuration parameters <br>  verbose         : 3<br>  mjd_range       : None<br>  radius          : 5<br>  cos_theta_max   : 0.4<br>  z_max           : 100<br>  time_interval   : 1<br>  nside           : 1024<br>  nest            : True<br>  bins_per_decade : 4<br>  base_spectrum   : lambda E: (E/1000)**-2.1<br>  energy_range    : (100.0, 1000000.0)<br>  likelihood_rep  : poisson<br></pre></p> </details></p>
+<h3 id="config.Files----default-file-paths">config.Files -- default file paths<a class="anchor-link" href="#config.Files----default-file-paths"> </a></h3><p><details class="descripton" ><summary data-open="Hide " data-close="Show "> file list </summary> <p style="margin-left: 5%"><pre>File paths for light curves<br>  data       : /home/burnett/data<br>  ft2        : /home/burnett/work/lat-data/ft2<br>  gti        : /home/burnett/work/lat-data/binned<br>  aeff       : /home/burnett/work/lat-data/aeff<br>  weights    : /home/burnett/onedrive/fermi/weight_files<br>  cachepath  : /tmp/lc_cache<br></pre></p> </details></p>
+<p>These are dataclass classes, and can be initialized with
+parameters. For example, to suppress printout</p>
+
+<pre><code>config = Config(verbose=0)</code></pre>
+<h3 id="config.cache----a-file-cache">config.cache -- a file cache<a class="anchor-link" href="#config.cache----a-file-cache"> </a></h3><p>The class <code>Cache</code>, available from <code>config.cache</code> implements a file cache.</p>
+<p><details class="descripton" ><summary data-open="Hide " data-close="Show "> cache contents </summary> <p style="margin-left: 5%"><pre>Cache contents<br> key                          size  time                 name, in folder /tmp/lc_cache<br>  gti                      1018319  2020-12-17 15:17     cache_file_26e0b050cac876b4.pkl<br>  exposure_Geminga        86263776  2020-12-17 15:47     cache_file_3d18a74e668c437.pkl<br>  lightcurve_Geminga      12193571  2020-12-17 15:50     cache_file_5f8c1fe2233119ff.pkl<br>  photons_3C 279           3659049  2020-12-17 15:50     cache_file_005a8b245230afe.pkl<br>  exposure_3C 279         78040992  2020-12-17 15:51     cache_file_86f97125c87ecd8.pkl<br>  lightcurve_3C 279        4687729  2020-12-17 15:51     cache_file_509522c898fe52.pkl<br>  photons_Geminga         22334705  2020-12-18 06:39     cache_file_52b89da960a98f6.pkl<br>  cells_Geminga            1500794  2020-12-18 08:48     cache_file_6f2eb7e7fa4947f8.pkl<br>  lightfcurve_Geminga     12193634  2020-12-18 09:06     cache_file_f721860d03c0aa7.pkl<br>  cells_3C 279              557725  2020-12-18 09:06     cache_file_3e45b0fd33e29f7.pkl<br>  lightfcurve_3C 279       4687739  2020-12-18 09:06     cache_file_446256afd621452.pkl<br>  binned_exposure_Geminga       64448  2020-12-19 10:39     cache_file_517bbf0830c3a4c3.pkl<br></pre></p> </details></p>
+<h2 id="The-light-curve">The light curve<a class="anchor-link" href="#The-light-curve"> </a></h2><p>The light curve can be represented by plots of flux vs. time. The time range,
+limited by 'config.mjd_range`, if set. The actual livetime, during which <em>Fermi</em> is
+collecting data, is further limited by the GTI, for good-time interval. This is a list
+of start,stop pairs.</p>
+<p>The module <a href="/light_curves/lgti.html">gti</a> defines <code>get_gti</code>.</p>
+<p>During the valid times, a the flux, or rate, is estimated by counting the number 
+of photons and dividing by the exposure.</p>
+<p>The source is defined by instantiating a [PointSource(/light_curves/config#PointSource) object, defined in</p>
+<h3 id="Exposure">Exposure<a class="anchor-link" href="#Exposure"> </a></h3><p>The exposure for the specified source is calculated from the  <a href="/light_curves/exposure.html">exposure</a> module,
+which implements <code>get_exposure</code>. It depends on:</p>
+<ul>
+<li><p>Space craft info (FT2)
+The FT2 file(s) contain spacecraft position and orientation as a function of time.</p>
+</li>
+<li><p>Efffective Area
+The module <a href="light_curves/effective_area.html">effective_area</a> defines the functor class
+<code>EffectiveArea</code>, needed to calculate the exposure</p>
+</li>
+</ul>
+<h3 id="Photon-data">Photon data<a class="anchor-link" href="#Photon-data"> </a></h3><h3 id="Weights">Weights<a class="anchor-link" href="#Weights"> </a></h3><p>Each photon</p>
+<h3 id="Cells">Cells<a class="anchor-link" href="#Cells"> </a></h3><p>A "cell" represents a time interval to measure the flux.</p>
+<p>This is where the ...</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
 </div>
  
 

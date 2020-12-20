@@ -1,6 +1,6 @@
 ---
 
-title: Instructions
+title: Road Map
 
 
 keywords: fastai
@@ -53,12 +53,21 @@ nb_path: "nbs/12_roadmap.ipynb"
 <span class="sd">    ### config.Files -- default file paths</span>
 <span class="sd">    {files_text}</span>
 <span class="sd"> </span>
-<span class="sd">    The these are dataclass classes, and can be initialized with</span>
+<span class="sd">    These are dataclass classes, and can be initialized with</span>
 <span class="sd">    parameters. For example, to suppress printout </span>
-<span class="sd">    </span>
+<span class="sd">        </span>
 <span class="sd">    ```</span>
 <span class="sd">    config = Config(verbose=0)</span>
 <span class="sd">    ```</span>
+<span class="sd">    </span>
+<span class="sd">    </span>
+<span class="sd">    ### config.cache -- a file cache</span>
+<span class="sd">    The class `Cache`, available from `config.cache` implements a file cache.</span>
+<span class="sd">    </span>
+<span class="sd">    {cache_text}</span>
+<span class="sd">    </span>
+
+
 <span class="sd">    </span>
 <span class="sd">    ## The light curve</span>
 <span class="sd">    </span>
@@ -67,7 +76,7 @@ nb_path: "nbs/12_roadmap.ipynb"
 <span class="sd">    collecting data, is further limited by the GTI, for good-time interval. This is a list</span>
 <span class="sd">    of start,stop pairs.</span>
 <span class="sd">    </span>
-<span class="sd">    The module [load_gti](/light_curves/load_gti.html) defines `get_gti`.</span>
+<span class="sd">    The module [gti](/light_curves/lgti.html) defines `get_gti`.</span>
 <span class="sd">    </span>
 <span class="sd">    During the valid times, a the flux, or rate, is estimated by counting the number </span>
 <span class="sd">    of photons and dividing by the exposure.</span>
@@ -106,9 +115,11 @@ nb_path: "nbs/12_roadmap.ipynb"
     <span class="kn">from</span> <span class="nn">light_curves.lightcurve</span> <span class="kn">import</span> <span class="n">get_lightcurve</span><span class="p">,</span> <span class="n">flux_plot</span>
     
     <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
-    <span class="n">config_text</span> <span class="o">=</span> <span class="n">monospace</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
-    <span class="n">files_text</span> <span class="o">=</span> <span class="n">monospace</span><span class="p">(</span><span class="n">Files</span><span class="p">())</span>
+    <span class="n">config_text</span> <span class="o">=</span> <span class="n">monospace</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="s1">&#39;config parameter list&#39;</span><span class="p">)</span>
+    <span class="n">files_text</span> <span class="o">=</span> <span class="n">monospace</span><span class="p">(</span><span class="n">Files</span><span class="p">(),</span> <span class="n">summary</span><span class="o">=</span><span class="s1">&#39;file list&#39;</span><span class="p">)</span>
     <span class="n">files</span> <span class="o">=</span> <span class="n">Files</span><span class="p">()</span>
+ 
+    <span class="n">cache_text</span> <span class="o">=</span> <span class="n">monospace</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">cache</span><span class="p">,</span> <span class="s1">&#39;cache contents&#39;</span> <span class="p">)</span>
     <span class="k">assert</span> <span class="n">files</span><span class="o">.</span><span class="n">valid</span>
     <span class="k">return</span> <span class="nb">locals</span><span class="p">()</span>
     
@@ -131,10 +142,14 @@ nb_path: "nbs/12_roadmap.ipynb"
 <div class="output_markdown rendered_html output_subarea ">
 <h2 id="Setup-declarations">Setup declarations<a class="anchor-link" href="#Setup-declarations"> </a></h2><p>The following describes the module <code>config</code>. The defaults are wired-in
 for now, but could be obtained from an editable yaml file.</p>
-<h3 id="config.Config----parameters">config.Config -- parameters<a class="anchor-link" href="#config.Config----parameters"> </a></h3><p style="margin-left: 5%"><pre>Configuration parameters <br>  verbose         : 3<br>  use_cache       : True<br>  mjd_range       : None<br>  radius          : 5<br>  cos_theta_max   : 0.4<br>  z_max           : 100<br>  time_interval   : 1<br>  nside           : 1024<br>  nest            : True<br>  bins_per_decade : 4<br>  base_spectrum   : lambda E: (E/1000)**-2.1<br>  energy_range    : (100.0, 1000000.0)<br>  likelihood_rep  : poisson<br></pre></p><h3 id="config.Files----default-file-paths">config.Files -- default file paths<a class="anchor-link" href="#config.Files----default-file-paths"> </a></h3><p style="margin-left: 5%"><pre>File paths for light curves<br>  data       : /home/burnett/data<br>  ft2        : /home/burnett/work/lat-data/ft2<br>  gti        : /home/burnett/work/lat-data/binned<br>  aeff       : /home/burnett/work/lat-data/aeff<br>  weights    : /home/burnett/onedrive/fermi/weight_files<br>  cachepath  : /tmp/lc_cache<br>  cache      : {'photons_Geminga': Path('/tmp/lc_cache/cache_file_445c4f372e9ef6e6.pkl'), 'exposure_Geminga': Path('/tmp/lc_cache/cache_file_x7cd9b688ac424ae8.pkl'), 'lightcurve_Geminga': Path('/tmp/lc_cache/cache_file_x212414fb86e54e35.pkl'), 'photons_3C 279': Path('/tmp/lc_cache/cache_file_x60b03fd56aad4b.pkl'), 'exposure_3C 279': Path('/tmp/lc_cache/cache_file_x2dee3558c500d13a.pkl'), 'lightcurve_3C 279': Path('/tmp/lc_cache/cache_file_x4ce10d420e3dce7a.pkl')}<br></pre></p><p>The these are dataclass classes, and can be initialized with
+<h3 id="config.Config----parameters">config.Config -- parameters<a class="anchor-link" href="#config.Config----parameters"> </a></h3><p><details class="descripton" ><summary data-open="Hide " data-close="Show "> config parameter list </summary> <p style="margin-left: 5%"><pre>Configuration parameters <br>  verbose         : 3<br>  mjd_range       : None<br>  radius          : 5<br>  cos_theta_max   : 0.4<br>  z_max           : 100<br>  time_interval   : 1<br>  nside           : 1024<br>  nest            : True<br>  bins_per_decade : 4<br>  base_spectrum   : lambda E: (E/1000)**-2.1<br>  energy_range    : (100.0, 1000000.0)<br>  likelihood_rep  : poisson<br></pre></p> </details></p>
+<h3 id="config.Files----default-file-paths">config.Files -- default file paths<a class="anchor-link" href="#config.Files----default-file-paths"> </a></h3><p><details class="descripton" ><summary data-open="Hide " data-close="Show "> file list </summary> <p style="margin-left: 5%"><pre>File paths for light curves<br>  data       : /home/burnett/data<br>  ft2        : /home/burnett/work/lat-data/ft2<br>  gti        : /home/burnett/work/lat-data/binned<br>  aeff       : /home/burnett/work/lat-data/aeff<br>  weights    : /home/burnett/onedrive/fermi/weight_files<br>  cachepath  : /tmp/lc_cache<br></pre></p> </details></p>
+<p>These are dataclass classes, and can be initialized with
 parameters. For example, to suppress printout</p>
 
 <pre><code>config = Config(verbose=0)</code></pre>
+<h3 id="config.cache----a-file-cache">config.cache -- a file cache<a class="anchor-link" href="#config.cache----a-file-cache"> </a></h3><p>The class <code>Cache</code>, available from <code>config.cache</code> implements a file cache.</p>
+<p><details class="descripton" ><summary data-open="Hide " data-close="Show "> cache contents </summary> <p style="margin-left: 5%"><pre>Cache contents<br> key                          size  time                 name, in folder /tmp/lc_cache<br>  gti                      1018319  2020-12-17 15:17     cache_file_26e0b050cac876b4.pkl<br>  exposure_Geminga        86263776  2020-12-17 15:47     cache_file_3d18a74e668c437.pkl<br>  lightcurve_Geminga      12193571  2020-12-17 15:50     cache_file_5f8c1fe2233119ff.pkl<br>  photons_3C 279           3659049  2020-12-17 15:50     cache_file_005a8b245230afe.pkl<br>  exposure_3C 279         78040992  2020-12-17 15:51     cache_file_86f97125c87ecd8.pkl<br>  lightcurve_3C 279        4687729  2020-12-17 15:51     cache_file_509522c898fe52.pkl<br>  photons_Geminga         22334705  2020-12-18 06:39     cache_file_52b89da960a98f6.pkl<br>  cells_Geminga            1500794  2020-12-18 08:48     cache_file_6f2eb7e7fa4947f8.pkl<br>  lightfcurve_Geminga     12193634  2020-12-18 09:06     cache_file_f721860d03c0aa7.pkl<br>  cells_3C 279              557725  2020-12-18 09:06     cache_file_3e45b0fd33e29f7.pkl<br>  lightfcurve_3C 279       4687739  2020-12-18 09:06     cache_file_446256afd621452.pkl<br>  binned_exposure_Geminga       64448  2020-12-19 10:39     cache_file_517bbf0830c3a4c3.pkl<br></pre></p> </details></p>
 <h2 id="The-light-curve">The light curve<a class="anchor-link" href="#The-light-curve"> </a></h2><p>The light curve can be represented by plots of flux vs. time. The time range,
 limited by 'config.mjd_range`, if set. The actual livetime, during which <em>Fermi</em> is
 collecting data, is further limited by the GTI, for good-time interval. This is a list

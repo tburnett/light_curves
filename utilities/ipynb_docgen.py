@@ -424,7 +424,7 @@ def nbdoc(fun, *pars, name=None, **kwargs):
     # check location. Expect the
     if os.path.isdir('docs'):
         # in the root
-        folders = ['docs']
+        folders = ['.', 'docs']
     elif os.path.isdir('../docs'):
         folders = ['.', '../docs']
     else:

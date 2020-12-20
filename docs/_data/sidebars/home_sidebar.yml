@@ -43,7 +43,7 @@ entries:
       title: Simulation
       url: simulation.html
     - output: web,pdf
-      title: Instructions
+      title: Road Map
       url: roadmap.html
     - output: web,pdf
       title: Kerr Comparison

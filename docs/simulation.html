@@ -33,7 +33,7 @@ nb_path: "nbs/10_simulation.ipynb"
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Implemented here:</p>
 <ul>
-<li><a href="/light_curves/simulation.html#generate_lightcurve"><code>generate_lightcurve</code></a></li>
+<li><code>generate_lightcurve</code></li>
 </ul>
 
 </div>
@@ -49,54 +49,6 @@ nb_path: "nbs/10_simulation.ipynb"
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h2 id="Sampler" class="doc_header"><code>class</code> <code>Sampler</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/simulation.py#L14" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Sampler</code>(<strong><code>func</code></strong>, <strong><code>limits</code></strong>=<em><code>(0, 1)</code></em>, <strong><code>n</code></strong>=<em><code>100</code></em>)</p>
-</blockquote>
-<p>Sample an arbitrary function or histogram</p>
-<ul>
-<li>func -- the function, or a histogram</li>
-<li>a,b  -- limits (default 0,1)</li>
-<li>n    -- table size (ignored if a histogram)</li>
-</ul>
-<p>Note the property <code>mean</code> is the expected mean.</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">Sampler</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
     {% endraw %}
@@ -115,49 +67,20 @@ nb_path: "nbs/10_simulation.ipynb"
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">20</span>
-<span class="n">sf</span> <span class="o">=</span> <span class="n">Sampler</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="n">limits</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="p">)</span>
+<span class="n">sf</span> <span class="o">=</span> <span class="n">_Sampler</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="n">limits</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="p">)</span>
 
 <span class="n">data</span> <span class="o">=</span> <span class="n">sf</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
 <span class="n">tests</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">mean</span><span class="p">()),</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">])</span>
 <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">tests</span><span class="o">&lt;</span><span class="mf">5e-2</span> <span class="p">),</span> <span class="sa">f</span><span class="s1">&#39;Failed Tests: mean </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">}</span><span class="s1">, std </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span>
 
 <span class="n">func</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
-<span class="n">wfun</span> <span class="o">=</span> <span class="n">Sampler</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+<span class="n">wfun</span> <span class="o">=</span> <span class="n">_Sampler</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
 
 <span class="n">test2</span> <span class="o">=</span> <span class="n">wfun</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span>  <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">wfun</span><span class="p">(</span><span class="mi">1000</span><span class="p">))</span>
 <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span> <span class="n">test2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">test2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-1</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Not almost equal: </span><span class="si">{</span><span class="n">test2</span><span class="si">}</span><span class="s1">&#39;</span>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h2 id="WeightGenerator" class="doc_header"><code>class</code> <code>WeightGenerator</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/simulation.py#L54" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>WeightGenerator</code>(<strong><code>func</code></strong>, <strong><code>alpha</code></strong>=<em><code>0</code></em>, <strong><code>beta</code></strong>=<em><code>0</code></em>, <strong><code>n</code></strong>=<em><code>100</code></em>) :: <a href="/light_curves/simulation.html#Sampler"><code>Sampler</code></a></p>
-</blockquote>
-<p>Generate a set of weights</p>
-<ul>
-<li><code>func</code> -- nominal weight distribution function, evaluated on (0,1)</li>
-<li><code>alpha, beta</code> -- (default 0,0). Values for $\alpha$, $\beta$.</li>
-</ul>
-
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -179,7 +102,7 @@ nb_path: "nbs/10_simulation.ipynb"
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span>      
-<span class="n">wg</span> <span class="o">=</span> <span class="n">WeightGenerator</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+<span class="n">wg</span> <span class="o">=</span> <span class="n">_WeightGenerator</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
 <span class="n">test2</span> <span class="o">=</span> <span class="n">wg</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span>  <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">wg</span><span class="p">(</span><span class="mi">1000</span><span class="p">))</span>
 <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span> <span class="n">test2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">test2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-1</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Not almost equal: </span><span class="si">{</span><span class="n">test2</span><span class="si">}</span><span class="s1">&#39;</span>
 </pre></div>
@@ -209,7 +132,7 @@ nb_path: "nbs/10_simulation.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="generate_cell" class="doc_header"><code>generate_cell</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/simulation.py#L71" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>generate_cell</code>(<strong><code>wfun</code></strong>, <strong><code>mu</code></strong>, <strong><code>alpha</code></strong>=<em><code>0</code></em>, <strong><code>beta</code></strong>=<em><code>0</code></em>)</p>
+<h4 id="generate_cell" class="doc_header"><code>generate_cell</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/simulation.py#L74" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>generate_cell</code>(<strong><code>wfun</code></strong>, <strong><code>mu</code></strong>, <strong><code>alpha</code></strong>=<em><code>0</code></em>, <strong><code>beta</code></strong>=<em><code>0</code></em>)</p>
 </blockquote>
 <p>Generate a cell</p>
 <ul>
@@ -293,11 +216,11 @@ nb_path: "nbs/10_simulation.ipynb"
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Test with alpha=0.1, beta=None
 Generated cell info:
-light_curves.loglike.LogLike:  10435 weights, S 4998.5, B 5001.5
+light_curves.loglike.LogLike:  10476 weights, S 4998.5, B 5001.5
 1-D fit info:
-counts      10435.000
-flux            1.084
-sig_flux        0.016
+counts      10476.000
+flux            1.118
+sig_flux        0.017
 dtype: float64
 </pre>
 </div>
@@ -313,6 +236,13 @@ dtype: float64
     
 <div class="cell border-box-sizing code_cell rendered">
 
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 <div class="output_wrapper">
 <div class="output">
 
@@ -320,12 +250,12 @@ dtype: float64
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="generate_lightcurve" class="doc_header"><code>generate_lightcurve</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/simulation.py#L107" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>generate_lightcurve</code>()</p>
+<h4 id="generate_cells" class="doc_header"><code>generate_cells</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/simulation.py#L111" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>generate_cells</code>(<strong><code>config</code></strong>, <strong><code>source</code></strong>, <strong><code>wfun</code></strong>, <strong><code>source_flux</code></strong>)</p>
 </blockquote>
-<p>Depends on</p>
 <ul>
-<li>time_bins</li>
-<li>exposure -- function of time that returns</li>
+<li><code>source</code> -- a PointSource object, use to get exposure at its position</li>
+<li><code>wfun</code>   -- a weight function or histogram</li>
+<li><code>flux_fun</code> -- function of MJD time for the counts/day</li>
 </ul>
 
 </div>
@@ -334,13 +264,6 @@ dtype: float64
 
 </div>
 </div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -354,197 +277,112 @@ dtype: float64
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary data-open="Hide Code" data-close="Show Code"></summary>
+        <summary></summary>
+        <div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">wfun</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
-<span class="n">mu</span> <span class="o">=</span> <span class="mi">100</span>
-<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.1</span>
-<span class="n">N</span> <span class="o">=</span> <span class="mi">10000</span>
-<span class="k">def</span> <span class="nf">generate_cells</span><span class="p">(</span><span class="n">wfun</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
-    <span class="k">return</span>  <span class="p">[</span><span class="n">generate_cell</span><span class="p">(</span> <span class="n">wfun</span><span class="p">,</span> <span class="n">mu</span> <span class="p">,</span><span class="n">alpha</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)]</span>
-<span class="n">cells</span> <span class="o">=</span>  <span class="n">generate_cells</span><span class="p">(</span><span class="n">wfun</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
-</pre></div>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">simulation_test</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ## Test the cell creation</span>
+<span class="sd">    </span>
+<span class="sd">    Generate {N} cells with the function {wfun}</span>
 
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
+<span class="sd">    The &quot;pulls&quot;</span>
+<span class="sd">    {fig1}</span>
+<span class="sd">    </span>
+<span class="sd">    A better measure of the shape is to evaluate the cumulative probability of the over-all mean</span>
+<span class="sd">    for each likelihood function</span>
+<span class="sd">    {fig2}</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
     
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+    <span class="n">wfun</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">mu</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="mi">10000</span>
+    <span class="k">def</span> <span class="nf">generate_cells</span><span class="p">(</span><span class="n">wfun</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+        <span class="k">return</span>  <span class="p">[</span><span class="n">generate_cell</span><span class="p">(</span> <span class="n">wfun</span><span class="p">,</span> <span class="n">mu</span> <span class="p">,</span><span class="n">alpha</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)]</span>
+    <span class="n">cells</span> <span class="o">=</span>  <span class="n">generate_cells</span><span class="p">(</span><span class="n">wfun</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
 
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pfits</span>  <span class="o">=</span> <span class="p">[</span><span class="n">PoissonRep</span><span class="p">(</span><span class="n">LogLike</span><span class="p">(</span><span class="n">cell</span> <span class="p">))</span> <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">cells</span><span class="p">]</span>
+    <span class="n">pfits</span>  <span class="o">=</span> <span class="p">[</span><span class="n">PoissonRep</span><span class="p">(</span><span class="n">LogLike</span><span class="p">(</span><span class="n">cell</span> <span class="p">))</span> <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">cells</span><span class="p">]</span>
+
+    <span class="n">flux</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">flux</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pfits</span><span class="p">]);</span> 
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Flux: mean, std: </span><span class="si">{</span><span class="n">flux</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">flux</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">fmean</span> <span class="o">=</span> <span class="mi">1</span><span class="o">+</span><span class="n">alpha</span>
+    <span class="k">def</span> <span class="nf">pull</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+        <span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>  <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">flux</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">errors</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="n">h</span><span class="o">-</span><span class="n">l</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">f</span><span class="o">-</span><span class="n">fmean</span><span class="p">)</span><span class="o">/</span><span class="n">s</span>
+    <span class="n">pulls</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">pull</span><span class="p">,</span> <span class="n">pfits</span><span class="p">)))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39; pull: mean, std: </span><span class="si">{</span><span class="n">pulls</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">pulls</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;font&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+    <span class="n">fig1</span><span class="p">,</span><span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">num</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">pulls</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;step&#39;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span><span class="kc">None</span><span class="p">),</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;pull&#39;</span><span class="p">);</span> 
+    <span class="n">ax1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">CDF</span><span class="p">():</span>
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="mi">1</span><span class="o">+</span><span class="n">alpha</span>
+        <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">p</span><span class="o">.</span><span class="n">poiss</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">cdf</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">fmean</span><span class="o">=</span><span class="mf">1.1</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">p</span><span class="o">.</span><span class="n">poiss</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">fmean</span><span class="p">)</span>
+
+    <span class="c1">#</span>
+    <span class="n">cd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">CDF</span><span class="p">(</span><span class="n">alpha</span><span class="p">),</span> <span class="n">pfits</span><span class="p">)))</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">num</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">cd</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">),</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;step&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;probability&#39;</span><span class="p">)</span>
+                            
+    <span class="n">fig2</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">locals</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
+    <span class="n">nbdoc</span><span class="p">(</span><span class="n">simulation_test</span><span class="p">)</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">flux</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">flux</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pfits</span><span class="p">]);</span> 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Flux: mean, std: </span><span class="si">{</span><span class="n">flux</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">flux</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Flux: mean, std: 1.101, 0.165
+<pre>Flux: mean, std: 2.994, 0.260
+ pull: mean, std: -0.066, 1.008
 </pre>
 </div>
 </div>
 
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fmean</span> <span class="o">=</span> <span class="mi">1</span><span class="o">+</span><span class="n">alpha</span>
-<span class="k">def</span> <span class="nf">pull</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
-    <span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>  <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">flux</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">errors</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="n">h</span><span class="o">-</span><span class="n">l</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">f</span><span class="o">-</span><span class="n">fmean</span><span class="p">)</span><span class="o">/</span><span class="n">s</span>
-<span class="n">pulls</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">pull</span><span class="p">,</span> <span class="n">pfits</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39; pull: mean, std: </span><span class="si">{</span><span class="n">pulls</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">pulls</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre> pulls: mean, std: -0.061, 1.015
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">pull</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;step&#39;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span><span class="kc">None</span><span class="p">),</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;pull&#39;</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
 <div class="output_area">
 
 
-
-<div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
-"
->
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="Test-the-cell-creation">Test the cell creation<a class="anchor-link" href="#Test-the-cell-creation"> </a></h2><p>Generate 10000 cells with the function &lt;function simulation_test.<locals>.<lambda> at 0x7f41b96cff80&gt;</p>
+<p>The "pulls"</p>
+<div class="nbdoc_image">
+<a href="images/simulation_test_fig_01.png"><figure style="margin-left: 5%">
+   <img src="images/simulation_test_fig_01.png" alt="Figure 1 at images/simulation_test_fig_01.png" > 
+</figure></a></div><p>A better measure of the shape is to evaluate the cumulative probability of the over-all mean
+for each likelihood function</p>
+<div class="nbdoc_image">
+<a href="images/simulation_test_fig_03.png"><figure style="margin-left: 5%">
+   <img src="images/simulation_test_fig_03.png" alt="Figure 3 at images/simulation_test_fig_03.png" width=400> 
+</figure></a></div>
 </div>
 
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Compare observed std with means</p>
-
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">uppers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">errors</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">p</span><span class="o">.</span><span class="n">flux</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pfits</span><span class="p">])</span>
-<span class="n">lowers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">flux</span> <span class="o">-</span> <span class="n">p</span><span class="o">.</span><span class="n">errors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pfits</span><span class="p">])</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;mean errors: </span><span class="si">{</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">uppers</span><span class="p">)</span><span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">lowers</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">, STD: </span><span class="si">{</span><span class="n">flux</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> &#39;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>mean errors: 0.165, STD: 0.166 
-</pre>
-</div>
 </div>
 
 </div>
@@ -556,158 +394,64 @@ dtype: float64
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary data-open="Hide Code" data-close="Show Code"></summary>
+        <summary></summary>
+        <div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">pfits</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">p</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">simulation_lightcurve_demo</span><span class="p">(</span><span class="n">source_name</span><span class="o">=</span><span class="s1">&#39;Geminga&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ### Lightcurve generation test</span>
+<span class="sd">    </span>
+<span class="sd">    This uses the exposure measured for the source {source_name}, and</span>
+<span class="sd">    the default time bins to create a light curve assuming a fixed flux</span>
+<span class="sd">    and a weight function like that for the source. </span>
+<span class="sd">    </span>
+<span class="sd">    {output}</span>
+<span class="sd">    </span>
+<span class="sd">    {fig}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">source</span> <span class="o">=</span> <span class="n">PointSource</span><span class="p">(</span><span class="s1">&#39;Geminga&#39;</span><span class="p">)</span>
+    
+    <span class="n">wfun</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mf">0.3</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+
+    <span class="k">with</span> <span class="n">capture_print</span><span class="p">(</span><span class="s1">&#39;Print out&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">output</span><span class="p">:</span>
+        <span class="n">cells</span> <span class="o">=</span>  <span class="n">generate_cells</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">wfun</span><span class="p">,</span> 
+                        <span class="n">source_flux</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="mi">100</span><span class="p">)</span>
+
+        <span class="n">fits</span> <span class="o">=</span> <span class="n">fit_cells</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">cells</span><span class="p">)</span>
+    
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">flux_plot</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">fits</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="nb">locals</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
+    <span class="n">nbdoc</span><span class="p">(</span><span class="n">simulation_lightcurve_demo</span><span class="p">)</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
 <div class="output_area">
 
 
-
-<div class="output_text output_subarea output_execute_result">
-<pre>  1.330[1+0.131-0.142], &lt; 1.67</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">CDF</span><span class="p">():</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="mi">1</span><span class="o">+</span><span class="n">alpha</span>
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">p</span><span class="o">.</span><span class="n">poiss</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">cdf</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">fmean</span><span class="o">=</span><span class="mf">1.1</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">p</span><span class="o">.</span><span class="n">poiss</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">fmean</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">CDF</span><span class="p">(</span><span class="mf">0.1</span><span class="p">),</span> <span class="n">pfits</span><span class="p">)))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">cd</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">),</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;step&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">);</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
-"
->
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">CDF</span><span class="p">(</span><span class="mf">0.11</span><span class="p">),</span> <span class="n">pfits</span><span class="p">)))</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">cd</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">),</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;step&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">);</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
-"
->
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">CDF</span><span class="p">(</span><span class="mf">1.12</span><span class="p">),</span> <span class="n">pfits</span><span class="p">)))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">cd</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">),</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;step&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">);</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
-"
->
+<div class="output_markdown rendered_html output_subarea ">
+<h3 id="Lightcurve-generation-test">Lightcurve generation test<a class="anchor-link" href="#Lightcurve-generation-test"> </a></h3><p>This uses the exposure measured for the source Geminga, and
+the default time bins to create a light curve assuming a fixed flux
+and a weight function like that for the source.</p>
+<p><details class="descripton" ><summary data-open="Hide " data-close="Show "> Print out </summary> <p style="margin-left: 5%"><pre>binned exposure for source Geminga: Restoring from cache with key "binned_exposure_Geminga"<br>Loaded 3873 / 4015 cells with exposure > 0.3 for fitting<br></pre></p> </details></p>
+<div class="nbdoc_image">
+<a href="images/simulation_lightcurve_demo_fig_01.png"><figure style="margin-left: 5%">
+   <img src="images/simulation_lightcurve_demo_fig_01.png" alt="Figure 1 at images/simulation_lightcurve_demo_fig_01.png" width=500> 
+</figure></a></div>
 </div>
 
 </div>
