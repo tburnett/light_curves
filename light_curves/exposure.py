@@ -7,7 +7,10 @@ from astropy.io import fits
 import numpy as np
 import pandas as pd
 from scipy.integrate import simps
-from .config import MJD, Cache
+
+from .config import *
+from .load_gti import get_gti
+from .effective_area import EffectiveArea
 
 # Cell
 def get_default_bins(config, exposure):
@@ -147,8 +150,7 @@ def get_exposure(config,  source, gti_key='gti'):
     """Return the exposure for the source
 
     """
-    from  light_curves.load_gti import get_gti
-    from .effective_area import EffectiveArea
+
 
 
 
@@ -170,7 +172,6 @@ def get_exposure(config,  source, gti_key='gti'):
 
 
 # Cell
-from .config import day
 def get_contiguous_exposure(exposure, max_interval=10, verbose=0 ):
     """Combine exposure intervals from an exposure dataframe
     return array of (start, stop) pairs

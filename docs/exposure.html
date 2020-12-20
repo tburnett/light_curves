@@ -55,7 +55,7 @@ nb_path: "nbs/03_exposure.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_default_bins" class="doc_header"><code>get_default_bins</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/exposure.py#L13" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_default_bins</code>(<strong><code>config</code></strong>, <strong><code>exposure</code></strong>)</p>
+<h4 id="get_default_bins" class="doc_header"><code>get_default_bins</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/exposure.py#L16" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_default_bins</code>(<strong><code>config</code></strong>, <strong><code>exposure</code></strong>)</p>
 </blockquote>
 <p>set up default bins from exposure; and config.mjd_range if set.</p>
 <p>adjust stop to come out even,    round to whole day</p>
@@ -102,7 +102,7 @@ nb_path: "nbs/03_exposure.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_exposure" class="doc_header"><code>get_exposure</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/exposure.py#L146" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_exposure</code>(<strong><code>config</code></strong>, <strong><code>source</code></strong>, <strong><code>gti_key</code></strong>=<em><code>'gti'</code></em>)</p>
+<h4 id="get_exposure" class="doc_header"><code>get_exposure</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/exposure.py#L149" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_exposure</code>(<strong><code>config</code></strong>, <strong><code>source</code></strong>, <strong><code>gti_key</code></strong>=<em><code>'gti'</code></em>)</p>
 </blockquote>
 <p>Return the exposure for the source</p>
 
@@ -200,7 +200,7 @@ Exposure for Geminga:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_contiguous_exposure" class="doc_header"><code>get_contiguous_exposure</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/exposure.py#L174" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_contiguous_exposure</code>(<strong><code>exposure</code></strong>, <strong><code>max_interval</code></strong>=<em><code>10</code></em>, <strong><code>verbose</code></strong>=<em><code>0</code></em>)</p>
+<h4 id="get_contiguous_exposure" class="doc_header"><code>get_contiguous_exposure</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/exposure.py#L175" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_contiguous_exposure</code>(<strong><code>exposure</code></strong>, <strong><code>max_interval</code></strong>=<em><code>10</code></em>, <strong><code>verbose</code></strong>=<em><code>0</code></em>)</p>
 </blockquote>
 <p>Combine exposure intervals from an exposure dataframe
 return array of (start, stop) pairs</p>
@@ -233,7 +233,7 @@ return array of (start, stop) pairs</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_binned_exposure" class="doc_header"><code>get_binned_exposure</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/exposure.py#L197" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_binned_exposure</code>(<strong><code>config</code></strong>, <strong><code>source</code></strong>, <strong><code>time_bins</code></strong>=<em><code>None</code></em>, <strong><code>key</code></strong>=<em><code>''</code></em>, <strong><code>gti_key</code></strong>=<em><code>'gti'</code></em>)</p>
+<h4 id="get_binned_exposure" class="doc_header"><code>get_binned_exposure</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/exposure.py#L198" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_binned_exposure</code>(<strong><code>config</code></strong>, <strong><code>source</code></strong>, <strong><code>time_bins</code></strong>=<em><code>None</code></em>, <strong><code>key</code></strong>=<em><code>''</code></em>, <strong><code>gti_key</code></strong>=<em><code>'gti'</code></em>)</p>
 </blockquote>
 <p>Calculate integrated exposures per bin</p>
 <ul>

@@ -59,9 +59,7 @@ likelihoods for a set of sequential cells. There are two such, using the number 
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">light_curves.config</span> <span class="kn">import</span> <span class="o">*</span>
-
-<span class="n">lcs</span> <span class="o">=</span><span class="p">{}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lcs</span> <span class="o">=</span><span class="p">{}</span>
 <span class="k">def</span> <span class="nf">data_setup</span><span class="p">(</span><span class="n">lcs</span> <span class="o">=</span> <span class="n">lcs</span><span class="p">,</span> <span class="n">mjd_query</span><span class="o">=</span><span class="s1">&#39;54750&lt;t&lt;54855&#39;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Geminga&#39;</span><span class="p">,</span><span class="s1">&#39;3C 279&#39;</span><span class="p">]):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    ## Generate data sets for an AGN and a pulsar</span>
@@ -146,7 +144,7 @@ likelihoods for a set of sequential cells. There are two such, using the number 
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="CountFitness" class="doc_header"><code>class</code> <code>CountFitness</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/bayesian.py#L15" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>CountFitness</code>(<strong><code>lc</code></strong>, <strong><code>p0</code></strong>=<em><code>0.05</code></em>) :: <code>FitnessFunc</code></p>
+<h2 id="CountFitness" class="doc_header"><code>class</code> <code>CountFitness</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/bayesian.py#L17" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>CountFitness</code>(<strong><code>lc</code></strong>, <strong><code>p0</code></strong>=<em><code>0.05</code></em>) :: <code>FitnessFunc</code></p>
 </blockquote>
 <p>Adapted version of a astropy.stats.bayesian_blocks.FitnessFunc
 Considerably modified to give the <code>fitness function</code> access to the cell data.</p>
@@ -223,7 +221,7 @@ Considerably modified to give the <code>fitness function</code> access to the ce
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="LikelihoodFitness" class="doc_header"><code>class</code> <code>LikelihoodFitness</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/bayesian.py#L119" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>LikelihoodFitness</code>(<strong><code>lc</code></strong>, <strong><code>p0</code></strong>=<em><code>0.05</code></em>, <strong><code>npt</code></strong>=<em><code>25</code></em>) :: <a href="/light_curves/bayesian.html#CountFitness"><code>CountFitness</code></a></p>
+<h2 id="LikelihoodFitness" class="doc_header"><code>class</code> <code>LikelihoodFitness</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/bayesian.py#L121" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>LikelihoodFitness</code>(<strong><code>lc</code></strong>, <strong><code>p0</code></strong>=<em><code>0.05</code></em>, <strong><code>npt</code></strong>=<em><code>25</code></em>) :: <a href="/light_curves/bayesian.html#CountFitness"><code>CountFitness</code></a></p>
 </blockquote>
 <p>Fitness function that uses the full likelihood</p>
 
@@ -271,7 +269,7 @@ Considerably modified to give the <code>fitness function</code> access to the ce
 <h3 id="LikelihoodFitness-test-with-source-Geminga">LikelihoodFitness test with source Geminga<a class="anchor-link" href="#LikelihoodFitness-test-with-source-Geminga"> </a></h3><p>Create object: <code>bbfitter = LikelihoodFitness(lc)</code></p>
 <p>Object description:   LikelihoodFitness: 105 cells,  prior=4.9</p>
 <p>Then <code>bbfitter(10)</code> returns the values
-    [-4. -4. -2. -2. -1. -1. -0. -0. -0. -0. -0.]</p>
+    [-4.4 -4.  -1.6 -1.6 -1.4 -1.3 -0.5 -0.5 -0.4 -0.3 -0. ]</p>
 <p>Finally, the partition algorithm, 'bbfitter.fit()' returns [54750. 54793. 54855.]</p>
 
 </div>
@@ -285,7 +283,7 @@ Considerably modified to give the <code>fitness function</code> access to the ce
 <h3 id="LikelihoodFitness-test-with-source-3C-279">LikelihoodFitness test with source 3C 279<a class="anchor-link" href="#LikelihoodFitness-test-with-source-3C-279"> </a></h3><p>Create object: <code>bbfitter = LikelihoodFitness(lc)</code></p>
 <p>Object description:   LikelihoodFitness: 105 cells,  prior=4.9</p>
 <p>Then <code>bbfitter(10)</code> returns the values
-    [-9. -9. -8. -7. -6. -6. -5. -4. -3. -3. -0.]</p>
+    [-8.6 -8.5 -8.4 -7.3 -5.8 -5.8 -4.8 -3.6 -3.  -2.6 -0. ]</p>
 <p>Finally, the partition algorithm, 'bbfitter.fit()' returns [54750. 54779. 54785. 54789. 54809. 54827. 54843. 54855.]</p>
 
 </div>
@@ -309,7 +307,7 @@ Considerably modified to give the <code>fitness function</code> access to the ce
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_bb_partition" class="doc_header"><code>get_bb_partition</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/bayesian.py#L154" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_bb_partition</code>(<strong><code>config</code></strong>, <strong><code>lc</code></strong>, <strong><code>fitness_class</code></strong>=<em><code>LikelihoodFitness</code></em>, <strong><code>p0</code></strong>=<em><code>0.05</code></em>)</p>
+<h4 id="get_bb_partition" class="doc_header"><code>get_bb_partition</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/bayesian.py#L156" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_bb_partition</code>(<strong><code>config</code></strong>, <strong><code>lc</code></strong>, <strong><code>fitness_class</code></strong>=<em><code>LikelihoodFitness</code></em>, <strong><code>p0</code></strong>=<em><code>0.05</code></em>)</p>
 </blockquote>
 <p>Perform Bayesian Block partition of the cells found in a light curve</p>
 <ul>
@@ -444,7 +442,7 @@ Considerably modified to give the <code>fitness function</code> access to the ce
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="bb_overplot" class="doc_header"><code>bb_overplot</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/bayesian.py#L176" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>bb_overplot</code>(<strong><code>config</code></strong>, <strong><code>lc</code></strong>, <strong><code>bb_fit</code></strong>, <strong><code>ax</code></strong>)</p>
+<h4 id="bb_overplot" class="doc_header"><code>bb_overplot</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/bayesian.py#L178" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>bb_overplot</code>(<strong><code>config</code></strong>, <strong><code>lc</code></strong>, <strong><code>bb_fit</code></strong>, <strong><code>ax</code></strong>)</p>
 </blockquote>
 
 </div>

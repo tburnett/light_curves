@@ -43,14 +43,14 @@ entries:
       title: Simulation
       url: simulation.html
     - output: web,pdf
-      title: Road Map
-      url: roadmap.html
-    - output: web,pdf
       title: Kerr Comparison
       url: kerr_comparison.html
     - output: web,pdf
       title: Bayesian Blocks
       url: bayesian.html
+    - output: web,pdf
+      title: Analysis
+      url: analysis.html
     output: web
     title: light_curves
   output: web

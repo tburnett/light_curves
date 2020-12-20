@@ -7,6 +7,8 @@ import os
 import numpy as np
 import pandas as pd
 from astropy.stats.bayesian_blocks import FitnessFunc
+
+from .config import *
 from .lightcurve import get_lightcurve, fit_cells, flux_plot
 from .cells import get_cells, partition_cells
 

@@ -6,10 +6,11 @@ __all__ = ['fit_cells', 'get_lightcurve', 'flux_plot']
 import numpy as np
 import pylab as plt
 import pandas as pd
+from .config import Config,  PointSource
+from .loglike import (LogLike, GaussianRep, Gaussian2dRep, PoissonRep, PoissonRepTable)
+from .cells import get_cells
 
 # Cell
-from .loglike import (LogLike, GaussianRep, Gaussian2dRep, PoissonRep, PoissonRepTable)
-
 class _LightCurve(object):
     """ Apply likelihood fits to a set of cells
 
@@ -102,8 +103,6 @@ def fit_cells(config,
 
 # Cell
 
-from .config import Config,  PointSource
-from .cells import get_cells
 
 def get_lightcurve(config,  source, bin_edges=None, key=''):
     """Returns a lightcurve table for the source
