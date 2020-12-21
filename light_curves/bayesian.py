@@ -153,28 +153,35 @@ class LikelihoodFitness(CountFitness):
         return rv
 
 # Cell
-def get_bb_partition(config, lc, fitness_class=LikelihoodFitness, p0=0.05):
+def get_bb_partition(config, lc, fitness_class=LikelihoodFitness, p0=0.05, key=None):
 
     """Perform Bayesian Block partition of the cells found in a light curve
 
     - lc : input light curve
-    - fitness_func :
+    - fitness_class
 
     return edges for partition
     """
-    cells = lc
-    assert 'fit' in cells.columns, 'Expect the dataframe ho have the Poisson representation'
     assert issubclass(fitness_class,CountFitness), 'fitness_class wrong'
-    # Now run the astropy Bayesian Blocks code using my version of the 'event' model
-    fitness = fitness_class(lc, p0=p0)
-    edges = fitness.fit()
+    assert 'fit' in lc.columns, 'Expect the dataframe ho have the Poisson representation'
+
+
+    def doit():
+        fitness = fitness_class(lc, p0=p0)
+        # Now run the astropy Bayesian Blocks code using my version of the 'event' model
+        return fitness.fit()
+
+    key = f'BB_edges_' if key is '' else key
+
+    edges = config.cache(key, doit,  description='BB edges for...')
 
     if config.verbose>0:
-        print(f'Partitioned {fitness.N} cells into {len(edges)-1} blocks, with prior {fitness.ncp_prior:.1f}'\
-              f' using {fitness.__class__.__name__} ' )
+        print(f'Partitioned {len(lc)} cells into {len(edges)-1} blocks, using {fitness_class.__name__} ' )
     return edges
 
 # Cell
-def bb_overplot(config, lc, bb_fit, ax):
-    flux_plot(config, lc,   ax=ax, colors=(('lightblue', 'sandybrown', 'blue')))
-    flux_plot(config, bb_fit, ax=ax, step=True)
+def bb_overplot(config, lc, bb_fit, ax=None, **kwargs):
+    fig, ax = plt.subplots(figsize=(10,4)) if ax is None else (ax.figure, ax)
+    flux_plot(config, lc,   ax=ax,
+              colors=(('lightblue', 'sandybrown', 'blue')), **kwargs)
+    flux_plot(config, bb_fit, ax=ax, step=True, **kwargs)

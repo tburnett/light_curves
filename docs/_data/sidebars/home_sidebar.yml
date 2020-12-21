@@ -49,7 +49,7 @@ entries:
       title: Bayesian Blocks
       url: bayesian.html
     - output: web,pdf
-      title: Analysis
+      title: Analyses
       url: analysis.html
     output: web
     title: light_curves

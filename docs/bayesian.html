@@ -307,12 +307,12 @@ Considerably modified to give the <code>fitness function</code> access to the ce
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_bb_partition" class="doc_header"><code>get_bb_partition</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/bayesian.py#L156" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_bb_partition</code>(<strong><code>config</code></strong>, <strong><code>lc</code></strong>, <strong><code>fitness_class</code></strong>=<em><code>LikelihoodFitness</code></em>, <strong><code>p0</code></strong>=<em><code>0.05</code></em>)</p>
+<h4 id="get_bb_partition" class="doc_header"><code>get_bb_partition</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/bayesian.py#L156" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_bb_partition</code>(<strong><code>config</code></strong>, <strong><code>lc</code></strong>, <strong><code>fitness_class</code></strong>=<em><code>LikelihoodFitness</code></em>, <strong><code>p0</code></strong>=<em><code>0.05</code></em>, <strong><code>key</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Perform Bayesian Block partition of the cells found in a light curve</p>
 <ul>
 <li>lc : input light curve</li>
-<li>fitness_func :</li>
+<li>fitness_class</li>
 </ul>
 <p>return edges for partition</p>
 
@@ -345,7 +345,7 @@ Considerably modified to give the <code>fitness function</code> access to the ce
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">test_bb</span><span class="p">(</span><span class="n">lcs</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">fitness</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    ### BB partition for {name} using {fitness.__name__}</span>
+<span class="sd">    #### BB partition for {name} using {fitness.__name__}</span>
 <span class="sd">    </span>
 <span class="sd">    {lc_fig}</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -353,7 +353,7 @@ Considerably modified to give the <code>fitness function</code> access to the ce
     <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
      
     <span class="n">lc</span> <span class="o">=</span> <span class="n">lcs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
-    <span class="n">edges</span> <span class="o">=</span> <span class="n">get_bb_partition</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">lc</span><span class="p">,</span> <span class="n">fitness</span><span class="p">)</span> 
+    <span class="n">edges</span> <span class="o">=</span> <span class="n">get_bb_partition</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">lc</span><span class="p">,</span> <span class="n">fitness</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> 
     <span class="n">lc_fig</span> <span class="o">=</span> <span class="n">flux_plot</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">lc</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> partition with </span><span class="si">{</span><span class="n">fitness</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="n">lc_fig</span><span class="o">.</span><span class="n">width</span><span class="o">=</span><span class="mi">400</span>
     <span class="n">ax</span> <span class="o">=</span> <span class="n">lc_fig</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -369,6 +369,8 @@ Considerably modified to give the <code>fitness function</code> access to the ce
 <span class="k">if</span> <span class="n">Config</span><span class="p">()</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
     <span class="n">nbdoc</span><span class="p">(</span><span class="n">test_bb</span><span class="p">,</span> <span class="n">lcs</span><span class="p">,</span> <span class="s1">&#39;3C 279&#39;</span><span class="p">,</span> <span class="n">CountFitness</span><span class="p">)</span>
     <span class="n">nbdoc</span><span class="p">(</span><span class="n">test_bb</span><span class="p">,</span> <span class="n">lcs</span><span class="p">,</span> <span class="s1">&#39;3C 279&#39;</span><span class="p">,</span> <span class="n">LikelihoodFitness</span><span class="p">)</span>
+<span class="c1">#     nbdoc(test_bb, lcs, &#39;Geminga&#39;, CountFitness)</span>
+<span class="c1">#     nbdoc(test_bb, lcs, &#39;Geminga&#39;, LikelihoodFitness)</span>
 </pre></div>
 
     </div>
@@ -382,7 +384,7 @@ Considerably modified to give the <code>fitness function</code> access to the ce
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Partitioned 105 cells into 6 blocks, with prior 4.9 using CountFitness 
+<pre>Partitioned 105 cells into 6 blocks, using CountFitness 
 </pre>
 </div>
 </div>
@@ -391,7 +393,7 @@ Considerably modified to give the <code>fitness function</code> access to the ce
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h3 id="BB-partition-for-3C-279-using-CountFitness">BB partition for 3C 279 using CountFitness<a class="anchor-link" href="#BB-partition-for-3C-279-using-CountFitness"> </a></h3><div class="nbdoc_image">
+<h4 id="BB-partition-for-3C-279-using-CountFitness">BB partition for 3C 279 using CountFitness<a class="anchor-link" href="#BB-partition-for-3C-279-using-CountFitness"> </a></h4><div class="nbdoc_image">
 <a href="images/test_bb_fig_01.png"><figure style="margin-left: 5%">
    <img src="images/test_bb_fig_01.png" alt="Figure 1 at images/test_bb_fig_01.png" width=400> 
 </figure></a></div>
@@ -402,7 +404,7 @@ Considerably modified to give the <code>fitness function</code> access to the ce
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Partitioned 105 cells into 7 blocks, with prior 4.9 using LikelihoodFitness 
+<pre>Partitioned 105 cells into 7 blocks, using LikelihoodFitness 
 </pre>
 </div>
 </div>
@@ -411,7 +413,47 @@ Considerably modified to give the <code>fitness function</code> access to the ce
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h3 id="BB-partition-for-3C-279-using-LikelihoodFitness">BB partition for 3C 279 using LikelihoodFitness<a class="anchor-link" href="#BB-partition-for-3C-279-using-LikelihoodFitness"> </a></h3><div class="nbdoc_image">
+<h4 id="BB-partition-for-3C-279-using-LikelihoodFitness">BB partition for 3C 279 using LikelihoodFitness<a class="anchor-link" href="#BB-partition-for-3C-279-using-LikelihoodFitness"> </a></h4><div class="nbdoc_image">
+<a href="images/test_bb_fig_01.png"><figure style="margin-left: 5%">
+   <img src="images/test_bb_fig_01.png" alt="Figure 1 at images/test_bb_fig_01.png" width=400> 
+</figure></a></div>
+</div>
+
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Partitioned 105 cells into 2 blocks, using CountFitness 
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="BB-partition-for-Geminga-using-CountFitness">BB partition for Geminga using CountFitness<a class="anchor-link" href="#BB-partition-for-Geminga-using-CountFitness"> </a></h4><div class="nbdoc_image">
+<a href="images/test_bb_fig_01.png"><figure style="margin-left: 5%">
+   <img src="images/test_bb_fig_01.png" alt="Figure 1 at images/test_bb_fig_01.png" width=400> 
+</figure></a></div>
+</div>
+
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Partitioned 105 cells into 2 blocks, using LikelihoodFitness 
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="BB-partition-for-Geminga-using-LikelihoodFitness">BB partition for Geminga using LikelihoodFitness<a class="anchor-link" href="#BB-partition-for-Geminga-using-LikelihoodFitness"> </a></h4><div class="nbdoc_image">
 <a href="images/test_bb_fig_01.png"><figure style="margin-left: 5%">
    <img src="images/test_bb_fig_01.png" alt="Figure 1 at images/test_bb_fig_01.png" width=400> 
 </figure></a></div>
@@ -442,7 +484,7 @@ Considerably modified to give the <code>fitness function</code> access to the ce
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="bb_overplot" class="doc_header"><code>bb_overplot</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/bayesian.py#L178" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>bb_overplot</code>(<strong><code>config</code></strong>, <strong><code>lc</code></strong>, <strong><code>bb_fit</code></strong>, <strong><code>ax</code></strong>)</p>
+<h4 id="bb_overplot" class="doc_header"><code>bb_overplot</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/bayesian.py#L183" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>bb_overplot</code>(<strong><code>config</code></strong>, <strong><code>lc</code></strong>, <strong><code>bb_fit</code></strong>, <strong><code>ax</code></strong>=<em><code>None</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -458,77 +500,6 @@ Considerably modified to give the <code>fitness function</code> access to the ce
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary data-open="Hide Code" data-close="Show Code"></summary>
-        <summary></summary>
-        <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">bb_plots</span><span class="p">(</span><span class="n">lcs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    ### Combine partitioned cells</span>
-<span class="sd">    </span>
-<span class="sd">    {printout}</span>
-<span class="sd">    </span>
-<span class="sd">    Show the light curves, with with the partitioned cells combined and refit.</span>
-<span class="sd">    </span>
-<span class="sd">    {overplotfig}</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
-    <span class="n">bb_fit</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-    <span class="k">with</span> <span class="n">capture_print</span><span class="p">(</span><span class="s1">&#39;Printed output&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">printout</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">lc</span> <span class="ow">in</span> <span class="n">lcs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">source</span> <span class="o">=</span> <span class="n">PointSource</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-            <span class="n">cells</span> <span class="o">=</span> <span class="n">get_cells</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span>
-            <span class="n">edges</span> <span class="o">=</span> <span class="n">get_bb_partition</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">lc</span><span class="p">,</span> <span class="n">LikelihoodFitness</span><span class="p">)</span> 
-            <span class="n">bb_cells</span> <span class="o">=</span> <span class="n">partition_cells</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">cells</span><span class="p">,</span> <span class="n">edges</span><span class="p">);</span>
-            <span class="n">bb_fit</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>  <span class="o">=</span> <span class="n">fit_cells</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">bb_cells</span><span class="p">,</span> <span class="p">)</span>
-
-    <span class="n">fig</span><span class="p">,</span> <span class="n">axx</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">lc</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axx</span><span class="p">,</span> <span class="n">lcs</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
-        <span class="n">bb_overplot</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">lc</span><span class="p">,</span> <span class="n">bb_fit</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span>  <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
-    <span class="n">axx</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;MJD&#39;</span><span class="p">)</span>
-    <span class="n">overplotfig</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
-    
-    <span class="k">return</span> <span class="nb">locals</span><span class="p">()</span>
-        
-<span class="k">if</span> <span class="n">Config</span><span class="p">()</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
-    <span class="n">nbdoc</span><span class="p">(</span><span class="n">bb_plots</span><span class="p">,</span><span class="n">lcs</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-    </details>
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h3 id="Combine-partitioned-cells">Combine partitioned cells<a class="anchor-link" href="#Combine-partitioned-cells"> </a></h3><p><details class="descripton" ><summary data-open="Hide " data-close="Show "> Printed output </summary> <p style="margin-left: 5%"><pre>Cell data for Geminga: Restoring from cache with key "cells_Geminga"<br>Partitioned 105 cells into 2 blocks, with prior 4.9 using LikelihoodFitness <br>Loaded 2 / 2 cells with exposure > 0.3 for fitting<br>Cell data for 3C 279: Restoring from cache with key "cells_3C 279"<br>Partitioned 105 cells into 7 blocks, with prior 4.9 using LikelihoodFitness <br>Loaded 7 / 7 cells with exposure > 0.3 for fitting<br></pre></p> </details></p>
-<p>Show the light curves, with with the partitioned cells combined and refit.</p>
-<div class="nbdoc_image">
-<a href="images/bb_plots_fig_02.png"><figure style="margin-left: 5%">
-   <img src="images/bb_plots_fig_02.png" alt="Figure 2 at images/bb_plots_fig_02.png" width=500> 
-</figure></a></div>
-</div>
-
-</div>
-
-</div>
-</div>
 
 </div>
     {% endraw %}

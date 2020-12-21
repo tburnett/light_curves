@@ -275,6 +275,10 @@ class PoissonRep(object):
     def ts(self):
         return self.poiss.ts
 
+    def cl(self, x):
+        """Confidence level"""
+        return self.poiss.cdfc(x)
+
     def create_table(self, npts=100, support=1e-6):
         # make a table of evently-spaced points between limits
         pars = self.fit['poiss_pars']

@@ -331,7 +331,7 @@ div#toc >ul::before {
 }
 
 .nbdoc_image {
-    margin-left: 50px;
+    margin-left: 20px;
 }
 
 li.dropdownActive a {
@@ -1317,4 +1317,11 @@ div.input + details {
 
 .notebook-badge-image {
   border:0 !important;
+}
+/* nbdoc css */
+details.nbdoc-description summary {
+    text-align: left;
+    font-size: 15px;
+    color: #337ab7;
+    cursor: pointer;
 }

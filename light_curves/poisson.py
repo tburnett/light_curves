@@ -169,6 +169,11 @@ class Poisson(object):
         #this assumes that self.cdfc(0) is 1.0, and that cdfc(-b) is the full integral
         return 1-1./self.cdfc(-self.p[2])
 
+    def sigma_dev(self, val):
+        """Express the deviation of `val` from compatibility with this PDF using a sigma measure"""
+        # norm(0,1).isf is inverse survival probability for Gaussian
+        return stats.norm(0,1).isf(self.cdf(val))
+
 # Cell
 class PoissonFitter(object):
     """ Helper class to fit a log likelihood function to the Poisson

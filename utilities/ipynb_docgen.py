@@ -6,18 +6,18 @@ from utilities import nbdoc
 
 def userdoc():
     '''
-     text to show, with {} strings.
+    text to show, with {} strings.
     '''
-    # code
+    # (code)
     # 
     return locals()
-nbdev(userdoc)
+nbdev(userdoc,)
 
 """
 import sys, os, shutil, string, pprint
 import nbdev
 
-__all__ = ['nbdoc', 'image', 'figure', 'monospace', 'capture_print', 'shell','show_doc']
+__all__ = ['nbdoc', 'image', 'figure', 'monospace', 'capture_print', 'shell'] #,'show_doc']
 
 def doc_formatter(
         text:'text string to process',
@@ -60,53 +60,7 @@ def doc_formatter(
     return MimeBundleObject()
 
 
-#---------------------------------------------------------------------------------
 
-
-def monospace(text:'Either a string, or an object',
-                summary:'string for <details>'=None,
-                open:'initially show details'=False, 
-                indent='5%',
-                )->str:
-
-    text = str(text).replace('\n', '<br>')
-    out = f'<p style="margin-left: {indent}"><pre>{text}</pre></p>'
-    if not summary:
-        return out
-    return f'<details class="descripton" ><summary data-open="Hide " data-close="Show "> {summary} </summary> {out} </details>'
-    
-def shell(text:'a shell command ', mono=True, **kwargs):
-    import subprocess
-    try:
-        ret = subprocess.check_output([text], shell=True).decode('utf-8')
-    except Exception as e:
-        ret = f'Command {text} failed : {e}'
-    return monospace(ret, **kwargs) if mono else ret
-
-def capture_print(summary=None, **kwargs):
-    """
-    """
-
-
-    class Capture_print(object):
-        _stream = 'stdout'
-        
-        def __init__(self):
-            import io
-            self._new = io.StringIO()
-            self._old = getattr(sys, self._stream)
-
-        def __enter__(self):
-            setattr(sys, self._stream, self._new)
-            return self
-        
-        def __exit__(self, exctype, excinst, exctb):
-            setattr(sys, self._stream, self._old)
-            
-        def __str__(self):
-            return monospace(self._new.getvalue(), summary=summary, **kwargs)
-
-    return Capture_print()
 
 def image(filename, 
             caption='', 
@@ -150,8 +104,6 @@ def image(filename,
       
     return NBimage()
 
-def figure(fig, caption=None, width=None, height=None):
-    assert isinstance(fig, plt.Figure), 'Must be a plt.Figure object'
 
 try:
     import matplotlib.pyplot as plt
@@ -380,6 +332,58 @@ class ObjectReplacer(dict):
         x = vars['x']
         print(f'{"-"*37}after {"-"*37}\n{x}\n{"-"*80}\n')
         return 
+
+
+#--------------------External interface------------------------------------------------------------
+
+def monospace(text:'Either a string, or an object',
+                summary:'string for <details>'=None,
+                open:'initially show details'=False, 
+                indent='5%',
+                )->str:
+
+    text = str(text).replace('<','&lt;').replace('>','&gt;').replace('\n', '<br>')
+    out = f'<div style="margin-left: {indent}"><pre>{text}</pre></div>'
+    if not summary:
+        return out
+
+    # Set up a "details" HTML tag
+    return f'<details {"open" if open else ""} class="nbdoc-description" >'\
+           f'  <summary> {summary} </summary>'\
+           f'  {out}'\
+            ' </details>'
+    
+def shell(text:'a shell command ', mono=True, **kwargs):
+    import subprocess
+    try:
+        ret = subprocess.check_output([text], shell=True).decode('utf-8')
+    except Exception as e:
+        ret = f'Command {text} failed : {e}'
+    return monospace(ret, **kwargs) if mono else ret
+
+def capture_print(summary=None, **kwargs):
+    """
+    """
+
+    class Capture_print(object):
+        _stream = 'stdout'
+        
+        def __init__(self):
+            import io
+            self._new = io.StringIO()
+            self._old = getattr(sys, self._stream)
+
+        def __enter__(self):
+            setattr(sys, self._stream, self._new)
+            return self
+        
+        def __exit__(self, exctype, excinst, exctb):
+            setattr(sys, self._stream, self._old)
+            
+        def __str__(self):
+            return monospace(self._new.getvalue(), summary=summary, **kwargs)
+
+    return Capture_print()
 
 # convenient interface to show_doc, with disp set to false
 def show_doc(elt, **kwargs):
