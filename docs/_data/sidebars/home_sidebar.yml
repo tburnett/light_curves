@@ -7,6 +7,9 @@ entries:
 - folders:
   - folderitems:
     - output: web,pdf
+      title: Analyses
+      url: analysis.html
+    - output: web,pdf
       title: Overview
       url: /
     - output: web,pdf
@@ -48,10 +51,7 @@ entries:
     - output: web,pdf
       title: Bayesian Blocks
       url: bayesian.html
-    - output: web,pdf
-      title: Analyses
-      url: analysis.html
     output: web
-    title: light_curves
+    title: Sections
   output: web
   title: Sidebar

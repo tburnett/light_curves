@@ -1,5 +1,6 @@
 {
-  "light_curves": {
+  "Sections": {
+    "Analyses": "analysis.html",
     "Overview": "/",
     "Configuration data and basic functions": "config.html",
     "Effective Area": "effective_area.html",
@@ -13,7 +14,7 @@
     "Light Curve Generation": "lightcurve.html",
     "Simulation": "simulation.html",
     "Kerr Comparison": "kerr_comparison.html",
-    "Bayesian Blocks": "bayesian.html",
-    "Analyses": "analysis.html"
+    "Bayesian Blocks": "bayesian.html"
+
   }
 }
