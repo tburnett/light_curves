@@ -31,7 +31,7 @@ nb_path: "nbs/90_analysis.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>List of routines used for these analyses</strong></p>
+<p><strong><code>light_curve</code> library functions used here</strong></p>
 <ul>
 <li><a href="/light_curves/cells.html#get_cells"><code>get_cells</code></a></li>
 <li><a href="/light_curves/lightcurve.html#get_lightcurve"><code>get_lightcurve</code></a></li>
@@ -47,7 +47,18 @@ nb_path: "nbs/90_analysis.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Local-code">Local code<a class="anchor-link" href="#Local-code"> </a></h3>
+<h3 id="Introduction">Introduction<a class="anchor-link" href="#Introduction"> </a></h3><p>This notebook does not produce a module to add to the library, it a place to run, and report on analyses using the library. It uses local code, shown below.</p>
+<p>This is an exploration of this style of presenting code, and data analysis based on it.</p>
+<h3 id="Geminga-analyses">Geminga analyses<a class="anchor-link" href="#Geminga-analyses"> </a></h3><p>Following Kerr's example, we use the source Geminga to check that the this analysis of data gives results consistent with its being constant. As you can see below, the BB analysis finds 16 breaks, which merit further checks. That is followed by a simulation using
+Geminga's weight distribution and exposure. The run shown here finds one minor break, a change of 0.1%.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Local code</strong></p>
+
 </div>
 </div>
 </div>
@@ -72,7 +83,10 @@ nb_path: "nbs/90_analysis.ipynb"
     <span class="n">flux_plot</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">lc</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="p">((</span><span class="s1">&#39;lightblue&#39;</span><span class="p">,</span> <span class="s1">&#39;sandybrown&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">)),</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="n">flux_plot</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">bb_fit</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     
-<span class="k">def</span> <span class="nf">simulation</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">source</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">simulation</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">bb_key</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create and analyze a a simulation for the source</span>
+<span class="sd">    Returns the simulated, and fit light curves</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">lc</span> <span class="o">=</span> <span class="n">get_lightcurve</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span>
     <span class="n">data_cells</span> <span class="o">=</span> <span class="n">get_cells</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span>
@@ -86,7 +100,7 @@ nb_path: "nbs/90_analysis.ipynb"
     <span class="n">sim_cells</span> <span class="o">=</span> <span class="n">simulate_cells</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">source_flux</span><span class="o">=</span><span class="n">sflux</span>  <span class="p">)</span>
     <span class="n">sim_lc</span>  <span class="o">=</span> <span class="n">fit_cells</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">sim_cells</span><span class="p">)</span> 
 
-    <span class="n">sim_edges</span> <span class="o">=</span> <span class="n">get_bb_partition</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">sim_lc</span><span class="p">,</span>  <span class="n">key</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="c1">#&#39;simulated_BB_partition_Geminga&#39;) </span>
+    <span class="n">sim_edges</span> <span class="o">=</span> <span class="n">get_bb_partition</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">sim_lc</span><span class="p">,</span>  <span class="n">key</span><span class="o">=</span><span class="n">bb_key</span><span class="p">)</span> <span class="c1">#&#39;simulated_BB_partition_Geminga&#39;) </span>
 
     <span class="c1"># partion, then fit the cells according to the edges</span>
     <span class="n">sim_bb_cells</span> <span class="o">=</span> <span class="n">partition_cells</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">sim_cells</span><span class="p">,</span> <span class="n">sim_edges</span><span class="p">);</span>
@@ -94,6 +108,11 @@ nb_path: "nbs/90_analysis.ipynb"
     <span class="k">return</span> <span class="n">sim_lc</span><span class="p">,</span> <span class="n">sim_bb_fit</span>
 
 <span class="k">def</span> <span class="nf">analyze_data</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">source</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Analyze data from the source</span>
+<span class="sd">    </span>
+<span class="sd">    Returns, data a partitioned light curves</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">lc</span> <span class="o">=</span> <span class="n">get_lightcurve</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span>
     <span class="n">cells</span> <span class="o">=</span> <span class="n">get_cells</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span>
     <span class="n">edges</span> <span class="o">=</span> <span class="n">get_bb_partition</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">lc</span><span class="p">,</span> <span class="n">LikelihoodFitness</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;bb-Geminga-test&#39;</span><span class="p">)</span> 
@@ -102,6 +121,7 @@ nb_path: "nbs/90_analysis.ipynb"
     <span class="k">return</span> <span class="n">lc</span><span class="p">,</span> <span class="n">bb_lc</span>
 
 <span class="k">def</span> <span class="nf">fit_table</span><span class="p">(</span><span class="n">lc</span><span class="p">,</span> <span class="n">expect</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Generate a summary table from a light curve&quot;&quot;&quot;</span>
     <span class="n">fits</span> <span class="o">=</span> <span class="n">lc</span><span class="o">.</span><span class="n">fit</span>
     <span class="n">flux</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">flux</span><span class="p">)</span>
     <span class="n">errors</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">errors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">f</span><span class="o">.</span><span class="n">flux</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">errors</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">f</span><span class="o">.</span><span class="n">flux</span> <span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="p">)</span> <span class="p">)</span>
@@ -131,9 +151,11 @@ nb_path: "nbs/90_analysis.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">analysis_plots</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">simulated</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">analysis_plots</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">simname</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    ### {sim} Geminga light curve with Bayesian Blocks partition, fits to blocks</span>
+<span class="sd">    #### {sim} Geminga light curve</span>
+<span class="sd">    </span>
+<span class="sd">    Perform Bayesian Blocks partition, fits to blocks</span>
 <span class="sd">    </span>
 <span class="sd">    {output}</span>
 <span class="sd">    </span>
@@ -144,7 +166,7 @@ nb_path: "nbs/90_analysis.ipynb"
 <span class="sd">    Here is a table of the partition fits:</span>
 <span class="sd">    </span>
 <span class="sd">    {df_text}</span>
-<span class="sd">    The last column represents the compatibility of the flux measuremnt for each partition</span>
+<span class="sd">    The last column represents the compatibility of the flux measurement for each partition</span>
 <span class="sd">    with the expected value 1.0 in equivalent sigma units.</span>
 <span class="sd">    </span>
 <span class="sd">    Check for short, &lt; 100 day partitions.</span>
@@ -154,14 +176,13 @@ nb_path: "nbs/90_analysis.ipynb"
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
     <span class="n">source</span> <span class="o">=</span> <span class="n">PointSource</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-    <span class="n">sim</span> <span class="o">=</span> <span class="s1">&#39;Simulated&#39;</span> <span class="k">if</span> <span class="n">simulated</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
-    <span class="k">with</span> <span class="n">capture_print</span><span class="p">(</span>
-        <span class="s1">&#39;Analysis output: get cells, fit each, partition with BB, fit each partition&#39;</span>
-                    <span class="p">)</span> <span class="k">as</span> <span class="n">output</span><span class="p">:</span>
+    <span class="n">simulated</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">simname</span><span class="p">)</span>
+    <span class="n">sim</span><span class="o">=</span> <span class="s1">&#39;Simulated&#39;</span> <span class="k">if</span> <span class="n">simulated</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">with</span> <span class="n">capture_print</span><span class="p">(</span><span class="s1">&#39;Analysis output&#39;</span> <span class="p">)</span> <span class="k">as</span> <span class="n">output</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">simulated</span><span class="p">:</span>
             <span class="n">lc</span><span class="p">,</span> <span class="n">bb_lc</span> <span class="o">=</span> <span class="n">analyze_data</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span> 
-            <span class="n">lc</span><span class="p">,</span> <span class="n">bb_lc</span> <span class="o">=</span> <span class="n">simulation</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span> 
+            <span class="n">lc</span><span class="p">,</span> <span class="n">bb_lc</span> <span class="o">=</span> <span class="n">simulation</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">bb_key</span><span class="o">=</span><span class="n">simname</span><span class="p">)</span> 
 
     <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.precision&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="c1">#, &#39;display.colheader_justify&#39;,&#39;left&#39;)</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">fit_table</span><span class="p">(</span><span class="n">bb_lc</span><span class="p">)</span>
@@ -173,18 +194,18 @@ nb_path: "nbs/90_analysis.ipynb"
     <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span>  <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">);</span>
     <span class="n">fig1</span><span class="o">.</span><span class="n">width</span><span class="o">=</span><span class="mi">600</span>
 
-    <span class="n">bb_short</span> <span class="o">=</span> <span class="n">bb_lc</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;tw&lt;100&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">bb_short</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
-        <span class="n">short_check</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;There are </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">bb_short</span><span class="p">)</span><span class="si">}</span><span class="s1"> such&#39;</span>
-
-        <span class="n">fig2</span><span class="p">,</span> <span class="n">axx</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span><span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                              <span class="n">gridspec_kw</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">top</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="mf">0.08</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">0.2</span> <span class="p">),</span><span class="n">num</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">bb_short</span> <span class="o">=</span> <span class="n">bb_lc</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;tw&lt;100&#39;</span><span class="p">);</span> <span class="n">ns</span> <span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">bb_short</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ns</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+        <span class="n">short_check</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;There are </span><span class="si">{</span><span class="n">ns</span><span class="si">}</span><span class="s1"> such.&#39;</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="p">(</span><span class="n">ns</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">//</span><span class="mi">3</span>
+        <span class="n">fig2</span><span class="p">,</span> <span class="n">axx</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">4</span><span class="o">*</span><span class="n">rows</span><span class="p">),</span><span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                     <span class="n">gridspec_kw</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">top</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="mf">0.08</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">0.2</span> <span class="p">),</span><span class="n">num</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
         <span class="n">fig2</span><span class="o">.</span><span class="n">width</span><span class="o">=</span><span class="mi">600</span>
         <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">bb_short</span><span class="o">.</span><span class="n">t</span><span class="p">,</span> <span class="n">axx</span><span class="o">.</span><span class="n">flatten</span><span class="p">()):</span>
             <span class="n">bb_overplot</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">lc</span><span class="p">,</span> <span class="n">bb_lc</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">tzero</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="o">+</span><span class="mi">50</span><span class="p">))</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">fig2</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
-        <span class="n">short_check</span> <span class="o">=</span> <span class="s1">&#39;None found&#39;</span>
+        <span class="n">short_check</span> <span class="o">=</span> <span class="s1">&#39;None found.&#39;</span>
     <span class="k">return</span> <span class="nb">locals</span><span class="p">()</span>
 
 <span class="k">if</span> <span class="n">Config</span><span class="p">()</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
@@ -203,7 +224,8 @@ nb_path: "nbs/90_analysis.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h3 id="Geminga-light-curve-with-Bayesian-Blocks-partition,-fits-to-blocks">Geminga light curve with Bayesian Blocks partition, fits to blocks<a class="anchor-link" href="#Geminga-light-curve-with-Bayesian-Blocks-partition,-fits-to-blocks"> </a></h3><p><details  class="nbdoc-description" >  <summary> Analysis output: get cells, fit each, partition with BB, fit each partition </summary>  <div style="margin-left: 5%"><pre>Light curve for Geminga: Restoring from cache with key "lightfcurve_Geminga"<br>Cell data for Geminga: Restoring from cache with key "cells_Geminga"<br>BB edges for...: Restoring from cache with key "bb-Geminga-test"<br>Partitioned 3873 cells into 17 blocks, using LikelihoodFitness <br>Loaded 17 / 17 cells with exposure &gt; 0.3 for fitting<br></pre></div> </details></p>
+<h4 id="Geminga-light-curve">Geminga light curve<a class="anchor-link" href="#Geminga-light-curve"> </a></h4><p>Perform Bayesian Blocks partition, fits to blocks</p>
+<p><details  class="nbdoc-description" >  <summary> Analysis output </summary>  <div style="margin-left: 5%"><pre>Light curve for Geminga: Restoring from cache with key "lightfcurve_Geminga"<br>Cell data for Geminga: Restoring from cache with key "cells_Geminga"<br>BB edges for...: Restoring from cache with key "bb-Geminga-test"<br>Partitioned 3873 cells into 17 blocks, using LikelihoodFitness <br>Loaded 17 / 17 cells with exposure &gt; 0.3 for fitting<br></pre></div> </details></p>
 <p>This shows the fits to all cells, with the BB fit overlays</p>
 <div class="nbdoc_image">
 <a href="images/analysis_plots_fig_01.png"><figure style="margin-left: 5%">
@@ -211,10 +233,10 @@ nb_path: "nbs/90_analysis.ipynb"
 </figure></a></div><p>Since this is a constant source, there should be no breaks, that is, only one partition.
 Here is a table of the partition fits:</p>
 <p><details open class="nbdoc-description" >  <summary> BB fit table </summary>  <div style="margin-left: 5%"><pre>          t      tw       n      e   flux           errors  sigma_dev<br>0   55027.0   688.0  207832  1.126  0.998  (-0.003, 0.003)       -0.5<br>1   55378.0    14.0    3797  0.911  1.122  (-0.024, 0.025)        5.1<br>2   55560.5   351.0   96416  1.028  0.985  (-0.004, 0.004)       -3.5<br>3   55748.0    24.0    6887  0.960  1.123  (-0.018, 0.018)        7.0<br>4   56113.0   706.0  190965  1.011  0.991  (-0.003, 0.003)       -2.8<br>5   56486.0    40.0   11267  0.989  1.070  (-0.014, 0.014)        5.3<br>6   56512.5    13.0    3402  1.046  0.901  (-0.021, 0.022)       -4.4<br>7   56673.5   309.0   84043  1.020  0.989  (-0.005, 0.005)       -2.3<br>8   56879.5   103.0   28168  0.996  1.027  (-0.008, 0.008)        3.2<br>9   56972.5    83.0   20961  0.957  0.966  (-0.009, 0.009)       -3.7<br>10  57017.5     7.0    2070  0.973  1.156  (-0.034, 0.034)        4.8<br>11  57109.0   176.0   45616  0.950  1.003  (-0.006, 0.006)        0.5<br>12  57197.5     1.0     149  0.852  0.535  (-0.066, 0.071)       -5.6<br>13  57723.0  1050.0  285243  1.013  0.993  (-0.003, 0.003)       -2.9<br>14  58274.0    52.0    9282  0.622  1.071  (-0.015, 0.015)        4.8<br>15  58468.5   337.0   74075  0.814  0.991  (-0.005, 0.005)       -1.7<br>16  58667.0    60.0   10261  0.586  1.078  (-0.015, 0.015)        5.5</pre></div> </details>
-The last column represents the compatibility of the flux measuremnt for each partition
+The last column represents the compatibility of the flux measurement for each partition
 with the expected value 1.0 in equivalent sigma units.</p>
 <p>Check for short, &lt; 100 day partitions.
-There are 9 such</p>
+There are 9 such.</p>
 <div class="nbdoc_image">
 <a href="images/analysis_plots_fig_02.png"><figure style="margin-left: 5%">
    <img src="images/analysis_plots_fig_02.png" alt="Figure 2 at images/analysis_plots_fig_02.png" width=600> 
@@ -229,12 +251,6 @@ There are 9 such</p>
 </div>
     {% endraw %}
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Simulation">Simulation<a class="anchor-link" href="#Simulation"> </a></h3>
-</div>
-</div>
-</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -243,7 +259,7 @@ There are 9 such</p>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">Config</span><span class="p">()</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
-    <span class="n">nbdoc</span><span class="p">(</span><span class="n">analysis_plots</span><span class="p">,</span> <span class="s1">&#39;Geminga&#39;</span><span class="p">,</span> <span class="n">simulated</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;analysis_plot_sim&#39;</span><span class="p">)</span>
+    <span class="n">nbdoc</span><span class="p">(</span><span class="n">analysis_plots</span><span class="p">,</span> <span class="s1">&#39;Geminga&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;analysis_sim&#39;</span><span class="p">,</span>  <span class="n">simname</span><span class="o">=</span><span class="s1">&#39;analysis_plot_sim&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -257,22 +273,20 @@ There are 9 such</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h3 id="Simulated-Geminga-light-curve-with-Bayesian-Blocks-partition,-fits-to-blocks">Simulated Geminga light curve with Bayesian Blocks partition, fits to blocks<a class="anchor-link" href="#Simulated-Geminga-light-curve-with-Bayesian-Blocks-partition,-fits-to-blocks"> </a></h3><p><details  class="nbdoc-description" >  <summary> Analysis output: get cells, fit each, partition with BB, fit each partition </summary>  <div style="margin-left: 5%"><pre>Light curve for Geminga: Restoring from cache with key "lightfcurve_Geminga"<br>Cell data for Geminga: Restoring from cache with key "cells_Geminga"<br>binned exposure for source Geminga: Restoring from cache with key "binned_exposure_Geminga"<br>Weight histogram for Geminga: Restoring from cache with key "weight_hist_Geminga"<br>Loaded 3873 / 4015 cells with exposure &gt; 0.3 for fitting<br>Partitioned 3873 cells into 3 blocks, using LikelihoodFitness <br>Loaded 3 / 3 cells with exposure &gt; 0.3 for fitting<br></pre></div> </details></p>
+<h4 id="Simulated-Geminga-light-curve">Simulated Geminga light curve<a class="anchor-link" href="#Simulated-Geminga-light-curve"> </a></h4><p>Perform Bayesian Blocks partition, fits to blocks</p>
+<p><details  class="nbdoc-description" >  <summary> Analysis output </summary>  <div style="margin-left: 5%"><pre>Light curve for Geminga: Restoring from cache with key "lightfcurve_Geminga"<br>Cell data for Geminga: Restoring from cache with key "cells_Geminga"<br>binned exposure for source Geminga: Restoring from cache with key "binned_exposure_Geminga"<br>Weight histogram for Geminga: Restoring from cache with key "weight_hist_Geminga"<br>Loaded 3873 / 4015 cells with exposure &gt; 0.3 for fitting<br>BB edges for...: Restoring from cache with key "analysis_plot_sim"<br>Partitioned 3873 cells into 2 blocks, using LikelihoodFitness <br>Loaded 2 / 2 cells with exposure &gt; 0.3 for fitting<br></pre></div> </details></p>
 <p>This shows the fits to all cells, with the BB fit overlays</p>
 <div class="nbdoc_image">
-<a href="images/analysis_plot_sim_fig_01.png"><figure style="margin-left: 5%">
-   <img src="images/analysis_plot_sim_fig_01.png" alt="Figure 1 at images/analysis_plot_sim_fig_01.png" width=600> 
+<a href="images/analysis_sim_fig_01.png"><figure style="margin-left: 5%">
+   <img src="images/analysis_sim_fig_01.png" alt="Figure 1 at images/analysis_sim_fig_01.png" width=600> 
 </figure></a></div><p>Since this is a constant source, there should be no breaks, that is, only one partition.
 Here is a table of the partition fits:</p>
-<p><details open class="nbdoc-description" >  <summary> BB fit table </summary>  <div style="margin-left: 5%"><pre>         t      tw        n      e   flux           errors  sigma_dev<br>0  56559.5  3753.0  1060683  1.016  0.991  (-0.001, 0.001)       -7.0<br>1  58436.5     1.0      117  0.598  0.551  (-0.079, 0.085)       -4.5<br>2  58567.0   260.0    56489  0.775  1.001  (-0.006, 0.006)        0.1</pre></div> </details>
-The last column represents the compatibility of the flux measuremnt for each partition
+<p><details open class="nbdoc-description" >  <summary> BB fit table </summary>  <div style="margin-left: 5%"><pre>         t      tw       n      e   flux           errors  sigma_dev<br>0  56183.0  3000.0  872148  1.044  0.991  (-0.001, 0.001)       -6.4<br>1  58190.0  1014.0  246061  0.870  0.993  (-0.003, 0.003)       -2.8</pre></div> </details>
+The last column represents the compatibility of the flux measurement for each partition
 with the expected value 1.0 in equivalent sigma units.</p>
 <p>Check for short, &lt; 100 day partitions.
-There are 1 such</p>
-<div class="nbdoc_image">
-<a href="images/analysis_plot_sim_fig_02.png"><figure style="margin-left: 5%">
-   <img src="images/analysis_plot_sim_fig_02.png" alt="Figure 2 at images/analysis_plot_sim_fig_02.png" width=600> 
-</figure></a></div>
+None found.</p>
+
 </div>
 
 </div>
@@ -283,6 +297,18 @@ There are 1 such</p>
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="TO-DO">TO DO<a class="anchor-link" href="#TO-DO"> </a></h3><ul>
+<li><p>Find out why, for the simulation, there is a 1% descrepancy between the measured and generated flux. There are two ways that likelihoods for adjacent cells are combined: the Bayesian Blocks uses tables generated from the Poisson-like representations to each cell, currently with 50 entries, while the fits to the blocks it recognizes uses the actual weights. I have not carefully compared these.</p>
+</li>
+<li><p>Look at the 9 or so intervals detected for the data, of which 5 have measured flux increases around 10%,  more than 4$\sigma$. Possibilities are a problem with the exposure, and a change in the background. The latter can be examined by a 2-D fit with $\beta$ free. Another possibility, fixing $\alpha=0$ and fitting $\beta$ is not (yet) supported.</p>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -303,7 +329,7 @@ There are 1 such</p>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Mon Dec 21 16:12:51 PST 2020
+<pre>Tue Dec 22 05:42:55 PST 2020
 </pre>
 </div>
 </div>
