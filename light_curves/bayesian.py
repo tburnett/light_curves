@@ -122,7 +122,7 @@ class LikelihoodFitness(CountFitness):
     """ Fitness function that uses the full likelihood
     """
 
-    def __init__(self, lc,  p0=0.05, npt=25):
+    def __init__(self, lc,  p0=0.05, npt=50):
         self.npt = npt
         super().__init__(lc, p0)
 
