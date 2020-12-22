@@ -13,7 +13,7 @@ from .config import *
 from .load_gti import get_gti
 
 # Cell
-def _load_photon_data(table, tstart,
+def _load_photon_data(config, table, tstart,
                       conepix, gti, center, band_limits, radius,
                       nest=True):
     """For a given month table, select photons in cone, add tstart to times,
@@ -87,7 +87,7 @@ def _get_photons(config, source, nest=True):
     for month, tstart in tstart_dict.items(): #months:
         table= pq.read_table(dataset, filters=[f'month == {month}'.split()])
 
-        d = _load_photon_data(table, tstart,
+        d = _load_photon_data(config, table, tstart,
                               conepix, gti, center, band_limits, radius,
                               nest)
         if d is not None:

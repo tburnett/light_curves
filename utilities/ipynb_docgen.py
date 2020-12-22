@@ -14,7 +14,7 @@ def userdoc():
 nbdev(userdoc,)
 
 """
-import sys, os, shutil, string, pprint
+import sys, os, shutil, string, pprint, datetime
 import nbdev
 
 __all__ = ['nbdoc', 'image', 'figure', 'monospace', 'capture_print', 'shell'] #,'show_doc']
@@ -396,7 +396,7 @@ def nbdoc(fun, *pars, name=None, **kwargs):
     If name is specified, use it instead of the function name to distinguish figure file names, say for separate
     executions with differing parameters.
 
-    The required docstring will be interpret as markdown.
+    The required docstring will be interpreted as markdown by IPython.
 
     args and kwargs will be passed to the user function -- a way to pass information from the notebook environment
     The function must end with "return locals()".
@@ -413,17 +413,24 @@ def nbdoc(fun, *pars, name=None, **kwargs):
     doc = inspect.cleandoc(rawdoc)
     name = name or fun.__name__
 
+    # predefine convenient symbols
+    vars = dict(date =str(datetime.datetime.now())[:16],
+            )
+
     # run it and collect its local symbol table
     try:
-        vars = fun(*pars, **kwargs)
+        user_vars = fun(*pars, **kwargs)
     except Exception as e:
         print(f'Function {fun.__name__} failed: {e}', file=sys.stderr)
         raise 
         #return
 
-    if vars is None or  type(vars)!=dict:
+    if user_vars is None or  type(user_vars)!=dict:
         print( 'The function {fun.__name__} must end with "return locals()"', file=sys.stderr)
         return
+
+    # add convenient symbols
+    vars.update(user_vars)
 
     # check location. Expect the
     if os.path.isdir('docs'):
