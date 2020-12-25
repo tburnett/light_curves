@@ -352,6 +352,8 @@ Fit:  {&#39;counts&#39;: 1080435, &#39;flux&#39;: 0.9963, &#39;sig_flux&#39;: 0.
         <span class="n">fig2</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
         <span class="n">short_check</span> <span class="o">=</span> <span class="s1">&#39;None found.&#39;</span>
     <span class="k">return</span> <span class="nb">locals</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">Config</span><span class="p">()</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
+    <span class="n">nbdoc</span><span class="p">(</span><span class="n">analysis_plots</span><span class="p">,</span> <span class="s1">&#39;Geminga&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -359,6 +361,88 @@ Fit:  {&#39;counts&#39;: 1080435, &#39;flux&#39;: 0.9963, &#39;sig_flux&#39;: 0.
 </div>
 
     </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="Geminga-data">Geminga data<a class="anchor-link" href="#Geminga-data"> </a></h4><p>Get, or simulate, the daily binned data, or cells; perform Bayesian Blocks partition;
+make fits to the blocks. <br>(Run at 2020-12-25 11:32)</p>
+<p><details  class="nbdoc-description" >  <summary> Analysis output </summary>  <div style="margin-left: 5%"><pre>Light curve for Geminga: Restoring from cache with key "lightfcurve_Geminga"<br>Cell data for Geminga: Restoring from cache with key "cells_Geminga"<br>BB edges for...: Restoring from cache with key "bb-Geminga-test"<br>Partitioned 3873 cells into 16 blocks, using LikelihoodFitness <br>Loaded 16 / 16 cells with exposure &gt; 0.3 for fitting<br></pre></div> </details></p>
+<p>This shows the fits to all cells, with the BB fit overlays</p>
+<div class="nbdoc_image">
+<figure style="margin-left: 5%" title="Figure 1">  <a href="images/analysis_plots_fig_01.png" title="images/analysis_plots_fig_01.png">    <img src="images/analysis_plots_fig_01.png" alt="Figure 1 at images/analysis_plots_fig_01.png" width=600>   </a> </figure>
+</div><p>Since this is a constant source, there should be no breaks, that is, only one partition.
+Here is a table of the partition fits:</p>
+<p><details open class="nbdoc-description" >  <summary> BB fit table </summary>  <div style="margin-left: 5%"><pre>          t      tw       n   flux           errors  sigma_dev<br>0   55027.0   688.0  207832  0.998  (-0.003, 0.003)        0.7<br>1   55378.0    14.0    3797  1.122  (-0.024, 0.024)        5.5<br>2   55559.5   349.0   95852  0.984  (-0.004, 0.004)       -2.8<br>3   55747.0    26.0    7451  1.117  (-0.017, 0.017)        7.4<br>4   55931.0   342.0   91313  0.990  (-0.004, 0.004)       -1.5<br>5   56107.5    11.0    2889  1.125  (-0.027, 0.027)        4.9<br>6   56290.5   355.0   97289  0.989  (-0.004, 0.004)       -1.6<br>7   56487.0    38.0   10741  1.078  (-0.014, 0.014)        6.1<br>8   56576.5   141.0   38662  0.979  (-0.007, 0.007)       -2.5<br>9   56655.0    16.0    4298  1.094  (-0.022, 0.022)        4.6<br>10  56745.5   165.0   44485  0.981  (-0.006, 0.006)       -2.3<br>11  56879.5   103.0   28168  1.027  (-0.008, 0.008)        3.7<br>12  56972.5    83.0   20961  0.966  (-0.009, 0.009)       -3.3<br>13  57017.5     7.0    2070  1.156  (-0.032, 0.033)        5.1<br>14  57829.5  1617.0  414571  0.995  (-0.002, 0.002)       -0.7<br>15  58667.5    59.0   10055  1.079  (-0.014, 0.014)        5.9</pre></div> </details>
+The last column represents the compatibility of the flux measurement for each partition
+with the expected value 0.9963 in equivalent sigma units.</p>
+<p>Expand the plot around short, &lt; 50 day partitions.
+There are 6 such.</p>
+<div class="nbdoc_image">
+<figure style="margin-left: 5%" title="Figure 2">  <a href="images/analysis_plots_fig_02.png" title="images/analysis_plots_fig_02.png">    <img src="images/analysis_plots_fig_02.png" alt="Figure 2 at images/analysis_plots_fig_02.png" width=600>   </a> </figure>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary data-open="Hide Code" data-close="Show Code"></summary>
+        <summary></summary>
+        <div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">Config</span><span class="p">()</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
+
+    <span class="n">nbdoc</span><span class="p">(</span><span class="n">analysis_plots</span><span class="p">,</span> <span class="s1">&#39;Geminga&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;analysis_sim&#39;</span><span class="p">,</span>  <span class="n">simname</span><span class="o">=</span><span class="s1">&#39;analysis_plot_sim&#39;</span><span class="p">,</span> 
+         <span class="n">expect</span><span class="o">=</span><span class="mf">0.9915</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="Simulated-Geminga-data">Simulated Geminga data<a class="anchor-link" href="#Simulated-Geminga-data"> </a></h4><p>Get, or simulate, the daily binned data, or cells; perform Bayesian Blocks partition;
+make fits to the blocks. <br>(Run at 2020-12-25 11:35)</p>
+<p><details  class="nbdoc-description" >  <summary> Analysis output </summary>  <div style="margin-left: 5%"><pre>Light curve for Geminga: Restoring from cache with key "lightfcurve_Geminga"<br>Cell data for Geminga: Restoring from cache with key "cells_Geminga"<br>binned exposure for source Geminga: Restoring from cache with key "binned_exposure_Geminga"<br>Weight histogram for Geminga: Restoring from cache with key "weight_hist_Geminga"<br>Loaded 3873 / 4015 cells with exposure &gt; 0.3 for fitting<br>BB edges for...: Restoring from cache with key "analysis_plot_sim"<br>Partitioned 3873 cells into 2 blocks, using LikelihoodFitness <br>Loaded 2 / 2 cells with exposure &gt; 0.3 for fitting<br></pre></div> </details></p>
+<p>This shows the fits to all cells, with the BB fit overlays</p>
+<div class="nbdoc_image">
+<figure style="margin-left: 5%" title="Figure 1">  <a href="images/analysis_sim_fig_01.png" title="images/analysis_sim_fig_01.png">    <img src="images/analysis_sim_fig_01.png" alt="Figure 1 at images/analysis_sim_fig_01.png" width=600>   </a> </figure>
+</div><p>Since this is a constant source, there should be no breaks, that is, only one partition.
+Here is a table of the partition fits:</p>
+<p><details open class="nbdoc-description" >  <summary> BB fit table </summary>  <div style="margin-left: 5%"><pre>         t      tw        n   flux           errors  sigma_dev<br>0  56665.0  3964.0  1108248  0.990  (-0.001, 0.001)       -0.9<br>1  58672.0    50.0     8111  0.988  (-0.015, 0.015)       -0.3</pre></div> </details>
+The last column represents the compatibility of the flux measurement for each partition
+with the expected value 0.9915 in equivalent sigma units.</p>
+<p>Expand the plot around short, &lt; 50 day partitions.
+None found.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
