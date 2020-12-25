@@ -7,8 +7,8 @@ import numpy as np
 from scipy import optimize, special, polyfit, stats
 
 class Poisson(object):
-    r"""This is a Functor class which returns the log of a three-parameter Poisson-like function used to represent the flux likelihood
-    parameters are, in order:
+    r"""This is a functor class which returns the log of a three-parameter Poisson-like function used to represent
+    the flux likelihood. The parameters are, in order:
 
     $s_p$ : flux at peak, if positive; if negative, there is only a limit
 
@@ -16,24 +16,22 @@ class Poisson(object):
 
     $b$  : background flux: must be >=0
 
-    This parameterization is equivalent to that described in William
-    Tompkins' thesis (arxiv: astro-ph/0202141) and Nolan, et al., 2003,
-    ApJ 597:615:627. The functional form is that of a Poisson distribution
-
+    This parameterization is equivalent to that described in William Tompkins' thesis
+    (arxiv: astro-ph/0202141) and Nolan, et al., 2003,  ApJ 597:615:627.
+    The functional form is that of a Poisson distribution.
 
     The log likelihood expression is for flux $s>=0$
        $$w(s | s_p,e,b) = e\ (s_p+b) \ \log[ e\ (s+b) ] - e\ s + \mathrm{const}$$
     the const is such that $w=0$ at the peak.
 
     A slightly more elegant expression, used in the cdf function, is to define
-       $\beta = e b$,
-       $\mu = e s_p + \beta$, and
-       $x = e s$
+       $\beta = e b$,  $\mu = e s_p + \beta$, and  $x = e s$.
+
     Then the log likelihood is
 
-       $$ w'(x) =  \mu \ \log( x + \beta) - x + \mathrm{const}$$
+       $$ f(x | \beta) =  \mu \ \log( x + \beta) - x + \mathrm{const}$$
 
-    where the peak is at $x=x_p=max(0, \mu-\beta)$, and the constant is defined so that $w'(x_p)=0$.
+    where the peak is at $x=x_p=\max(0, \mu-\beta)$, and the constant is defined so that $f(x_p)=0$.
 
     """
 
@@ -296,6 +294,7 @@ class PoissonFitter(object):
                 #print'f(%.3f,%.3f): %s' % (mu,beta,r)
                 return r
             mu,beta =  optimize.leastsq(fitfunc,[mu,beta], ftol=1e-6,xtol=1e-6, maxfev=10000)[0]
+
             e = (mu-beta)/smax; b = beta/e
             return [smax, e, b]
         else:

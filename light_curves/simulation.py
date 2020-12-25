@@ -11,18 +11,22 @@ import scipy
 from .config import *
 from .loglike import *
 from .exposure import *
+from .cells import *
 from .lightcurve import *
 from .weights import get_weight_hist
 
 # Cell
+import numbers
+from scipy.stats import uniform
 class _Sampler():
     """ Sample an arbitrary function or histogram
 
-    - func -- the function, or a histogram
+    - func -- a function, a histogram, or a fixed value<br>
+        If a function, must be positive definite.<br>
+        Assume histogram bins are 0 to 1.
     - a,b  -- limits (default 0,1)
-    - n    -- table size (ignored if a histogram)
+    - n    -- table size (ignored if a histogram or value)
 
-    Note the property `mean` is the expected mean.
     """
 
     def __init__(self, func, limits=(0,1), n=100):
@@ -30,10 +34,21 @@ class _Sampler():
         a,b = limits
         self.x = np.linspace(a,b,n+1) # bin edges
         dx = (b-a)/(n)/2
+        self.deltafun=None
 
-        if not hasattr(func, '__len__'):
+        if callable(func):
+            # A function
             # evaluate at bin centers
-            y = [func(t-dx) for t in self.x]
+            y = np.array([func(t-dx) for t in self.x])
+            if np.any(y<0) or np.sum(y)==0:
+                raise ValueError('Function is not positive definite')
+        elif isinstance(func, numbers.Number):
+            # a single value, or delta function
+            self.deltafun = func
+            if  func<0 or func>1:
+                raise ValueError('Value not in range [0,1]')
+            self.mean=func
+            return
         else:
             n = len(func)
             self.x = np.linspace(a,b,n)
@@ -51,7 +66,8 @@ class _Sampler():
     def __call__(self, size):
         """Generate `size` values
         """
-        from scipy.stats import uniform
+        if self.deltafun: return np.full(size, self.deltafun)
+
         return self._evaluate(uniform.rvs(size=size))
 
 # Cell

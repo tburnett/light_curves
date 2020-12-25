@@ -202,11 +202,12 @@ class FigureWrapper(Wrapper):
             # add the HTML as an attribute, to insert the image, including  caption
             self._html =\
                 f'<div class="{self.fig_class}">\n'\
-                    f'<a href="{browser_fn}">'\
-                    f'<figure style="margin-left: {self.indent}">'\
-                    f'\n   <img src="{browser_fn}" alt="Figure {n} at {browser_fn}" {img_width}>'\
+                    f'<figure style="margin-left: {self.indent}" title="Figure {n}">'\
+                    f'  <a href="{browser_fn}" title="{browser_fn}">'\
+                    f'    <img src="{browser_fn}" alt="Figure {n} at {browser_fn}" {img_width}>'\
+                     '   </a>'\
                     f' {figcaption}' \
-                    '\n</figure></a>'\
+                     '</figure>\n'\
                 '</div>\n'
             #print(f'HTML:\n{self._html}')
         return self._html

@@ -13,7 +13,7 @@ from scipy import (optimize, linalg)
 from scipy.linalg import (LinAlgError, LinAlgWarning)
 
 from utilities import  keyword_options
-from light_curves import poisson
+from .poisson import *
 poisson_tolerance = 0.2
 
 # Cell
@@ -46,7 +46,8 @@ class LogLike(object):
         hess = self.hessian(pars)
         outdict = dict( counts=len(self.w) )
         if len(pars)==1:
-            outdict.update(flux=pars[0], sig_flux=np.sqrt(1/hess[0]))
+            outdict.update(flux=round(pars[0],4),
+                           sig_flux=round(np.sqrt(1/hess[0]),4) )
         else:
             beta = pars[1]
             var  = np.linalg.inv(hess)
@@ -210,15 +211,19 @@ class GaussianRep(object):
     def __repr__(self):
         return f'{self.__class__.__module__}.{self.__class__.__name__}:\n{pd.Series(self.fit)}'
 
+# Cell
 class Gaussian2dRep(GaussianRep):
     def __init__(self, loglike):
         super(Gaussian2dRep, self).__init__(loglike, fix_beta=False)
 
 # Cell
 class PoissonRep(object):
-    """Manage the representation of the log likelihood of a cell by a Poisson
-    Notes: function assumes arg is the rate
-            beta is set to zero (for now)
+    """Manage the representation of the log likelihood of a cell by a Poisson.
+
+    Constructor takes a `LogLike` object, fits it to the poisson-like function (see `Poisson`), and
+    defines a function to evaluate that.
+
+    Note that beta is set to zero (for now).
     """
 
     def __init__(self, loglike, tol=poisson_tolerance # note global
@@ -232,7 +237,7 @@ class PoissonRep(object):
         ## NB: the dd=-10 is a kluge for very small limits, set for loglike stuff with different scales.
         # this seems to work, but must be looked at more carefully
         try:
-            self.pf = poisson.PoissonFitter(loglike, fmax=fmax, scale=sig if rate>0 else 1,  dd=-10., tol=tol)
+            self.pf = PoissonFitter(loglike, fmax=fmax, scale=sig if rate>0 else 1,  dd=-10., tol=tol)
         except Exception as msg:
             print(f'Fail poisson fit for {loglike}: {msg}')
             with open('failed_loglike.pkl', 'wb') as file:
@@ -282,7 +287,7 @@ class PoissonRep(object):
     def create_table(self, npts=100, support=1e-6):
         # make a table of evently-spaced points between limits
         pars = self.fit['poiss_pars']
-        p = poisson.Poisson(pars)
+        p = Poisson(pars)
         a,b = p.cdfinv(support), p.cdfcinv(support)
         dom=(a,b,npts)
         cod = np.array(list(map(p, np.linspace(*dom)))) .astype(np.float32)
@@ -312,6 +317,9 @@ class PoissonRep(object):
 
 # Cell
 class PoissonRepTable(PoissonRep):
+    """
+    Create a table, then interpolate it
+    """
 
     def __init__(self, loglike):
         # PoissonRep fits to Poisson
