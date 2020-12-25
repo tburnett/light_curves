@@ -31,13 +31,13 @@ entries:
       title: Weights
       url: weights.html
     - output: web,pdf
-      title: poisson
+      title: Poisson-like likelihood
       url: poisson.html
     - output: web,pdf
       title: Cells
       url: cells.html
     - output: web,pdf
-      title: Log Likelihood tools
+      title: Likelihood tools
       url: loglike.html
     - output: web,pdf
       title: Light Curve Generation

@@ -253,6 +253,29 @@ dtype: float64</pre>
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If the rate is significant, more than 5 $\sigma$, the resulting poisson-like parameters are
+straight-forward to fit.</p>
+<p>If $s$ and $v$ are the signal rate and its  variance, determined by the 1-d Gaussian fit for $n$ measurements,
+so $s &gt; 5\sqrt{v} $, then we determine the poisson-like parameters as follows.</p>
+<p>We use the properties of the Poisson distribution 
+$f(n;\lambda) = \exp(n \log\lambda - \lambda + \mathrm{const})$, 
+where the parameter $\lambda$ is equal to the expected value of number of occurrences $n$ and 
+to its variance, and that the function we want is shifted by the background $b$ and scaled by a factor
+$k$ so we use $f(k(s-b); \lambda)$ This implies that for the expected value of $s$, $\lambda = n$,
+and $ k(s-b)= k^2 v = n$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>from which we obtain $k=\sqrt{n}/v$ and $b=s-k/n$.</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -264,12 +287,26 @@ dtype: float64</pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PoissonRep" class="doc_header"><code>class</code> <code>PoissonRep</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/loglike.py#L220" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PoissonRep</code>(<strong><code>loglike</code></strong>, <strong><code>tol</code></strong>=<em><code>0.2</code></em>)</p>
+<h2 id="PoissonRep" class="doc_header"><code>class</code> <code>PoissonRep</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/loglike.py#L220" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PoissonRep</code>(<strong><code>loglike</code></strong>, <strong><code>tol</code></strong>=<em><code>0.2</code></em>, <strong><code>thresh</code></strong>=<em><code>5</code></em>)</p>
 </blockquote>
-<p>Manage the representation of the log likelihood of a cell by a Poisson.</p>
+<p>Manage the representation of the log likelihood of a cell by a <a href="/light_curves/poisson.html#Poisson"><code>Poisson</code></a>.</p>
+<ul>
+<li>loglike: a LogLike object</li>
+<li>thresh: threshold to assume no Bayesian restriction</li>
+</ul>
 <p>Constructor takes a <a href="/light_curves/loglike.html#LogLike"><code>LogLike</code></a> object, fits it to the poisson-like function (see <a href="/light_curves/poisson.html#Poisson"><code>Poisson</code></a>), and
 defines a function to evaluate that.</p>
-<p>Note that beta is set to zero (for now).</p>
+<p>Note that beta is set to zero.</p>
+<p>If the rate is significant, more than 5 $\sigma$, so that the likelihood is not truncated by the
+Bayesian requirement, the resulting poisson-like parameters are   straightforward to determine.</p>
+<p>If $s$ and $v$ are the signal rate and its  variance, determined by the 1-d Gaussian fit for $n$ measurements,
+so $s &gt; 5\sqrt{v} $, then we determine the poisson-like parameters as follows.</p>
+<p>We use the properties of the Poisson distribution
+$f(n;\lambda) = \exp(n \log\lambda - \lambda + \mathrm{const})$,
+where the parameter $\lambda$ is equal to the expected value of number of occurrences $n$ and
+to its variance, and that the function we want is shifted by the background $b$ and scaled by a factor
+$k$ so we use $f(k(s-b); \lambda)$ This implies that for the expected value of $s$, $\lambda = n$,
+and $ k(s-b)= k^2 v = n$.</p>
 
 </div>
 
@@ -290,7 +327,7 @@ defines a function to evaluate that.</p>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Poisson-representation">Poisson representation<a class="anchor-link" href="#Poisson-representation"> </a></h3>
+<h4 id="Poisson-representation-development">Poisson representation development<a class="anchor-link" href="#Poisson-representation-development"> </a></h4>
 </div>
 </div>
 </div>
@@ -303,7 +340,7 @@ defines a function to evaluate that.</p>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">info</span> <span class="o">=</span> <span class="n">ll</span><span class="o">.</span><span class="n">fit_info</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;LogLike fit info:</span><span class="si">{</span><span class="n">info</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="n">pr</span> <span class="o">=</span> <span class="n">PoissonRep</span><span class="p">(</span><span class="n">ll</span><span class="p">)</span>
+<span class="n">pr</span> <span class="o">=</span> <span class="n">PoissonRep</span><span class="p">(</span><span class="n">ll</span><span class="p">,</span> <span class="n">thresh</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;PoissonRep: </span><span class="si">{</span><span class="n">pr</span><span class="si">}</span><span class="s1">, poiss: </span><span class="si">{</span><span class="n">pr</span><span class="o">.</span><span class="n">poiss</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="n">pars</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pr</span><span class="o">.</span><span class="n">poiss</span><span class="o">.</span><span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;poisson pars: </span><span class="si">{</span><span class="n">pars</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -330,7 +367,7 @@ defines a function to evaluate that.</p>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>LogLike fit info:{&#39;counts&#39;: 100, &#39;flux&#39;: 1.0, &#39;sig_flux&#39;: 0.125}
 PoissonRep:   1.000[1+0.121-0.129], &lt; 1.23, poiss: Poisson: mu,beta= 100.0, 20.0
-poisson pars: [ 1.    79.992  0.25 ]
+poisson pars: [ 1.   80.    0.25]
 Get poisson parmeters from n=100, m=1.0, sig=0.125
 Poisson: mu,beta= 100.0, 20.0 [1.0, 80.0, 0.25]
 </pre>
@@ -354,7 +391,7 @@ Poisson: mu,beta= 100.0, 20.0 [1.0, 80.0, 0.25]
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PoissonRepTable" class="doc_header"><code>class</code> <code>PoissonRepTable</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/loglike.py#L319" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PoissonRepTable</code>(<strong><code>loglike</code></strong>) :: <a href="/light_curves/loglike.html#PoissonRep"><code>PoissonRep</code></a></p>
+<h2 id="PoissonRepTable" class="doc_header"><code>class</code> <code>PoissonRepTable</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/loglike.py#L352" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PoissonRepTable</code>(<strong><code>loglike</code></strong>) :: <a href="/light_curves/loglike.html#PoissonRep"><code>PoissonRep</code></a></p>
 </blockquote>
 <p>Create a table, then interpolate it</p>
 
@@ -398,7 +435,7 @@ Poisson: mu,beta= 100.0, 20.0 [1.0, 80.0, 0.25]
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>(0.5025122655712322, 1.7019492714254052, 100)</pre>
+<pre>(0.5025044369392521, 1.7019376590709014, 100)</pre>
 </div>
 
 </div>

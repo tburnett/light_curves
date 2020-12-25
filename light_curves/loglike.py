@@ -218,34 +218,70 @@ class Gaussian2dRep(GaussianRep):
 
 # Cell
 class PoissonRep(object):
-    """Manage the representation of the log likelihood of a cell by a Poisson.
+    """Manage the representation of the log likelihood of a cell by a `Poisson`.
+
+    - loglike: a LogLike object
+    - thresh: threshold to assume no Bayesian restriction
 
     Constructor takes a `LogLike` object, fits it to the poisson-like function (see `Poisson`), and
     defines a function to evaluate that.
 
-    Note that beta is set to zero (for now).
+    Note that beta is set to zero.
+
+    If the rate is significant, more than 5 $\sigma$, so that the likelihood is not truncated by the
+    Bayesian requirement, the resulting poisson-like parameters are   straightforward to determine.
+
+    If $s$ and $v$ are the signal rate and its  variance, determined by the 1-d Gaussian fit for $n$ measurements,
+    so $s > 5\sqrt{v} $, then we determine the poisson-like parameters as follows.
+
+    We use the properties of the Poisson distribution
+    $f(n;\lambda) = \exp(n \log\lambda - \lambda + \mathrm{const})$,
+    where the parameter $\lambda$ is equal to the expected value of number of occurrences $n$ and
+    to its variance, and that the function we want is shifted by the background $b$ and scaled by a factor
+    $k$ so we use $f(k(s-b); \lambda)$ This implies that for the expected value of $s$, $\lambda = n$,
+    and $ k(s-b)= k^2 v = n$.
+
+
+
     """
 
-    def __init__(self, loglike, tol=poisson_tolerance # note global
+    def __init__(self, loglike, tol=poisson_tolerance,  # note global
+                 thresh = 5,
                 ):
-        """loglike: a LogLike object"""
+        """
 
-        rate, sig, ts= loglike.rate(no_ts=True)
-#         if t is None:
-#             raise Exception('Failed fit?')
-        fmax=max(0, rate)
-        ## NB: the dd=-10 is a kluge for very small limits, set for loglike stuff with different scales.
-        # this seems to work, but must be looked at more carefully
-        try:
-            self.pf = PoissonFitter(loglike, fmax=fmax, scale=sig if rate>0 else 1,  dd=-10., tol=tol)
-        except Exception as msg:
-            print(f'Fail poisson fit for {loglike}: {msg}')
-            with open('failed_loglike.pkl', 'wb') as file:
-                pickle.dump(loglike, file)
-            print('Saved file')
-            raise
-        self.loglike = loglike
-        self.poiss=self.pf.poiss
+        """
+
+        self.loglike = loglike # do I need this? lots of memory for the array of weights
+        rate, sig, self.ts= loglike.rate()
+
+
+        # note that variance v = (rate*sig)**2
+        if sig< 1/thresh: # can use the simple non-truncated Poisson distribution.
+            n = loglike.n
+            mu, beta = n, n-np.sqrt(n)/sig
+            k = rate * (mu-beta)
+            b = beta/k
+            self.poiss = Poisson((rate, k, b))
+            self.pf = None
+
+        else:
+            # fit bring in the fitter
+
+            fmax=max(0, rate)
+            ## NB: the dd=-10 is a kluge for very small limits, set for loglike stuff with different scales.
+            # this seems to work, but must be looked at more carefully
+            try:
+                self.pf = PoissonFitter(loglike, fmax=fmax, scale=sig if rate>0 else 1,  dd=-10., tol=tol)
+            except Exception as msg:
+                print(f'Fail poisson fit for {loglike}: {msg}')
+                with open('failed_loglike.pkl', 'wb') as file:
+                    pickle.dump(loglike, file)
+                print('Saved file')
+                raise
+
+            self.poiss=self.pf.poiss
+
         p = self
         # pass on t, tw, e if there else enter 0,1,1
         self.fit= dict(t= loglike.t if hasattr(loglike, 't') else 0,
@@ -276,9 +312,6 @@ class PoissonRep(object):
     def limit(self):
         """ 95% confidence interval"""
         return self.poiss.cdfcinv(0.05)
-    @property
-    def ts(self):
-        return self.poiss.ts
 
     def cl(self, x):
         """Confidence level"""
