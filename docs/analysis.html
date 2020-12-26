@@ -49,8 +49,8 @@ nb_path: "nbs/90_analysis.ipynb"
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction"> </a></h2><p>This notebook does not produce a module to add to the library, it a place to run, and report on analyses using the library. It uses local code, shown below.</p>
 <p>This is also an exploration of this style of presenting code, and data analysis based on it.</p>
-<h2 id="Geminga-analyses">Geminga analyses<a class="anchor-link" href="#Geminga-analyses"> </a></h2><p>Following Kerr's example, we use the source Geminga to check that this analysis of data gives results consistent with its being constant. As you can see below, the BB analysis finds 16 breaks, which merit further checks. That is followed by a simulation using
-Geminga's weight distribution and exposure. The run shown here finds one minor break, a change of 0.1%.</p>
+<h2 id="Geminga-analyses">Geminga analyses<a class="anchor-link" href="#Geminga-analyses"> </a></h2><p>Following Kerr's example, we use the source Geminga to verify that this analysis of data gives results consistent with its being constant. As you can see below, the BB analysis finds several breaks, which merit further checks. That is followed by a simulation using
+Geminga's weight distribution and exposure. The run shown here finds one minor break, a change of 0.08%.</p>
 
 </div>
 </div>
@@ -295,12 +295,12 @@ Fit:  {&#39;counts&#39;: 1080435, &#39;flux&#39;: 0.9963, &#39;sig_flux&#39;: 0.
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    #### {sim} Geminga data</span>
 <span class="sd">    </span>
-<span class="sd">    Get, or simulate, the daily binned data, or cells; perform Bayesian Blocks partition;</span>
-<span class="sd">    make fits to the blocks. &lt;br&gt;(Run at {date})</span>
+<span class="sd">    {which_source} the daily binned data, or cells; then perform a Bayesian Blocks partition;</span>
+<span class="sd">    finally make fits to the resulting blocks. &lt;br&gt;(Run at {date})</span>
 <span class="sd">    </span>
 <span class="sd">    {output}</span>
 <span class="sd">    </span>
-<span class="sd">    This shows the fits to all cells, with the BB fit overlays</span>
+<span class="sd">    This shows the fits to all cells, with the BB fit overlays.</span>
 <span class="sd">    {fig1}</span>
 <span class="sd">    </span>
 <span class="sd">    Since this is a constant source, there should be no breaks, that is, only one partition.</span>
@@ -319,6 +319,7 @@ Fit:  {&#39;counts&#39;: 1080435, &#39;flux&#39;: 0.9963, &#39;sig_flux&#39;: 0.
     <span class="n">source</span> <span class="o">=</span> <span class="n">PointSource</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
     <span class="n">simulated</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">simname</span><span class="p">)</span>
     <span class="n">sim</span><span class="o">=</span> <span class="s1">&#39;Simulated&#39;</span> <span class="k">if</span> <span class="n">simulated</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">which_source</span> <span class="o">=</span> <span class="s1">&#39;Simulate a set of &#39;</span> <span class="k">if</span> <span class="n">simulated</span> <span class="k">else</span> <span class="s1">&#39;Get&#39;</span>
     <span class="k">with</span> <span class="n">capture_print</span><span class="p">(</span><span class="s1">&#39;Analysis output&#39;</span> <span class="p">)</span> <span class="k">as</span> <span class="n">output</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">simulated</span><span class="p">:</span>
             <span class="n">lc</span><span class="p">,</span> <span class="n">bb_lc</span> <span class="o">=</span> <span class="n">analyze_data</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span>
@@ -326,7 +327,7 @@ Fit:  {&#39;counts&#39;: 1080435, &#39;flux&#39;: 0.9963, &#39;sig_flux&#39;: 0.
             <span class="n">lc</span><span class="p">,</span> <span class="n">bb_lc</span> <span class="o">=</span> <span class="n">simulation</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">bb_key</span><span class="o">=</span><span class="n">simname</span><span class="p">)</span> 
 
     <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.precision&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="c1">#, &#39;display.colheader_justify&#39;,&#39;left&#39;)</span>
-    <span class="n">expect</span>
+    
     <span class="n">df</span> <span class="o">=</span> <span class="n">fit_table</span><span class="p">(</span><span class="n">bb_lc</span><span class="p">,</span> <span class="n">expect</span><span class="o">=</span><span class="n">expect</span><span class="p">)</span>
     <span class="n">df_text</span> <span class="o">=</span> <span class="n">monospace</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">df</span><span class="p">),</span> <span class="s1">&#39;BB fit table&#39;</span><span class="p">,</span> <span class="nb">open</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         
@@ -368,10 +369,10 @@ Fit:  {&#39;counts&#39;: 1080435, &#39;flux&#39;: 0.9963, &#39;sig_flux&#39;: 0.
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Geminga-data">Geminga data<a class="anchor-link" href="#Geminga-data"> </a></h4><p>Get, or simulate, the daily binned data, or cells; perform Bayesian Blocks partition;
-make fits to the blocks. <br>(Run at 2020-12-25 11:32)</p>
+<h4 id="Geminga-data">Geminga data<a class="anchor-link" href="#Geminga-data"> </a></h4><p>Get the daily binned data, or cells; then perform a Bayesian Blocks partition;
+finally make fits to the resulting blocks. <br>(Run at 2020-12-25 15:55)</p>
 <p><details  class="nbdoc-description" >  <summary> Analysis output </summary>  <div style="margin-left: 5%"><pre>Light curve for Geminga: Restoring from cache with key "lightfcurve_Geminga"<br>Cell data for Geminga: Restoring from cache with key "cells_Geminga"<br>BB edges for...: Restoring from cache with key "bb-Geminga-test"<br>Partitioned 3873 cells into 16 blocks, using LikelihoodFitness <br>Loaded 16 / 16 cells with exposure &gt; 0.3 for fitting<br></pre></div> </details></p>
-<p>This shows the fits to all cells, with the BB fit overlays</p>
+<p>This shows the fits to all cells, with the BB fit overlays.</p>
 <div class="nbdoc_image">
 <figure style="margin-left: 5%" title="Figure 1">  <a href="images/analysis_plots_fig_01.png" title="images/analysis_plots_fig_01.png">    <img src="images/analysis_plots_fig_01.png" alt="Figure 1 at images/analysis_plots_fig_01.png" width=600>   </a> </figure>
 </div><p>Since this is a constant source, there should be no breaks, that is, only one partition.
@@ -422,15 +423,15 @@ There are 6 such.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Simulated-Geminga-data">Simulated Geminga data<a class="anchor-link" href="#Simulated-Geminga-data"> </a></h4><p>Get, or simulate, the daily binned data, or cells; perform Bayesian Blocks partition;
-make fits to the blocks. <br>(Run at 2020-12-25 11:35)</p>
+<h4 id="Simulated-Geminga-data">Simulated Geminga data<a class="anchor-link" href="#Simulated-Geminga-data"> </a></h4><p>Simulate the daily binned data, or cells; perform Bayesian Blocks partition;
+make fits to the blocks. <br>(Run at 2020-12-25 15:39)</p>
 <p><details  class="nbdoc-description" >  <summary> Analysis output </summary>  <div style="margin-left: 5%"><pre>Light curve for Geminga: Restoring from cache with key "lightfcurve_Geminga"<br>Cell data for Geminga: Restoring from cache with key "cells_Geminga"<br>binned exposure for source Geminga: Restoring from cache with key "binned_exposure_Geminga"<br>Weight histogram for Geminga: Restoring from cache with key "weight_hist_Geminga"<br>Loaded 3873 / 4015 cells with exposure &gt; 0.3 for fitting<br>BB edges for...: Restoring from cache with key "analysis_plot_sim"<br>Partitioned 3873 cells into 2 blocks, using LikelihoodFitness <br>Loaded 2 / 2 cells with exposure &gt; 0.3 for fitting<br></pre></div> </details></p>
 <p>This shows the fits to all cells, with the BB fit overlays</p>
 <div class="nbdoc_image">
 <figure style="margin-left: 5%" title="Figure 1">  <a href="images/analysis_sim_fig_01.png" title="images/analysis_sim_fig_01.png">    <img src="images/analysis_sim_fig_01.png" alt="Figure 1 at images/analysis_sim_fig_01.png" width=600>   </a> </figure>
 </div><p>Since this is a constant source, there should be no breaks, that is, only one partition.
 Here is a table of the partition fits:</p>
-<p><details open class="nbdoc-description" >  <summary> BB fit table </summary>  <div style="margin-left: 5%"><pre>         t      tw        n   flux           errors  sigma_dev<br>0  56665.0  3964.0  1108248  0.990  (-0.001, 0.001)       -0.9<br>1  58672.0    50.0     8111  0.988  (-0.015, 0.015)       -0.3</pre></div> </details>
+<p><details open class="nbdoc-description" >  <summary> BB fit table </summary>  <div style="margin-left: 5%"><pre>         t      tw        n   flux           errors  sigma_dev<br>0  56665.0  3964.0  1108329  0.989  (-0.001, 0.001)       -1.8<br>1  58672.0    50.0     8283  1.003  (-0.015, 0.015)        0.8</pre></div> </details>
 The last column represents the compatibility of the flux measurement for each partition
 with the expected value 0.9915 in equivalent sigma units.</p>
 <p>Expand the plot around short, &lt; 50 day partitions.

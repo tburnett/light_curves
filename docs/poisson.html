@@ -49,8 +49,8 @@ nb_path: "nbs/06_poisson.ipynb"
 <div class="output_markdown rendered_html output_subarea ">
 <h2 id="Poisson" class="doc_header"><code>class</code> <code>Poisson</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/poisson.py#L9" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Poisson</code>(<strong><code>p</code></strong>:<code>array of parameters</code>)</p>
 </blockquote>
-<p>This is a Functor class which returns the log of a three-parameter Poisson-like function used to represent the flux likelihood
-parameters are, in order:</p>
+<p>This is a functor class which returns the log of a three-parameter Poisson-like function used to represent
+the flux likelihood. The parameters are, in order:</p>
 <p>$s_p$ : flux at peak, if positive; if negative, there is only a limit</p>
 <p>$e$ : normalization factor to convert flux to equivalent counts. must be &gt;0</p>
 <p>$b$  : background flux: must be &gt;=0</p>
@@ -79,6 +79,65 @@ the const is such that $w=0$ at the peak.</p>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="Poisson.alternate_spec" class="doc_header"><code>Poisson.alternate_spec</code><a href="__main__.py#L171" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Poisson.alternate_spec</code>(<strong><code>counts</code></strong>, <strong><code>flux</code></strong>, <strong><code>sig_flux</code></strong>, <strong><code>tol</code></strong>=<em><code>5</code></em>)</p>
+</blockquote>
+<p>Create a Poisson instance with the fit parameters from an analysis
+if a likelihood function.</p>
+<ul>
+<li>counts -- number of weights</li>
+<li>flux -- peak value, in flux units </li>
+<li>sig_flux -- its standard deviation, square root of the variance</li>
+</ul>
+<p>This is only relevant if the likelihood is not truncated by the Bayes requirement.</p>
+<p>If $s$ and $v$ are the signal rate and its variance, determined by an optimization for $n$ measurements,
+so $s$ is large compared with $\sqrt{v}$, then the poisson-like are parameters as follows.</p>
+<p>We use the properties of the Poisson distribution 
+$f(n;\lambda) = \exp(n \log\lambda - \lambda + \mathrm{const})$, 
+where the parameter $\lambda$ is equal to the expected value of number of occurrences $n$ and 
+to its variance, and that the function we want is shifted by the background $b$ and scaled by a factor
+$k$ so we use $f(k(s-b); \lambda)$ This implies that for the expected value of $s$, $\lambda = n$,
+and $ k(s-b)= k^2 v = n$.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># simple test: for 10K counts the error is 1% if no background </span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">Poisson</span><span class="o">.</span><span class="n">alternate_spec</span><span class="p">(</span><span class="mi">10000</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.02</span> <span class="p">)</span>
+<span class="k">assert</span> <span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">==</span><span class="s1">&#39;Poisson: mu,beta= 10000.0, 0.0&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Fail: got </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
 
 </div>
     {% endraw %}
@@ -142,7 +201,7 @@ peak less than zero, so that the Bayesian likelihood peaks at zero, and the effe
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PoissonFitter" class="doc_header"><code>class</code> <code>PoissonFitter</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/poisson.py#L176" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PoissonFitter</code>(<strong><code>func</code></strong>, <strong><code>fmax</code></strong>=<em><code>None</code></em>, <strong><code>scale</code></strong>=<em><code>None</code></em>, <strong><code>tol</code></strong>=<em><code>0.2</code></em>, <strong><code>delta</code></strong>=<em><code>0.0001</code></em>, <strong><code>dd</code></strong>=<em><code>-0.1</code></em>, <strong><code>test_mode</code></strong>=<em><code>False</code></em>)</p>
+<h2 id="PoissonFitter" class="doc_header"><code>class</code> <code>PoissonFitter</code><a href="https://github.com/tburnett/light_curves/tree/master/light_curves/poisson.py#L213" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PoissonFitter</code>(<strong><code>func</code></strong>, <strong><code>fmax</code></strong>=<em><code>None</code></em>, <strong><code>scale</code></strong>=<em><code>None</code></em>, <strong><code>tol</code></strong>=<em><code>0.2</code></em>, <strong><code>delta</code></strong>=<em><code>0.0001</code></em>, <strong><code>dd</code></strong>=<em><code>-0.1</code></em>, <strong><code>test_mode</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Helper class to fit a log likelihood function to the Poisson</p>
 

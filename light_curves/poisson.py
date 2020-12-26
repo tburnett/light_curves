@@ -172,6 +172,43 @@ class Poisson(object):
         # norm(0,1).isf is inverse survival probability for Gaussian
         return stats.norm(0,1).isf(self.cdf(val))
 
+    @classmethod
+    def alternate_spec(cls, counts, flux, sig_flux, tol=5):
+        """
+        Create a Poisson instance with the fit parameters from an analysis
+        if a likelihood function.
+
+        - counts -- number of weights
+        - flux -- peak value, in flux units
+        - sig_flux -- its standard deviation, square root of the variance
+
+        This is only relevant if the likelihood is not truncated by the Bayes requirement.
+
+        If $s$ and $v$ are the signal rate and its variance, determined by an optimization for $n$ measurements,
+        so $s$ is large compared with $\sqrt{v}$, then the poisson-like are parameters as follows.
+
+        We use the properties of the Poisson distribution
+        $f(n;\lambda) = \exp(n \log\lambda - \lambda + \mathrm{const})$,
+        where the parameter $\lambda$ is equal to the expected value of number of occurrences $n$ and
+        to its variance, and that the function we want is shifted by the background $b$ and scaled by a factor
+        $k$ so we use $f(k(s-b); \lambda)$ This implies that for the expected value of $s$, $\lambda = n$,
+        and $ k(s-b)= k^2 v = n$.
+
+        """
+        mu = counts
+        beta =  counts-np.sqrt(counts)/(sig_flux/flux)
+        assert beta>=0, f'std invalid, too small for number of counts'
+        k = (mu-beta) /flux
+        b = beta/k
+        P = cls([flux, k , b])
+        # check values at 0 and the peaks
+        if P(0) > -tol**2/2:
+            raise(f'Bayes violation: P(0)= {P(0):.2f} too large for'\
+                f' {tol} sigma limit. ')
+
+        assert np.abs(P(flux))<1e-3, f'Fail validity: peak {P(mean)}'
+        return P
+
 # Cell
 class PoissonFitter(object):
     """ Helper class to fit a log likelihood function to the Poisson

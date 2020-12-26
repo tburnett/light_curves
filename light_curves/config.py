@@ -75,6 +75,11 @@ class Cache(dict):
         if key not in self:
             return None
         filename = self[key]
+        if not filename.exists():
+            # perhaps deleted by another instance?
+            print(f'File for Cache key {key} not found, removing entry', file='sys.stderr')
+            selt.pop(key)
+            return None
         with open(filename, 'rb') as file:
             ret = pickle.load(file)
         return ret
@@ -195,6 +200,7 @@ class Config:
     # binning
     energy_edges = np.logspace(2,6,17)
     time_interval: int = 1
+    use_uint8: bool=False  # for weights
 
     # healpix data representation used by data
     nside : int=1024

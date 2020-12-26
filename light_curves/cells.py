@@ -26,6 +26,7 @@ class _WeightedCells(object):
         """
         self.source_name =source.name
         self.verbose = config.verbose
+        self.use_uint8  = config.use_uint8
 
         # exposure binned as well
         self.fexposure, bins = get_binned_exposure(config, source=source, time_bins=bins, ) #bins, exposure)
@@ -67,8 +68,8 @@ class _WeightedCells(object):
             S,B:  value
         """
         k   = self._edges
-
-        wts = np.array(self.weights[k[i]:k[i+1]]*256, np.uint8)
+        w = self.weights[k[i]:k[i+1]]
+        wts = np.array(w*256, np.uint8) if self.use_uint8 else w
         n = len(wts)
         e = self.fexposure[i]
         tw  = self.bins[i+1]-self.bins[i]

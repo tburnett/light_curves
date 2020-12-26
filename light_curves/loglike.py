@@ -221,7 +221,8 @@ class PoissonRep(object):
     """Manage the representation of the log likelihood of a cell by a `Poisson`.
 
     - loglike: a LogLike object
-    - thresh: threshold to assume no Bayesian restriction
+    - ts_min : tolerance for if use fitter
+    - thresh: sigma threshold to assume no Bayesian restriction
 
     Constructor takes a `LogLike` object, fits it to the poisson-like function (see `Poisson`), and
     defines a function to evaluate that.
@@ -246,28 +247,14 @@ class PoissonRep(object):
     """
 
     def __init__(self, loglike, tol=poisson_tolerance,  # note global
-                 thresh = 5,
+                 ts_min=25,
                 ):
         """
-
         """
-
         self.loglike = loglike # do I need this? lots of memory for the array of weights
         rate, sig, self.ts= loglike.rate()
 
-
-        # note that variance v = (rate*sig)**2
-        if sig< 1/thresh: # can use the simple non-truncated Poisson distribution.
-            n = loglike.n
-            mu, beta = n, n-np.sqrt(n)/sig
-            k = rate * (mu-beta)
-            b = beta/k
-            self.poiss = Poisson((rate, k, b))
-            self.pf = None
-
-        else:
-            # fit bring in the fitter
-
+        def use_fitter( ):
             fmax=max(0, rate)
             ## NB: the dd=-10 is a kluge for very small limits, set for loglike stuff with different scales.
             # this seems to work, but must be looked at more carefully
@@ -279,8 +266,16 @@ class PoissonRep(object):
                     pickle.dump(loglike, file)
                 print('Saved file')
                 raise
+            self.poiss =  self.pf.poiss
 
-            self.poiss=self.pf.poiss
+        if self.ts>ts_min: # can use the simple non-truncated Poisson distribution.
+            try:
+                self.poiss = Poisson.alternate_spec(loglike.n, rate,sig)
+                self.pf = None
+            except Exception as e:
+                use_fitter()
+        else:
+            use_fitter()
 
         p = self
         # pass on t, tw, e if there else enter 0,1,1
@@ -326,7 +321,7 @@ class PoissonRep(object):
         cod = np.array(list(map(p, np.linspace(*dom)))) .astype(np.float32)
         return dom, cod
 
-    def comparison_plots(self, xlim=(0,1), ax=None, nbins=40):
+    def comparison_plots(self, xlim=None, ax=None, nbins=21, **kwargs):
         """Plots comparing this approximation to the actual likelihhod
         """
         f_like = lambda x: self(x)
@@ -337,16 +332,18 @@ class PoissonRep(object):
         xp = fi['flux']
         sigp = fi['sig_flux']
         peak = f_like(xp)
-        dom = np.linspace(xlim[0],xlim[1],nbins)
+        if xlim is None:
+            xlim=(xp-4*sigp, xp+5*sigp)
+        dom = np.linspace(*xlim,num=nbins)
         f_gauss = lambda x: -((x-xp)/sigp)**2/2
         fig, ax = plt.subplots(figsize=(6,4)) if not ax else (ax.figure, ax)
-        ax.plot(dom, [f_like(x)-peak for x in dom], '-', label='Actual Likelihood');
-        ax.plot(dom, fp(dom), '--+', lw=1, label='Poisson approximation');
-        ax.plot(dom, [f_gauss(x) for x in dom], ':r', label='Gaussian approximation');
+        ax.plot(dom, [f_like(x)-peak for x in dom], '-b', label='LogLike');
+        ax.plot(dom, fp(dom), ':+', lw=1, color='green', ms=15, label='PoissonRep');
+        ax.plot(dom, [f_gauss(x) for x in dom], '--r', label='GaussianRep');
         ax.grid(alpha=0.5);
-        ax.set(ylim=(-9,0.5));
+        ax.set(ylim=(-9,0.5), **kwargs);
         ax.axhline(0, color='grey', ls='--')
-        ax.legend()
+        ax.legend(prop=dict(size=12))#, family='monospace'))
 
 # Cell
 class PoissonRepTable(PoissonRep):
