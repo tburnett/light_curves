@@ -231,7 +231,7 @@ def get_binned_exposure(config, source, time_bins=None, key='', gti_key='gti'):
 
         return np.diff(cum)/(cum[-1]-cum[0]) * (len(time_bins)-1) , time_bins
 
-    key = f'binned_exposure_{source.name}' if key=='' else key
+    key = f'binexp_{source.name}' if key=='' else key
     description= f'binned exposure for source {source.name}'
 
     return config.cache(key, doit, time_bins, description=description)

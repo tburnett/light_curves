@@ -154,7 +154,8 @@ Geminga's weight distribution and exposure. The run shown here finds one minor b
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">Config</span><span class="p">()</span><span class="o">.</span><span class="n">cache</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">cache</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -168,21 +169,12 @@ Geminga's weight distribution and exposure. The run shown here finds one minor b
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Cache contents
- key                          size  time                 name, in folder /tmp/lc_cache
-  gti                      1018319  2020-12-25 07:33     cache_file_535b334765658717.pkl
-  photons_Geminga         22334705  2020-12-25 07:33     cache_file_2cc2392e195286f.pkl
-  exposure_Geminga        86263776  2020-12-25 07:35     cache_file_61db20b268464ed0.pkl
-  binned_exposure_Geminga       64448  2020-12-25 07:35     cache_file_2cb93a4162c9697.pkl
-  cells_Geminga            1500794  2020-12-25 07:35     cache_file_b77bdecc77e950d.pkl
-  lightfcurve_Geminga     11190422  2020-12-25 07:35     cache_file_caaac8884562df3.pkl
-  bb-Geminga-test              289  2020-12-25 07:39     cache_file_fa31b9e1163f828.pkl
-  weight_hist_Geminga          556  2020-12-25 07:39     cache_file_159a990a784a38b.pkl
-  analysis_plot_sim            177  2020-12-25 07:43     cache_file_6dc00e37b52d97c.pkl
-  photons_3C 279           3659049  2020-12-25 09:59     cache_file_1db8a8042fd1cdbd.pkl
-  exposure_3C 279         78045888  2020-12-25 10:02     cache_file_56763e7e35d1bc39.pkl
-  binned_exposure_3C 279       64448  2020-12-25 10:02     cache_file_2fb5d90f2b7c266.pkl
-  cells_3C 279              557825  2020-12-25 10:02     cache_file_48640e66d18a391.pkl
-  lightfcurve_3C 279       4387626  2020-12-25 10:02     cache_file_d9744ed5e42451c.pkl
+ key                          size  time                 name, in folder /tmp/cache
+  gti                      1018319  2020-12-27 07:24     cache_file_7190bdd9c0a092d.pkl
+  photons_Geminga         22334705  2020-12-27 07:24     cache_file_14b520ba39961079.pkl
+  weight_hist_Geminga          556  2020-12-27 07:25     cache_file_967f229ebf4ecb.pkl
+  exposure_Geminga        86263776  2020-12-27 07:28     cache_file_28955455e5c2fbc.pkl
+  binned_exposure_Geminga       64448  2020-12-27 07:28     cache_file_b02185c3dd43b6e.pkl
 
 </pre>
 </div>
@@ -208,7 +200,6 @@ Geminga's weight distribution and exposure. The run shown here finds one minor b
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">light_curves.loglike</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
 <span class="n">source</span> <span class="o">=</span> <span class="n">PointSource</span><span class="p">(</span><span class="s1">&#39;Geminga&#39;</span><span class="p">)</span>
 <span class="n">cells</span> <span class="o">=</span> <span class="n">get_cells</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span>
 <span class="n">cell</span> <span class="o">=</span> <span class="n">concatenate_cells</span><span class="p">(</span><span class="n">cells</span><span class="p">)</span>
@@ -224,7 +215,20 @@ Geminga's weight distribution and exposure. The run shown here finds one minor b
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Cell data for Geminga: Restoring from cache with key &#34;cells_Geminga&#34;
+<pre>Cell data for Geminga: Saving to cache with key &#34;cells_Geminga&#34;
+Photon data: Restoring from cache with key &#34;photons_Geminga&#34;
+
+	Selected 1,313,726 photons within 5 deg of  (195.13,4.27)
+	Energies: 100.0-1000000 MeV
+	Dates:    2008-08-04 15:46 - 2019-08-03 01:17
+	MJD  :    54682.7          - 58698.1         
+Load weights from file /mnt/c/users/thbur/OneDrive/fermi/weight_files/Geminga_weights.pkl
+	Found: PSR J0633+1746 at (195.14, 4.27)
+	Applyng weights: 240 / 1313726 photon pixels are outside weight region
+	233109 weights set to NaN
+binned exposure for source Geminga: Saving to cache with key &#34;binexp_Geminga&#34;
+exposure for Geminga: Restoring from cache with key &#34;exposure_Geminga&#34;
+Time bins: 4015 intervals of 1 days, in range (54683.0, 58698.0)
 </pre>
 </div>
 </div>
@@ -258,7 +262,7 @@ Geminga's weight distribution and exposure. The run shown here finds one minor b
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>light_curves.loglike.LogLike:  time 56690.500, 1080435 weights, S 716237.6, B 364197.6 
-Fit:  {&#39;counts&#39;: 1080435, &#39;flux&#39;: 0.9963, &#39;sig_flux&#39;: 0.0013}
+Fit:  {&#39;counts&#39;: 1080435, &#39;flux&#39;: 1.0, &#39;sig_flux&#39;: 0.0013}
 </pre>
 </div>
 </div>
@@ -268,9 +272,49 @@ Fit:  {&#39;counts&#39;: 1080435, &#39;flux&#39;: 0.9963, &#39;sig_flux&#39;: 0.
 
 
 <div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
+<img src="data:image/png;base64,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
 "
 >
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cells</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>t                                               54683.5
+tw                                                    1
+e                                               1.26456
+n                                                   330
+w     [0.95343286, 0.83939403, 0.68349504, 0.0219892...
+S                                               225.585
+B                                               114.707
+Name: 0, dtype: object</pre>
 </div>
 
 </div>
@@ -315,7 +359,6 @@ Fit:  {&#39;counts&#39;: 1080435, &#39;flux&#39;: 0.9963, &#39;sig_flux&#39;: 0.
 <span class="sd">    </span>
 <span class="sd">    {fig2}</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
     <span class="n">source</span> <span class="o">=</span> <span class="n">PointSource</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
     <span class="n">simulated</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">simname</span><span class="p">)</span>
     <span class="n">sim</span><span class="o">=</span> <span class="s1">&#39;Simulated&#39;</span> <span class="k">if</span> <span class="n">simulated</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
@@ -353,7 +396,7 @@ Fit:  {&#39;counts&#39;: 1080435, &#39;flux&#39;: 0.9963, &#39;sig_flux&#39;: 0.
         <span class="n">fig2</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
         <span class="n">short_check</span> <span class="o">=</span> <span class="s1">&#39;None found.&#39;</span>
     <span class="k">return</span> <span class="nb">locals</span><span class="p">()</span>
-<span class="k">if</span> <span class="n">Config</span><span class="p">()</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
     <span class="n">nbdoc</span><span class="p">(</span><span class="n">analysis_plots</span><span class="p">,</span> <span class="s1">&#39;Geminga&#39;</span><span class="p">)</span>
 </pre></div>
 
@@ -370,14 +413,14 @@ Fit:  {&#39;counts&#39;: 1080435, &#39;flux&#39;: 0.9963, &#39;sig_flux&#39;: 0.
 
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="Geminga-data">Geminga data<a class="anchor-link" href="#Geminga-data"> </a></h4><p>Get the daily binned data, or cells; then perform a Bayesian Blocks partition;
-finally make fits to the resulting blocks. <br>(Run at 2020-12-25 15:55)</p>
-<p><details  class="nbdoc-description" >  <summary> Analysis output </summary>  <div style="margin-left: 5%"><pre>Light curve for Geminga: Restoring from cache with key "lightfcurve_Geminga"<br>Cell data for Geminga: Restoring from cache with key "cells_Geminga"<br>BB edges for...: Restoring from cache with key "bb-Geminga-test"<br>Partitioned 3873 cells into 16 blocks, using LikelihoodFitness <br>Loaded 16 / 16 cells with exposure &gt; 0.3 for fitting<br></pre></div> </details></p>
+finally make fits to the resulting blocks. <br>(Run at 2020-12-27 07:34)</p>
+<p><details  class="nbdoc-description" >  <summary> Analysis output </summary>  <div style="margin-left: 5%"><pre>Light curve for Geminga: Saving to cache with key "lightfcurve_Geminga"<br>Cell data for Geminga: Restoring from cache with key "cells_Geminga"<br>Loaded 3873 / 4015 cells with exposure &gt; 0.3 for light curve analysis<br>first cell: t                                                    54683.5<br>tw                                                         1<br>e                                                    1.26456<br>n                                                        330<br>w          [0.95343286, 0.83939403, 0.68349504, 0.0219892...<br>S                                                    225.585<br>B                                                    114.707<br>loglike    light_curves.loglike.LogLike:  time 54683.500,...<br>Name: 0, dtype: object<br>Fitting likelihoods with poisson representation<br>Cell data for Geminga: Restoring from cache with key "cells_Geminga"<br>BB edges for...: Saving to cache with key "bb-Geminga-test"<br>Partitioned 3873 cells into 15 blocks, using LikelihoodFitness <br>Loaded 15 / 15 cells with exposure &gt; 0.3 for fitting<br></pre></div> </details></p>
 <p>This shows the fits to all cells, with the BB fit overlays.</p>
 <div class="nbdoc_image">
 <figure style="margin-left: 5%" title="Figure 1">  <a href="images/analysis_plots_fig_01.png" title="images/analysis_plots_fig_01.png">    <img src="images/analysis_plots_fig_01.png" alt="Figure 1 at images/analysis_plots_fig_01.png" width=600>   </a> </figure>
 </div><p>Since this is a constant source, there should be no breaks, that is, only one partition.
 Here is a table of the partition fits:</p>
-<p><details open class="nbdoc-description" >  <summary> BB fit table </summary>  <div style="margin-left: 5%"><pre>          t      tw       n   flux           errors  sigma_dev<br>0   55027.0   688.0  207832  0.998  (-0.003, 0.003)        0.7<br>1   55378.0    14.0    3797  1.122  (-0.024, 0.024)        5.5<br>2   55559.5   349.0   95852  0.984  (-0.004, 0.004)       -2.8<br>3   55747.0    26.0    7451  1.117  (-0.017, 0.017)        7.4<br>4   55931.0   342.0   91313  0.990  (-0.004, 0.004)       -1.5<br>5   56107.5    11.0    2889  1.125  (-0.027, 0.027)        4.9<br>6   56290.5   355.0   97289  0.989  (-0.004, 0.004)       -1.6<br>7   56487.0    38.0   10741  1.078  (-0.014, 0.014)        6.1<br>8   56576.5   141.0   38662  0.979  (-0.007, 0.007)       -2.5<br>9   56655.0    16.0    4298  1.094  (-0.022, 0.022)        4.6<br>10  56745.5   165.0   44485  0.981  (-0.006, 0.006)       -2.3<br>11  56879.5   103.0   28168  1.027  (-0.008, 0.008)        3.7<br>12  56972.5    83.0   20961  0.966  (-0.009, 0.009)       -3.3<br>13  57017.5     7.0    2070  1.156  (-0.032, 0.033)        5.1<br>14  57829.5  1617.0  414571  0.995  (-0.002, 0.002)       -0.7<br>15  58667.5    59.0   10055  1.079  (-0.014, 0.014)        5.9</pre></div> </details>
+<p><details open class="nbdoc-description" >  <summary> BB fit table </summary>  <div style="margin-left: 5%"><pre>          t      tw       n   flux           errors  sigma_dev<br>0   55027.0   688.0  207832  1.002  (-0.003, 0.003)        1.9<br>1   55378.0    14.0    3797  1.126  (-0.024, 0.025)        5.4<br>2   55560.5   351.0   96416  0.988  (-0.004, 0.004)       -1.8<br>3   55748.0    24.0    6887  1.127  (-0.018, 0.018)        7.4<br>4   56114.0   708.0  191491  0.995  (-0.003, 0.003)       -0.5<br>5   56487.0    38.0   10741  1.082  (-0.014, 0.014)        6.2<br>6   56512.5    13.0    3402  0.905  (-0.021, 0.022)       -4.1<br>7   56673.5   309.0   84043  0.993  (-0.005, 0.005)       -0.8<br>8   56879.5   103.0   28168  1.030  (-0.008, 0.008)        4.1<br>9   56972.5    83.0   20961  0.969  (-0.009, 0.009)       -2.9<br>10  57017.5     7.0    2070  1.160  (-0.034, 0.034)        5.0<br>11  57109.0   176.0   45616  1.007  (-0.006, 0.006)        1.6<br>12  57197.5     1.0     149  0.538  (-0.067, 0.071)       -5.7<br>13  57917.5  1439.0  368600  0.998  (-0.002, 0.002)        0.7<br>14  58667.0    60.0   10261  1.082  (-0.015, 0.015)        6.0</pre></div> </details>
 The last column represents the compatibility of the flux measurement for each partition
 with the expected value 0.9963 in equivalent sigma units.</p>
 <p>Expand the plot around short, &lt; 50 day partitions.
@@ -405,7 +448,7 @@ There are 6 such.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">Config</span><span class="p">()</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
 
     <span class="n">nbdoc</span><span class="p">(</span><span class="n">analysis_plots</span><span class="p">,</span> <span class="s1">&#39;Geminga&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;analysis_sim&#39;</span><span class="p">,</span>  <span class="n">simname</span><span class="o">=</span><span class="s1">&#39;analysis_plot_sim&#39;</span><span class="p">,</span> 
          <span class="n">expect</span><span class="o">=</span><span class="mf">0.9915</span><span class="p">)</span>
@@ -423,15 +466,15 @@ There are 6 such.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Simulated-Geminga-data">Simulated Geminga data<a class="anchor-link" href="#Simulated-Geminga-data"> </a></h4><p>Simulate the daily binned data, or cells; perform Bayesian Blocks partition;
-make fits to the blocks. <br>(Run at 2020-12-25 15:39)</p>
-<p><details  class="nbdoc-description" >  <summary> Analysis output </summary>  <div style="margin-left: 5%"><pre>Light curve for Geminga: Restoring from cache with key "lightfcurve_Geminga"<br>Cell data for Geminga: Restoring from cache with key "cells_Geminga"<br>binned exposure for source Geminga: Restoring from cache with key "binned_exposure_Geminga"<br>Weight histogram for Geminga: Restoring from cache with key "weight_hist_Geminga"<br>Loaded 3873 / 4015 cells with exposure &gt; 0.3 for fitting<br>BB edges for...: Restoring from cache with key "analysis_plot_sim"<br>Partitioned 3873 cells into 2 blocks, using LikelihoodFitness <br>Loaded 2 / 2 cells with exposure &gt; 0.3 for fitting<br></pre></div> </details></p>
-<p>This shows the fits to all cells, with the BB fit overlays</p>
+<h4 id="Simulated-Geminga-data">Simulated Geminga data<a class="anchor-link" href="#Simulated-Geminga-data"> </a></h4><p>Simulate a set of  the daily binned data, or cells; then perform a Bayesian Blocks partition;
+finally make fits to the resulting blocks. <br>(Run at 2020-12-27 07:38)</p>
+<p><details  class="nbdoc-description" >  <summary> Analysis output </summary>  <div style="margin-left: 5%"><pre>Light curve for Geminga: Restoring from cache with key "lightfcurve_Geminga"<br>Cell data for Geminga: Restoring from cache with key "cells_Geminga"<br>binned exposure for source Geminga: Restoring from cache with key "binexp_Geminga"<br>Weight histogram for Geminga: Restoring from cache with key "weight_hist_Geminga"<br>Loaded 3873 / 4015 cells with exposure &gt; 0.3 for fitting<br>BB edges for...: Saving to cache with key "analysis_plot_sim"<br>Partitioned 3873 cells into 1 blocks, using LikelihoodFitness <br>Loaded 1 / 1 cells with exposure &gt; 0.3 for fitting<br></pre></div> </details></p>
+<p>This shows the fits to all cells, with the BB fit overlays.</p>
 <div class="nbdoc_image">
 <figure style="margin-left: 5%" title="Figure 1">  <a href="images/analysis_sim_fig_01.png" title="images/analysis_sim_fig_01.png">    <img src="images/analysis_sim_fig_01.png" alt="Figure 1 at images/analysis_sim_fig_01.png" width=600>   </a> </figure>
 </div><p>Since this is a constant source, there should be no breaks, that is, only one partition.
 Here is a table of the partition fits:</p>
-<p><details open class="nbdoc-description" >  <summary> BB fit table </summary>  <div style="margin-left: 5%"><pre>         t      tw        n   flux           errors  sigma_dev<br>0  56665.0  3964.0  1108329  0.989  (-0.001, 0.001)       -1.8<br>1  58672.0    50.0     8283  1.003  (-0.015, 0.015)        0.8</pre></div> </details>
+<p><details open class="nbdoc-description" >  <summary> BB fit table </summary>  <div style="margin-left: 5%"><pre>         t      tw        n   flux           errors  sigma_dev<br>0  56690.0  4014.0  1116345  0.989  (-0.001, 0.001)       -2.1</pre></div> </details>
 The last column represents the compatibility of the flux measurement for each partition
 with the expected value 0.9915 in equivalent sigma units.</p>
 <p>Expand the plot around short, &lt; 50 day partitions.
@@ -479,7 +522,7 @@ None found.</p>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Fri Dec 25 11:25:40 PST 2020
+<pre>Sun Dec 27 07:43:36 PST 2020
 </pre>
 </div>
 </div>
