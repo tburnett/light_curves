@@ -11,7 +11,7 @@ index = {"analyze_data": "tools.ipynb",
 
 modules = ["tools.py"]
 
-doc_url = "https://tburnett.github.io/"
+doc_url = "https://tburnett/github.io/light_curves"
 
 git_url = "https://github.com/tburnett/light_curves/tree/master/"
 
