@@ -54,52 +54,6 @@ Geminga's weight distribution and exposure. The run shown here finds one minor b
 </div>
 </div>
 </div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary data-open="Hide Code" data-close="Show Code"></summary>
-        <summary></summary>
-        <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">show_cache</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    ## Current Cache</span>
-<span class="sd">    {the_cache}</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
-    <span class="k">with</span> <span class="n">capture_print</span><span class="p">(</span><span class="s1">&#39;contents&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">the_cache</span><span class="p">:</span>                    
-        <span class="nb">print</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">cache</span><span class="p">)</span>
-    <span class="k">return</span> <span class="nb">locals</span><span class="p">()</span>
-<span class="n">nbdoc</span><span class="p">(</span><span class="n">show_cache</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-    </details>
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h2 id="Current-Cache">Current Cache<a class="anchor-link" href="#Current-Cache"> </a></h2><p><details  class="nbdoc-description" >  <summary> contents </summary>  <div style="margin-left: 5%"><pre>Cache contents<br> key                          size  time                 name, in folder /tmp/cache<br>  gti                      1018319  2021-02-25 10:13     cache_file_fd90f136078e430.pkl<br>  photons_P88Y5030        81246131  2021-02-25 10:14     cache_file_6787aa1a02922d7.pkl<br>  exposure_P88Y5030       83388256  2021-02-25 10:15     cache_file_14e236989236d264.pkl<br>  binexp_P88Y5030            64432  2021-02-25 10:15     cache_file_2f0aac7a4df4a8ed.pkl<br>  cells_P88Y5030          14820027  2021-02-25 10:15     cache_file_3a9b5c0c34ca1dc7.pkl<br>  lightfcurve_P88Y5030    17873049  2021-02-25 10:15     cache_file_eb4fc28f5e36199.pkl<br>  BB-P88Y5030                  185  2021-02-25 10:20     cache_file_7886500122d74f4d.pkl<br>  photons_Geminga         31679265  2021-02-25 11:09     cache_file_6a188786aa813f2e.pkl<br>  exposure_Geminga        86263776  2021-02-25 11:11     cache_file_16f8b8dbceb37b0a.pkl<br>  binexp_Geminga             64448  2021-02-25 11:11     cache_file_1cfbe6ebb07c739a.pkl<br>  cells_Geminga            5132223  2021-02-25 11:11     cache_file_643af5e9d9d4014e.pkl<br>  lightfcurve_Geminga      7289079  2021-02-25 11:11     cache_file_0b09a6a6386ce.pkl<br>  BB-Geminga                   281  2021-02-25 11:15     cache_file_6188352c1d71e2f3.pkl<br>  weight_hist_Geminga          556  2021-02-25 11:15     cache_file_472a39a0bace6096.pkl<br>  analysis_plot_sim            177  2021-02-25 11:19     cache_file_e6b51ed6d3ff2ad.pkl<br>  photons_04aF-0026       79530763  2021-02-25 11:39     cache_file_34e14b98ccda6e9b.pkl<br>  exposure_04aF-0026      82734048  2021-02-25 11:40     cache_file_3bcce65fb0eed669.pkl<br>  binexp_04aF-0026           64448  2021-02-25 11:40     cache_file_10ae3728de01d51.pkl<br>  cells_04aF-0026         14530140  2021-02-25 11:40     cache_file_5a01faa9f956b3af.pkl<br>  lightfcurve_04aF-0026    17543195  2021-02-25 11:40     cache_file_9fb474e23440280.pkl<br>  BB-04aF-0026                 177  2021-02-25 11:45     cache_file_780a407950ee4d37.pkl<br>  photons_011H-0114       78856237  2021-02-25 13:18     cache_file_d437ac99aa269ae.pkl<br>  exposure_011H-0114      82173536  2021-02-25 13:20     cache_file_5f54763c337b4.pkl<br>  binexp_011H-0114           64448  2021-02-25 13:20     cache_file_3a3ad52ce940bc37.pkl<br>  cells_011H-0114         14357512  2021-02-25 13:20     cache_file_234133162ff6a63.pkl<br>  lightfcurve_011H-0114    17418478  2021-02-25 13:20     cache_file_9fbbcef9a0da97f.pkl<br>  BB-011H-0114                 177  2021-02-25 13:24     cache_file_a1870d05fbfd352.pkl<br>  photons_PSR_B1259-63    51037964  2021-02-26 10:56     cache_file_104aea74cf07973.pkl<br>  exposure_PSR_B1259-63    91545664  2021-02-26 10:58     cache_file_756dbdeb0924a6c1.pkl<br>  binexp_PSR_B1259-63        64448  2021-02-26 10:58     cache_file_2a3c24a1dcb17ff.pkl<br>  cells_PSR_B1259-63       9326770  2021-02-26 10:58     cache_file_127c6ee4c15c01e.pkl<br>  lightfcurve_PSR_B1259-63    12503253  2021-02-26 10:58     cache_file_478f0500acb34f74.pkl<br>  BB-PSR_B1259-63              337  2021-02-26 11:02     cache_file_41609880abcd0e6.pkl<br>  photons_011H-0116       59595458  2021-02-26 12:57     cache_file_45a3e8a381f8ceb2.pkl<br>  exposure_011H-0116      87669696  2021-02-26 12:58     cache_file_4345fa8ed3f23505.pkl<br>  binexp_011H-0116           64448  2021-02-26 12:58     cache_file_2a2b6dd3ee361c62.pkl<br>  cells_011H-0116         11103472  2021-02-26 12:58     cache_file_a7cdfe062b5becc.pkl<br>  lightfcurve_011H-0116    14222954  2021-02-26 12:59     cache_file_bae35925c991d5c.pkl<br>  BB-011H-0116                 177  2021-02-26 13:03     cache_file_ebed8063c2de88e.pkl<br>  photons_3C 279           5639073  2021-02-26 13:20     cache_file_9383302e6346df8.pkl<br>  exposure_3C 279         78045888  2021-02-26 13:22     cache_file_d82e7e957857ab8.pkl<br>  binexp_3C 279              64448  2021-02-26 13:22     cache_file_1f0b96e08bd39a0.pkl<br>  cells_3C 279             1033744  2021-02-26 13:22     cache_file_3544ee7b580501a7.pkl<br>  lightfcurve_3C 279       4060058  2021-02-26 13:22     cache_file_62255b2402331b5.pkl<br><br></pre></div> </details></p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Check-fit-to-all-simulated-Geminga">Check fit to all simulated Geminga<a class="anchor-link" href="#Check-fit-to-all-simulated-Geminga"> </a></h3>
@@ -120,7 +74,15 @@ Geminga's weight distribution and exposure. The run shown here finds one minor b
 <span class="kn">from</span> <span class="nn">wtlike.config</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">utilities.ipynb_docgen</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">show_cache</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ## Current Cache</span>
+<span class="sd">    {the_cache}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">capture_print</span><span class="p">(</span><span class="s1">&#39;contents&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">the_cache</span><span class="p">:</span>                    
+        <span class="nb">print</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">cache</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">locals</span><span class="p">()</span>
 
 <span class="k">def</span> <span class="nf">analysis_plots</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">expect</span><span class="o">=</span><span class="mf">0.9963</span><span class="p">,</span> <span class="n">short</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">simname</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -146,6 +108,7 @@ Geminga's weight distribution and exposure. The run shown here finds one minor b
 <span class="sd">    </span>
 <span class="sd">    {fig2}</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
     <span class="n">source</span> <span class="o">=</span> <span class="n">PointSource</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
     <span class="n">simulated</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">simname</span><span class="p">)</span>
     <span class="n">sim</span><span class="o">=</span> <span class="s1">&#39;Simulated&#39;</span> <span class="k">if</span> <span class="n">simulated</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
@@ -183,8 +146,6 @@ Geminga's weight distribution and exposure. The run shown here finds one minor b
         <span class="n">fig2</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
         <span class="n">short_check</span> <span class="o">=</span> <span class="s1">&#39;None found.&#39;</span>
     <span class="k">return</span> <span class="nb">locals</span><span class="p">()</span>
-<span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
-    <span class="n">nbdoc</span><span class="p">(</span><span class="n">analysis_plots</span><span class="p">,</span> <span class="s1">&#39;Geminga&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -192,6 +153,24 @@ Geminga's weight distribution and exposure. The run shown here finds one minor b
 </div>
 
     </details>
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">Config</span><span class="p">()</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
+    <span class="n">nbdoc</span><span class="p">(</span><span class="n">analysis_plots</span><span class="p">,</span> <span class="s1">&#39;Geminga&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
@@ -200,7 +179,7 @@ Geminga's weight distribution and exposure. The run shown here finds one minor b
 
 <div class="output_markdown rendered_html output_subarea ">
 <h3 id="Geminga-data">Geminga data<a class="anchor-link" href="#Geminga-data"> </a></h3><p>Get the daily binned data, or cells; then perform a Bayesian Blocks partition;
-finally make fits to the resulting blocks. <br>(Run at 2021-02-26 15:51)</p>
+finally make fits to the resulting blocks. <br>(Run at 2021-02-26 17:36)</p>
 <p><details  class="nbdoc-description" >  <summary> Analysis output </summary>  <div style="margin-left: 5%"><pre>Light curve for Geminga: Restoring from cache with key "lightfcurve_Geminga"<br>Cell data for Geminga: Restoring from cache with key "cells_Geminga"<br>BB-Geminga: Restoring from cache with key "BB-Geminga"<br>Partitioned 3873 cells into 15 blocks, using LikelihoodFitness <br>Loaded 15 / 15 cells with exposure &gt; 0.3 for fitting<br></pre></div> </details></p>
 <p>This shows the fits to all cells, with the BB fit overlays.</p>
 <div class="nbdoc_image">
@@ -235,7 +214,7 @@ There are 6 such.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">Config</span><span class="p">()</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
 
     <span class="n">nbdoc</span><span class="p">(</span><span class="n">analysis_plots</span><span class="p">,</span> <span class="s1">&#39;Geminga&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;analysis_sim&#39;</span><span class="p">,</span>  <span class="n">simname</span><span class="o">=</span><span class="s1">&#39;analysis_plot_sim&#39;</span><span class="p">,</span> 
          <span class="n">expect</span><span class="o">=</span><span class="mf">0.9915</span><span class="p">)</span>
@@ -254,14 +233,14 @@ There are 6 such.</p>
 
 <div class="output_markdown rendered_html output_subarea ">
 <h3 id="Simulated-Geminga-data">Simulated Geminga data<a class="anchor-link" href="#Simulated-Geminga-data"> </a></h3><p>Simulate a set of  the daily binned data, or cells; then perform a Bayesian Blocks partition;
-finally make fits to the resulting blocks. <br>(Run at 2021-02-26 15:37)</p>
+finally make fits to the resulting blocks. <br>(Run at 2021-02-26 17:37)</p>
 <p><details  class="nbdoc-description" >  <summary> Analysis output </summary>  <div style="margin-left: 5%"><pre>Light curve for Geminga: Restoring from cache with key "lightfcurve_Geminga"<br>Cell data for Geminga: Restoring from cache with key "cells_Geminga"<br>binned exposure for source Geminga: Restoring from cache with key "binexp_Geminga"<br>Weight histogram for Geminga: Restoring from cache with key "weight_hist_Geminga"<br>Loaded 3873 / 4015 cells with exposure &gt; 0.3 for fitting<br>analysis_plot_sim: Restoring from cache with key "analysis_plot_sim"<br>Partitioned 3873 cells into 2 blocks, using LikelihoodFitness <br>Loaded 2 / 2 cells with exposure &gt; 0.3 for fitting<br></pre></div> </details></p>
 <p>This shows the fits to all cells, with the BB fit overlays.</p>
 <div class="nbdoc_image">
 <figure style="margin-left: 5%" title="Figure 1">  <a href="images/analysis_sim_fig_01.png" title="images/analysis_sim_fig_01.png">    <img src="images/analysis_sim_fig_01.png" alt="Figure 1 at images/analysis_sim_fig_01.png" width=600>   </a> </figure>
 </div><p>Since this is a constant source, there should be no breaks, that is, only one partition.
 Here is a table of the partition fits:</p>
-<p><details open class="nbdoc-description" >  <summary> BB fit table </summary>  <div style="margin-left: 5%"><pre>         t      tw        n   flux           errors  sigma_dev  limit<br>0  56318.0  3270.0  1029531  0.989  (-0.001, 0.001)       -2.0  0.991<br>1  58325.0   744.0   185820  0.992  (-0.003, 0.003)        0.1  0.997</pre></div> </details>
+<p><details open class="nbdoc-description" >  <summary> BB fit table </summary>  <div style="margin-left: 5%"><pre>         t      tw        n   flux           errors  sigma_dev  limit<br>0  56318.0  3270.0  1030166  0.990  (-0.001, 0.001)       -1.2  0.992<br>1  58325.0   744.0   185948  0.991  (-0.003, 0.003)       -0.2  0.996</pre></div> </details>
 The last column represents the compatibility of the flux measurement for each partition
 with the expected value 0.9915 in equivalent sigma units.</p>
 <p>Expand the plot around short, &lt; 50 day partitions.
