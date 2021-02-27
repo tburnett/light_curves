@@ -10,7 +10,7 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
-      title: B1259 Analysis
+      title: B1259-63 Analysis
       url: /B1259
     - output: web,pdf
       title: Geminga Analyses
