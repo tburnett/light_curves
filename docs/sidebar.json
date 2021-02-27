@@ -1,7 +1,9 @@
 {
   "light_curves": {
     "Overview": "/",
-    "Kerr Comparison": "kerr_comparison.html",
-    "Analyses": "analysis.html"
+    "B1259 Analysis": "/B1259",
+    "Geminga Analyses": "/geminga",
+    "Kerr Comparison": "/kerr_comparison",
+    "Light curve tools": "/tools"
   }
 }

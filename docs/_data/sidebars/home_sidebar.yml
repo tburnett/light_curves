@@ -10,11 +10,17 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
-      title: Kerr Comparison
-      url: kerr_comparison.html
+      title: B1259 Analysis
+      url: /B1259
     - output: web,pdf
-      title: Analyses
-      url: analysis.html
+      title: Geminga Analyses
+      url: /geminga
+    - output: web,pdf
+      title: Kerr Comparison
+      url: /kerr_comparison
+    - output: web,pdf
+      title: Light curve tools
+      url: /tools
     output: web
     title: light_curves
   output: web
