@@ -28,6 +28,27 @@ nb_path: "nbs/B1259.ipynb"
 </div>
     {% endraw %}
 
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Sat Feb 27 14:13:38 PST 2021
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
@@ -81,7 +102,7 @@ nb_path: "nbs/B1259.ipynb"
 <span class="sd">    {fig3}</span>
 <span class="sd">    </span>
 <span class="sd">    ### Table with the intervals:</span>
-<span class="sd">    {lc_display}</span>
+<span class="sd">    {df_text}</span>
 <span class="sd">    </span>
 <span class="sd">    Download it: [{lc_file}]({lc_file}).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -125,6 +146,9 @@ nb_path: "nbs/B1259.ipynb"
         <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="n">UTC</span><span class="p">(</span><span class="n">tp</span><span class="o">+</span><span class="n">i</span><span class="o">*</span><span class="n">p</span><span class="p">)[:</span><span class="mi">4</span><span class="p">],</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
     <span class="n">fig3</span><span class="o">.</span><span class="n">width</span><span class="o">=</span><span class="mi">600</span>
     
+    <span class="n">df</span> <span class="o">=</span> <span class="n">fit_table</span><span class="p">(</span><span class="n">bb_lc</span><span class="p">,</span> <span class="n">expect</span><span class="o">=</span><span class="n">expect</span><span class="p">)</span>
+    <span class="n">df_text</span> <span class="o">=</span> <span class="n">monospace</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">df</span><span class="p">),</span> <span class="s1">&#39;BB fit table&#39;</span><span class="p">,</span> <span class="nb">open</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        
     <span class="c1">### Save the BB intervals</span>
     <span class="n">lc_out</span> <span class="o">=</span> <span class="n">bb_lc</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
@@ -203,91 +227,8 @@ This plot is a consistency check of the weighted likelihood for the full interva
 </div><p>Expand the above about those dates</p>
 <div class="nbdoc_image">
 <figure style="margin-left: 5%" title="Figure 3">  <a href="images/B1259_fig_03.png" title="images/B1259_fig_03.png">    <img src="images/B1259_fig_03.png" alt="Figure 3 at images/B1259_fig_03.png" width=600>   </a> </figure>
-</div><h3 id="Table-with-the-intervals:">Table with the intervals:<a class="anchor-link" href="#Table-with-the-intervals:"> </a></h3><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th>t</th>
-      <th>tw</th>
-      <th>n</th>
-      <th>flux</th>
-      <th>low</th>
-      <th>high</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>55088.500</td>
-      <td>811.000</td>
-      <td>421805</td>
-      <td>0.000</td>
-      <td>0.000</td>
-      <td>0.076</td>
-    </tr>
-    <tr>
-      <td>55534.000</td>
-      <td>80.000</td>
-      <td>53111</td>
-      <td>4.478</td>
-      <td>3.194</td>
-      <td>5.788</td>
-    </tr>
-    <tr>
-      <td>55587.500</td>
-      <td>27.000</td>
-      <td>14780</td>
-      <td>47.731</td>
-      <td>44.203</td>
-      <td>51.278</td>
-    </tr>
-    <tr>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <td>58089.000</td>
-      <td>2.000</td>
-      <td>1045</td>
-      <td>117.303</td>
-      <td>100.185</td>
-      <td>134.777</td>
-    </tr>
-    <tr>
-      <td>58359.000</td>
-      <td>538.000</td>
-      <td>309771</td>
-      <td>0.000</td>
-      <td>0.000</td>
-      <td>0.179</td>
-    </tr>
-    <tr>
-      <td>58662.500</td>
-      <td>69.000</td>
-      <td>36122</td>
-      <td>0.000</td>
-      <td>0.000</td>
-      <td>1.460</td>
-    </tr>
-  </tbody>
-</table>
-</div><p>Download it: <a href="images/B1259_lc.csv">images/B1259_lc.csv</a>.</p>
+</div><h3 id="Table-with-the-intervals:">Table with the intervals:<a class="anchor-link" href="#Table-with-the-intervals:"> </a></h3><p><details open class="nbdoc-description" >  <summary> BB fit table </summary>  <div style="margin-left: 5%"><pre>          t      tw       n     flux             errors  sigma_dev    limit<br>0   55088.5   811.0  421805    0.000         (0, 0.076)       -3.8    0.374<br>1   55534.0    80.0   53111    4.478     (-1.284, 1.31)        2.8    6.675<br>2   55587.5    27.0   14780   47.731    (-3.528, 3.547)       13.7   53.595<br>3   55613.5    25.0   16762   13.557     (-2.57, 2.583)        5.0   17.826<br>4   56196.0  1140.0  616635    0.000         (0, 0.167)       -3.2    0.529<br>5   56790.5    49.0   33633    5.911    (-1.659, 1.701)        3.1    8.775<br>6   56827.5    25.0   20845   37.520     (-2.737, 2.75)       13.8   42.062<br>7   56842.5     5.0    3910    0.000         (0, 3.588)        0.9    8.919<br>8   56847.5     5.0    3980   26.846    (-5.961, 6.247)        4.9   37.577<br>9   56850.5     1.0     474  154.793  (-27.278, 28.127)        6.4  202.389<br>10  56856.0    10.0    4560   18.534    (-5.415, 5.721)        3.7   28.434<br>11  56973.0   224.0  110360    0.732    (-0.732, 0.852)       -0.1    2.241<br>12  57547.0   924.0  531434    0.000         (0, 0.129)       -3.3    0.490<br>13  58034.0    50.0   26847   11.239    (-1.956, 1.963)        5.3   14.481<br>14  58059.5     1.0     788  239.601  (-26.304, 26.936)       10.3  284.895<br>15  58065.0    10.0    8710   19.334    (-3.812, 3.839)        4.9   25.691<br>16  58072.5     5.0    3331   58.733    (-7.834, 7.925)        7.7   71.909<br>17  58076.0     2.0    1259  184.556  (-18.389, 18.738)       11.1  215.920<br>18  58082.5    11.0    5156   35.877    (-5.441, 5.492)        6.6   44.988<br>19  58089.0     2.0    1045  117.303  (-17.118, 17.475)        7.4  146.601<br>20  58359.0   538.0  309771    0.000         (0, 0.179)       -2.5    0.660<br>21  58662.5    69.0   36122    0.000          (0, 1.46)       -0.0    2.900</pre></div> </details></p>
+<p>Download it: <a href="images/B1259_lc.csv">images/B1259_lc.csv</a>.</p>
 
 </div>
 
@@ -299,6 +240,15 @@ This plot is a consistency check of the weighted likelihood for the full interva
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Questions-for-Discussion">Questions for Discussion<a class="anchor-link" href="#Questions-for-Discussion"> </a></h2><p>How do I interpret the apparent abrupt transitions?</p>
+<p>Is the day interval appropriate?</p>
+<p>I know that there is a ~7% systematic for the individual daily measurements, seen in the Geminga data. Does this matter?</p>
+
+</div>
+</div>
+</div>
 </div>
  
 
