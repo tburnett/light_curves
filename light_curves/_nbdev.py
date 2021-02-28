@@ -7,7 +7,8 @@ index = {"analyze_data": "tools.ipynb",
          "fit_table": "tools.ipynb",
          "simulation": "tools.ipynb",
          "bb_overplot": "tools.ipynb",
-         "WeightedSource": "tools.ipynb"}
+         "WeightedSource": "tools.ipynb",
+         "show_cache": "tools.ipynb"}
 
 modules = ["tools.py"]
 
