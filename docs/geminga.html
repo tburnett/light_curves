@@ -38,7 +38,7 @@ nb_path: "nbs/geminga.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Sun Feb 28 09:09:06 PST 2021
+<pre>Mon Mar  1 05:18:49 PST 2021
 </pre>
 </div>
 </div>
@@ -91,72 +91,20 @@ Geminga's weight distribution and exposure. The run shown here finds one minor b
 <span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
 <span class="n">source</span> <span class="o">=</span> <span class="n">PointSource</span><span class="p">(</span><span class="s1">&#39;geminga&#39;</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">show_cache</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">geminga_combined</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    ## Current Cache</span>
-<span class="sd">    {the_cache}</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">import</span> <span class="nn">pickle</span><span class="o">,</span> <span class="nn">datetime</span>
-    <span class="n">sname</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">name</span>
-    <span class="k">with</span> <span class="n">capture_print</span><span class="p">(</span><span class="s1">&#39;contents&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">the_cache</span><span class="p">:</span>                    
-        <span class="n">c</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">cache</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Cache contents for source </span><span class="si">{</span><span class="n">sname</span><span class="si">}</span><span class="se">\n</span><span class="s1">  </span><span class="si">{</span><span class="s2">&quot;key&quot;</span><span class="si">:</span><span class="s1">20</span><span class="si">}</span><span class="s1">  </span><span class="si">{</span><span class="s2">&quot;size&quot;</span><span class="si">:</span><span class="s1">&gt;10</span><span class="si">}</span><span class="s1">  </span><span class="si">{</span><span class="s2">&quot;time&quot;</span><span class="si">:</span><span class="s1">20</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>
-        <span class="k">for</span> <span class="n">name</span><span class="p">,</span><span class="n">value</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">sname</span><span class="p">):</span>
-                <span class="n">stat</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span>
-                <span class="n">size</span> <span class="o">=</span> <span class="n">stat</span><span class="o">.</span><span class="n">st_size</span>
-                <span class="n">mtime</span><span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">stat</span><span class="o">.</span><span class="n">st_mtime</span><span class="p">))[:</span><span class="mi">16</span><span class="p">]</span>
-                <span class="n">s</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;  </span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s1">20s</span><span class="si">}</span><span class="s1">  </span><span class="si">{</span><span class="n">size</span><span class="si">:</span><span class="s1">10</span><span class="si">}</span><span class="s1">  </span><span class="si">{</span><span class="n">mtime</span><span class="si">:</span><span class="s1">20</span><span class="si">}</span><span class="s1"> </span><span class="se">\n</span><span class="s1">&#39;</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-    <span class="k">return</span> <span class="nb">locals</span><span class="p">()</span>
-
-<span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
-    <span class="n">nbdoc</span><span class="p">(</span><span class="n">show_cache</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Invalid data--not generating plots.&#39;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-    </details>
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h2 id="Current-Cache">Current Cache<a class="anchor-link" href="#Current-Cache"> </a></h2><p><details  class="nbdoc-description" >  <summary> contents </summary>  <div style="margin-left: 5%"><pre>Cache contents for source geminga<br>  key                         size  time                <br>  photons_geminga         31679265  2021-02-28 08:20     <br>  exposure_geminga        86263776  2021-02-28 08:22     <br>  binexp_geminga             64448  2021-02-28 08:22     <br>  cells_geminga            5132223  2021-02-28 08:22     <br>  lightfcurve_geminga      7289195  2021-02-28 08:39     <br>  BB-geminga                   281  2021-02-28 08:43     <br>  weight_hist_geminga          556  2021-02-28 08:43     <br><br></pre></div> </details></p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary data-open="Hide Code" data-close="Show Code"></summary>
-        <summary></summary>
-        <div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">geminga_combined</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ### Cache contents for this source</span>
+<span class="sd">    </span>
+<span class="sd">    {geminga_cache}</span>
+<span class="sd">    </span>
 <span class="sd">    ## Fit to all data</span>
 <span class="sd">    {outp}</span>
 <span class="sd">    This is the likelihood, for the combined dataset, a consistency check of the weight calculation.</span>
 <span class="sd">    {fig1}</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+        
+    <span class="k">with</span> <span class="n">capture_print</span><span class="p">(</span><span class="s1">&#39;contents&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">geminga_cache</span><span class="p">:</span> 
+        <span class="nb">print</span><span class="p">(</span><span class="n">show_cache</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">source</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
        
     <span class="k">with</span> <span class="n">capture_print</span><span class="p">(</span><span class="s1">&#39;Analysis output&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outp</span><span class="p">:</span>
         <span class="n">ll</span> <span class="o">=</span> <span class="n">all_data_likelihood</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span>
@@ -181,6 +129,7 @@ Geminga's weight distribution and exposure. The run shown here finds one minor b
 
 
 <div class="output_markdown rendered_html output_subarea ">
+<h3 id="Cache-contents-for-this-source">Cache contents for this source<a class="anchor-link" href="#Cache-contents-for-this-source"> </a></h3><p><details  class="nbdoc-description" >  <summary> contents </summary>  <div style="margin-left: 5%"><pre>Cache contents for source geminga<br>  key                         size  time                <br>  photons_geminga         31679265  2021-02-28 08:20     <br>  exposure_geminga        86263776  2021-02-28 08:22     <br>  binexp_geminga             64448  2021-02-28 08:22     <br>  cells_geminga            5132223  2021-02-28 08:22     <br>  lightfcurve_geminga      7289195  2021-02-28 08:39     <br>  BB-geminga                   281  2021-02-28 08:43     <br>  weight_hist_geminga          556  2021-02-28 08:43     <br><br></pre></div> </details></p>
 <h2 id="Fit-to-all-data">Fit to all data<a class="anchor-link" href="#Fit-to-all-data"> </a></h2><p><details  class="nbdoc-description" >  <summary> Analysis output </summary>  <div style="margin-left: 5%"><pre>Cell data for geminga: Restoring from cache with key "cells_geminga"<br></pre></div> </details>
 This is the likelihood, for the combined dataset, a consistency check of the weight calculation.</p>
 <div class="nbdoc_image">
@@ -304,7 +253,7 @@ This is the likelihood, for the combined dataset, a consistency check of the wei
 
 <div class="output_markdown rendered_html output_subarea ">
 <h3 id="Geminga-data">Geminga data<a class="anchor-link" href="#Geminga-data"> </a></h3><p>Get the daily binned data, or cells; then perform a Bayesian Blocks partition;
-finally make fits to the resulting blocks. <br>(Run at 2021-02-28 09:07)</p>
+finally make fits to the resulting blocks. <br>(Run at 2021-02-28 09:43)</p>
 <p><details  class="nbdoc-description" >  <summary> Analysis output </summary>  <div style="margin-left: 5%"><pre>Light curve for geminga: Restoring from cache with key "lightfcurve_geminga"<br>Cell data for geminga: Restoring from cache with key "cells_geminga"<br>BB-geminga: Restoring from cache with key "BB-geminga"<br>Partitioned 3873 cells into 15 blocks, using LikelihoodFitness <br>Loaded 15 / 15 cells with exposure &gt; 0.3 for fitting<br></pre></div> </details></p>
 <p>This shows the fits to all cells, with the BB fit overlays.</p>
 <div class="nbdoc_image">
@@ -358,14 +307,14 @@ There are 6 such.</p>
 
 <div class="output_markdown rendered_html output_subarea ">
 <h3 id="Simulated-Geminga-data">Simulated Geminga data<a class="anchor-link" href="#Simulated-Geminga-data"> </a></h3><p>Simulate a set of  the daily binned data, or cells; then perform a Bayesian Blocks partition;
-finally make fits to the resulting blocks. <br>(Run at 2021-02-28 09:07)</p>
+finally make fits to the resulting blocks. <br>(Run at 2021-02-28 09:44)</p>
 <p><details  class="nbdoc-description" >  <summary> Analysis output </summary>  <div style="margin-left: 5%"><pre>Light curve for geminga: Restoring from cache with key "lightfcurve_geminga"<br>Cell data for geminga: Restoring from cache with key "cells_geminga"<br>binned exposure for source geminga: Restoring from cache with key "binexp_geminga"<br>Weight histogram for geminga: Restoring from cache with key "weight_hist_geminga"<br>Loaded 3873 / 4015 cells with exposure &gt; 0.3 for fitting<br>analysis_plot_sim: Restoring from cache with key "analysis_plot_sim"<br>Partitioned 3873 cells into 2 blocks, using LikelihoodFitness <br>Loaded 2 / 2 cells with exposure &gt; 0.3 for fitting<br></pre></div> </details></p>
 <p>This shows the fits to all cells, with the BB fit overlays.</p>
 <div class="nbdoc_image">
 <figure style="margin-left: 5%" title="Figure 1">  <a href="images/analysis_sim_fig_01.png" title="images/analysis_sim_fig_01.png">    <img src="images/analysis_sim_fig_01.png" alt="Figure 1 at images/analysis_sim_fig_01.png" width=600>   </a> </figure>
 </div><p>Since this is a constant source, there should be no breaks, that is, only one partition.
 Here is a table of the partition fits:</p>
-<p><details open class="nbdoc-description" >  <summary> BB fit table </summary>  <div style="margin-left: 5%"><pre>         t      tw        n   flux           errors  sigma_dev  limit<br>0  56318.0  3270.0  1031971  0.992  (-0.001, 0.001)        0.1  0.994<br>1  58325.0   744.0   186592  0.995  (-0.003, 0.003)        0.9  1.000</pre></div> </details>
+<p><details open class="nbdoc-description" >  <summary> BB fit table </summary>  <div style="margin-left: 5%"><pre>         t      tw        n   flux           errors  sigma_dev  limit<br>0  56318.0  3270.0  1029456  0.989  (-0.001, 0.001)       -2.2  0.991<br>1  58325.0   744.0   185725  0.991  (-0.003, 0.003)       -0.3  0.996</pre></div> </details>
 The last column represents the compatibility of the flux measurement for each partition
 with the expected value 0.9915 in equivalent sigma units.</p>
 <p>Expand the plot around short, &lt; 50 day partitions.
