@@ -9,7 +9,7 @@
   
 * [Geminga](geminga)
 
-    Detailed study of the Geminta pulsar, which is constant
+    Detailed study of the Geminga pulsar, which is constant
 * [B1259-63](B1259)
 
     A pulsar with high-energy gamma emission associated with periodic periastron passages
