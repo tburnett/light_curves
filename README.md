@@ -1,10 +1,12 @@
 # Light-curve analyses
-> This is a GitHub repo for additional development of and analysis using, the [`wtlike`] (https://github.com/tburnett/wtlike) package.
+> This is a GitHub repo for additional development of and analyses using the weighted likelihood   <a href='https://github.com/tburnett/wtlike'>wtlike</a> package.
 
 
 * [Kerr comparison](kerr_comparison)
 
-  A basic check of the principal source examples from the Kerr papt
+  A basic check of the principal source examples from the [Kerr paper](https://arxiv.org/pdf/1910.00140.pdf)
+  
+  
 * [Geminga](geminga)
 
     Detailed study of the Geminta pulsar, which is constant
