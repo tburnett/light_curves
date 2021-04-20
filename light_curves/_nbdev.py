@@ -3,12 +3,8 @@
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
 index = {"analyze_data": "tools.ipynb",
-         "all_data_likelihood": "tools.ipynb",
-         "fit_table": "tools.ipynb",
          "simulation": "tools.ipynb",
-         "bb_overplot": "tools.ipynb",
-         "WeightedSource": "tools.ipynb",
-         "show_cache": "tools.ipynb"}
+         "WeightedSource": "tools.ipynb"}
 
 modules = ["tools.py"]
 
