@@ -2,11 +2,13 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"analyze_data": "tools.ipynb",
+index = {"B1259Periastron": "B1259.ipynb",
+         "analyze_data": "tools.ipynb",
          "simulation": "tools.ipynb",
          "WeightedSource": "tools.ipynb"}
 
-modules = ["tools.py"]
+modules = ["b1259.py",
+           "tools.py"]
 
 doc_url = "https://tburnett/github.io/light_curves"
 
