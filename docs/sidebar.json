@@ -2,6 +2,8 @@
   "light_curves": {
     "Overview": "/",
     "B1259-63 Analysis": "/B1259",
+    "B1259-63 phased analysis": "/B1259_phased",
+    "4FGL J1257.0-6339 (P88Y3250)": "/P88Y3250",
     "Geminga Analyses": "/geminga",
     "Kerr Comparison": "/kerr_comparison",
     "Light curve tools": "/tools"

@@ -10,7 +10,13 @@
 * [Geminga](geminga)
 
     Detailed study of the Geminga pulsar, which is constant
-* [B1259-63](B1259)
+* [B1259-63 (daily)](B1259) 
 
     A pulsar with high-energy gamma emission associated with periodic periastron passages
+    
+* [B1259-63 (phased)](B1259_phased)
+
+* [4FGL J1257.0-6339](P88Y3250)
+    A source close (5 deg) to B1259-63
+    
 

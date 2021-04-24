@@ -13,6 +13,12 @@ entries:
       title: B1259-63 Analysis
       url: /B1259
     - output: web,pdf
+      title: B1259-63 phased analysis
+      url: /B1259_phased
+    - output: web,pdf
+      title: 4FGL J1257.0-6339 (P88Y3250)
+      url: /P88Y3250
+    - output: web,pdf
       title: Geminga Analyses
       url: /geminga
     - output: web,pdf
