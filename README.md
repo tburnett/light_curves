@@ -16,7 +16,10 @@
     
 * [B1259-63 (phased)](B1259_phased)
 
+  Combine cells, which are aligned with the orbit, with the same phase
+
 * [4FGL J1257.0-6339](P88Y3250)
-    A source close (5 deg) to B1259-63
+
+    A source close ($0.5^\circ$) to B1259-63
     
 
