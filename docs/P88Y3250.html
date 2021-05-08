@@ -38,7 +38,7 @@ nb_path: "nbs/P88Y3250.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Wed Apr 28 07:19:08 PDT 2021
+<pre>Sat May  8 05:11:22 PDT 2021
 </pre>
 </div>
 </div>
@@ -74,7 +74,8 @@ nb_path: "nbs/P88Y3250.ipynb"
 <span class="sd">    ## Variability analysis of 4FGL J1257.0-6339</span>
 <span class="sd">    </span>
 <span class="sd">    This source, ~$0.5^\circ$ distant from B1259-63, has a nickname P88Y3250. </span>
-<span class="sd">    I look at it because it may be variable, and affect B1259.. </span>
+<span class="sd">    I look at it because it was flagged as variable, index=48.3, so may affect B1259.</span>
+<span class="sd">    </span>
 <span class="sd">    </span>
 <span class="sd">    It is unassociated, with a pointlike TS=287, and flux uncertainty of 0.7%. Its 12-year SED is:</span>
 <span class="sd">    </span>
@@ -98,13 +99,23 @@ nb_path: "nbs/P88Y3250.ipynb"
 <span class="sd">    {fig2}</span>
 <span class="sd">    </span>
 
-<span class="sd">    Finally, a plot showing the full likelihood, combining all {days} days, is</span>
+<span class="sd">    Here is a plot showing the full likelihood, combining all {days} days,</span>
 <span class="sd">    </span>
 <span class="sd">    {fig3}</span>
 <span class="sd">    For this fit the TS is {fit_ts:.0f}. </span>
 <span class="sd">    It should be compared with the TS from the pointlike fit shown above, indicating a need to </span>
 <span class="sd">    examine the procedure. I&#39;m looking at a way to assess, and perhaps improve the assignment of </span>
 <span class="sd">    weights.</span>
+<span class="sd">    </span>
+<span class="sd">    ### Comparison with the [LightCurveRepository](https://fermi.gsfc.nasa.gov/ssc/data/access/lat/LightCurveRepository/).</span>
+<span class="sd">    </span>
+<span class="sd">    {lc_image}</span>
+<span class="sd">    This shows the energy flux for 3-day intervals, and appears to be consistent with the wtlike analysis.</span>
+<span class="sd">    </span>
+<span class="sd">    ### Conclusion</span>
+<span class="sd">    </span>
+<span class="sd">    This source is not variable--the apparent variability is entirely due to the flares from B1259-63.</span>
+<span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">global</span> <span class="n">bba</span>
     
@@ -139,6 +150,8 @@ nb_path: "nbs/P88Y3250.ipynb"
     <span class="n">days</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bba</span><span class="o">.</span><span class="n">lc_df</span><span class="p">)</span>
     
     <span class="n">fit_ts</span> <span class="o">=</span> <span class="n">bba</span><span class="o">.</span><span class="n">bb_fit</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">fit</span><span class="o">.</span><span class="n">ts</span>
+    
+    <span class="n">lc_image</span><span class="o">=</span><span class="n">image</span><span class="p">(</span><span class="s1">&#39;P88Y3250_light_curve.png&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">caption</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
     <span class="k">return</span> <span class="nb">locals</span><span class="p">()</span>
 </pre></div>
 
@@ -147,6 +160,29 @@ nb_path: "nbs/P88Y3250.ipynb"
 </div>
 
     </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ImportError</span>                               Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-3-a12ce55c82e3&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> <span class="ansi-green-fg">from</span> wtlike<span class="ansi-blue-fg">.</span>config <span class="ansi-green-fg">import</span> Config<span class="ansi-blue-fg">,</span> PointSource
+<span class="ansi-green-intense-fg ansi-bold">      4</span> <span class="ansi-green-fg">from</span> wtlike<span class="ansi-blue-fg">.</span>lightcurve <span class="ansi-green-fg">import</span> fit_table
+<span class="ansi-green-fg">----&gt; 5</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">from</span> wtlike<span class="ansi-blue-fg">.</span>bayesian <span class="ansi-green-fg">import</span> BayesianBlockAnalysis
+<span class="ansi-green-intense-fg ansi-bold">      6</span> <span class="ansi-green-fg">from</span> utilities<span class="ansi-blue-fg">.</span>ipynb_docgen <span class="ansi-green-fg">import</span> <span class="ansi-blue-fg">*</span>
+<span class="ansi-green-intense-fg ansi-bold">      7</span> 
+
+<span class="ansi-red-fg">ImportError</span>: cannot import name &#39;BayesianBlockAnalysis&#39; from &#39;wtlike.bayesian&#39; (/mnt/c/users/thbur/OneDrive/work/wtlike/wtlike/bayesian.py)</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
@@ -157,7 +193,7 @@ nb_path: "nbs/P88Y3250.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">nbdoc</span><span class="p">(</span><span class="n">P88Y3250</span><span class="p">,</span> <span class="n">clear</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">nbdoc</span><span class="p">(</span><span class="n">P88Y3250</span><span class="p">,</span> <span class="n">clear</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -172,12 +208,12 @@ nb_path: "nbs/P88Y3250.ipynb"
 
 <div class="output_markdown rendered_html output_subarea ">
 <h2 id="Variability-analysis-of-4FGL-J1257.0-6339">Variability analysis of 4FGL J1257.0-6339<a class="anchor-link" href="#Variability-analysis-of-4FGL-J1257.0-6339"> </a></h2><p>This source, ~$0.5^\circ$ distant from B1259-63, has a nickname P88Y3250. 
-I look at it because it may be variable, and affect B1259..</p>
+I look at it because it was flagged as variable, index=48.3, so may affect B1259.</p>
 <p>It is unassociated, with a pointlike TS=287, and flux uncertainty of 0.7%. Its 12-year SED is:</p>
 <div class="nbdoc_image">
 <figure style="margin-left: 5%" title="Figure 1">  <a href="images/P88Y3250_fig_01.png" title="images/P88Y3250_fig_01.png">    <img src="images/P88Y3250_fig_01.png" alt="Figure 1 at images/P88Y3250_fig_01.png" width=250>   </a> </figure>
-</div><p><details  class="nbdoc-description" >  <summary> Output: load data, add weights, form time bins, fit </summary>  <div style="margin-left: 5%"><pre>photons and exposure for P88Y3250: Saving to cache with key "P88Y3250_weekly_data"<br>.......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................<br>Load weights from file /mnt/c/users/thbur/OneDrive/fermi/weight_files/P88Y3250_weights.pkl<br>  Found: P88Y3250 at (303.56, -0.78)<br>  Applyng weights: 70097 / 3972518 photon pixels are outside weight region<br>    893376 weights set to NaN<br>BayesianBlockAnalysis: Source P88Y3250 with:<br>    data:     3,972,518 photons from   2008-08-04 to 2021-04-22<br>     exposure: 3,339,961 intervals from 2008-08-04 to 2021-04-22<br>Time bins: 4643 intervals of 1 days, from MJD 54683.0(2008-08-05) to 59326.0(2021-04-22))<br>Loaded 4471 / 4471 cells with exposure &gt; 0.3 for light curve analysis<br>Time elapsed: 1.6 min <br></pre></div> </details></p>
-<p><details  class="nbdoc-description" >  <summary> BB partition output </summary>  <div style="margin-left: 5%"><pre>P88Y3250_weekly_bb_edges: Saving to cache<br>Partitioned 4471 cells into 1 blocks, using LikelihoodFitness <br>Loaded 1 / 1 cells with exposure &gt; 0.3 for fitting<br>Time elapsed: 6.0 min <br></pre></div> </details></p>
+</div><p><details  class="nbdoc-description" >  <summary> Output: load data, add weights, form time bins, fit </summary>  <div style="margin-left: 5%"><pre>photons and exposure for P88Y3250: Restoring from cache with key "P88Y3250_weekly_data"<br>BayesianBlockAnalysis: Source P88Y3250 with:<br>   data:     3,972,518 photons from   2008-08-04 to 2021-04-22<br>     exposure: 3,339,961 intervals from 2008-08-04 to 2021-04-22<br>Time bins: 4643 intervals of 1 days, from MJD 54683.0(2008-08-05) to 59326.0(2021-04-22))<br>Loaded 4471 / 4471 cells with exposure &gt; 0.3 for light curve analysis<br>Time elapsed: 0.3 min <br></pre></div> </details></p>
+<p><details  class="nbdoc-description" >  <summary> BB partition output </summary>  <div style="margin-left: 5%"><pre>P88Y3250_weekly_bb_edges: Restoring from cache<br>Partitioned 4471 cells into 1 blocks, using LikelihoodFitness <br>Loaded 1 / 1 cells with exposure &gt; 0.3 for fitting<br>Time elapsed: 0.0 min <br></pre></div> </details></p>
 <p>Here is the light curve, measured in daily intervals.</p>
 <div class="nbdoc_image">
 <figure style="margin-left: 5%" title="Figure 2">  <a href="images/P88Y3250_fig_02.png" title="images/P88Y3250_fig_02.png">    <img src="images/P88Y3250_fig_02.png" alt="Figure 2 at images/P88Y3250_fig_02.png" width=600>   </a> </figure>
@@ -189,13 +225,17 @@ very interested.)</p>
 <p>Here is a an expansion about the 2017 B1259-63 periastron:</p>
 <div class="nbdoc_image">
 <figure style="margin-left: 5%" title="Figure 3">  <a href="images/P88Y3250_fig_03.png" title="images/P88Y3250_fig_03.png">    <img src="images/P88Y3250_fig_03.png" alt="Figure 3 at images/P88Y3250_fig_03.png" width=600>   </a> </figure>
-</div><p>Finally, a plot showing the full likelihood, combining all 4471 days, is</p>
+</div><p>Here is a plot showing the full likelihood, combining all 4471 days,</p>
 <div class="nbdoc_image">
 <figure style="margin-left: 5%" title="Figure 4">  <a href="images/P88Y3250_fig_04.png" title="images/P88Y3250_fig_04.png">    <img src="images/P88Y3250_fig_04.png" alt="Figure 4 at images/P88Y3250_fig_04.png" width=300>   </a> </figure>
 </div><p>For this fit the TS is 116. 
 It should be compared with the TS from the pointlike fit shown above, indicating a need to 
 examine the procedure. I'm looking at a way to assess, and perhaps improve the assignment of 
 weights.</p>
+<h3 id="Comparison-with-the-LightCurveRepository.">Comparison with the <a href="https://fermi.gsfc.nasa.gov/ssc/data/access/lat/LightCurveRepository/">LightCurveRepository</a>.<a class="anchor-link" href="#Comparison-with-the-LightCurveRepository."> </a></h3><div class="nbdoc_image">
+<figure style="margin-left: 5%" title="Figure 5">  <a href="images/P88Y3250_fig_05.png" title="images/P88Y3250_fig_05.png">    <img src="images/P88Y3250_fig_05.png" alt="Figure 5 at images/P88Y3250_fig_05.png" width=600>   </a> </figure>
+</div><p>This shows the energy flux for 3-day intervals, and appears to be consistent with the wtlike analysis.</p>
+<h3 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion"> </a></h3><p>This source is not variable--the apparent variability is entirely due to the flares from B1259-63.</p>
 
 </div>
 

@@ -16,6 +16,12 @@ entries:
       title: B1259-63 folded analysis
       url: /B1259_phased
     - output: web,pdf
+      title: BL Lac
+      url: /BL_Lac
+    - output: web,pdf
+      title: Eta Car
+      url: /Eta_Car
+    - output: web,pdf
       title: 4FGL J1257.0-6339 (P88Y3250)
       url: /P88Y3250
     - output: web,pdf
