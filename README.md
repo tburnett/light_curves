@@ -5,6 +5,7 @@
 * [Kerr comparison](kerr_comparison)
 
   A basic check of the principal source examples from the [Kerr paper](https://arxiv.org/pdf/1910.00140.pdf)
+  This notebook illustrates the document-creating capability of the module `ipynb_docgen.py`.
   
   
 * [Geminga](geminga)
@@ -21,5 +22,9 @@
 * [4FGL J1257.0-6339](P88Y3250)
 
     A source close ($0.5^\circ$) to B1259-63
+    
+* [Eta Car](Eta_car)
+
+   The famous Eta Carinea, ran as an example of how fast this can be
     
 
