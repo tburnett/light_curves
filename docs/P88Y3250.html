@@ -120,7 +120,7 @@ nb_path: "nbs/P88Y3250.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Variability-analysis-of-4FGL-J1257.0-6339">Variability analysis of 4FGL J1257.0-6339<a class="anchor-link" href="#Variability-analysis-of-4FGL-J1257.0-6339"> </a></h2><p>2021-05-12 05:49</p>
+<h2 id="Variability-analysis-of-4FGL-J1257.0-6339">Variability analysis of 4FGL J1257.0-6339<a class="anchor-link" href="#Variability-analysis-of-4FGL-J1257.0-6339"> </a></h2><p>2021-05-12 06:13</p>
 <p>This source, ~$0.5^\circ$ distant from PSR B1259-63, has a nickname P88Y3250. 
 I look at it because it was flagged as variable, index=48.3, so may affect B1259.</p>
 <p>It is unassociated, with a pointlike TS=287, and flux uncertainty of 0.7%. Its 12-year SED is:</p>
@@ -148,19 +148,20 @@ This shows the energy flux for 3-day intervals, and appears to be consistent wit
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Implications-for-Catalog-analysis">Implications for Catalog analysis<a class="anchor-link" href="#Implications-for-Catalog-analysis"> </a></h1><p>This could be done with <strong>all</strong> 4FGL sources with a relatively small amount of effort.</p>
-<p>Computing time to generate this:</p>
+<h1 id="Implications-for-the-Catalog">Implications for the Catalog<a class="anchor-link" href="#Implications-for-the-Catalog"> </a></h1><p>This could be done with <strong>all</strong> 4FGL sources with a relatively small amount of effort.</p>
+<p>Computing times to generate this:</p>
 <ul>
 <li>15' using pointlike to generate a table of weights for energy- and angle- regions</li>
-<li>10' to load the the compressed FT1/FT2 table for the 11 2/3 years.</li>
+<li>10' to load photons in the source region from the compressed FT1/FT2 table for the 11 2/3 years, and apply weights using the associated table.</li>
 </ul>
 <p>What would be needed:</p>
-<ul>
-<li>a systmatic effort to produce such tables, using the official catalog model with fermipy for all sources.</li>
-<li>Compare all lightcurves for nearby sources to check correlations: for such pairs, or groups, identify which is the culpit, an modify the background assumption for the neighbors. </li>
-</ul>
-<p>Potential result: Detailed light curves on any time scale for all sources.</p>
-<p><strong>Can I enlist volunteers?</strong></p>
+<ol>
+<li>a systematic effort to produce such tables, using the official catalog model with fermipy for all sources.</li>
+<li>Compare all lightcurves for nearby sources to check correlations: for such pairs, or groups, identify which is the culpit, and modify the background assumption for the neighbors. </li>
+<li>A modification of wtlike to change the current background assumption, allowing it to have a fixed and a variable component</li>
+</ol>
+<p>Potential result: Detailed, and more reliable, light curves on any time scale for all sources.</p>
+<p><strong>Can I enlist volunteer(s)?</strong> This especially applies to #1.</p>
 
 </div>
 </div>
