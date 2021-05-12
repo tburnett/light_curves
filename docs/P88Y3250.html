@@ -120,12 +120,12 @@ nb_path: "nbs/P88Y3250.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Variability-analysis-of-4FGL-J1257.0-6339">Variability analysis of 4FGL J1257.0-6339<a class="anchor-link" href="#Variability-analysis-of-4FGL-J1257.0-6339"> </a></h2><p>2021-05-11 05:11</p>
+<h2 id="Variability-analysis-of-4FGL-J1257.0-6339">Variability analysis of 4FGL J1257.0-6339<a class="anchor-link" href="#Variability-analysis-of-4FGL-J1257.0-6339"> </a></h2><p>2021-05-12 05:49</p>
 <p>This source, ~$0.5^\circ$ distant from PSR B1259-63, has a nickname P88Y3250. 
 I look at it because it was flagged as variable, index=48.3, so may affect B1259.</p>
 <p>It is unassociated, with a pointlike TS=287, and flux uncertainty of 0.7%. Its 12-year SED is:</p>
-<figure style="margin-left: 5%" title="Figure 1">  <a href="images/P88Y3250_fig_01.png" title="images/P88Y3250_fig_01.png">    <img src="images/P88Y3250_fig_01.png" alt="Figure 1 at images/P88Y3250_fig_01.png" width=250>   </a> </figure><p><details  class="nbdoc-description" >  <summary> Output: load data, add weights, form time bins, fit </summary>  <div style="margin-left: 5%"><pre>SourceData: photons and exposure for 4FGL J1257.0-6339: Restoring from cache with key "4FGL J1257.0-6339_data"<br>WtLike: Source 4FGL J1257.0-6339 with:<br>  data:     1,329,315  photons   from 2008-08-04 to 2021-05-06<br>    exposure: 3,347,950 intervals  from 2008-08-04 to 2021-05-06<br>    est. rates from weights: source 7.57e-09/s, background 3.71e-06/s, S/N ratio 0.00<br>CellData: Bin photon data into 665 1-week bins from 54683.0 to 59338.0<br>LightCurve: select 658 cells for fitting with e&gt;0.5 & n&gt;2<br></pre></div> </details></p>
-<p><details  class="nbdoc-description" >  <summary> BB partition output </summary>  <div style="margin-left: 5%"><pre>LightCurve: select 658 cells for fitting with e&gt;0.5 & n&gt;2<br>Partitioned 658 cells into 9 blocks, using LikelihoodFitness <br>LightCurve: Loaded 9 / 9 cells for fitting<br></pre></div> </details></p>
+<figure style="margin-left: 5%" title="Figure 1">  <a href="images/P88Y3250_fig_01.png" title="images/P88Y3250_fig_01.png">    <img src="images/P88Y3250_fig_01.png" alt="Figure 1 at images/P88Y3250_fig_01.png" width=250>   </a> </figure><p><details  class="nbdoc-description" >  <summary> Output: load data, add weights, form time bins, fit </summary>  <div style="margin-left: 5%"><pre>SourceData: photons and exposure for 4FGL J1257.0-6339: Restoring from cache with key "4FGL J1257.0-6339_data"<br>WtLike: Source 4FGL J1257.0-6339 with:<br>  data:     1,329,315 photons from 2008-08-04 to 2021-05-06<br>   exposure: 3,347,950 intervals,  average rate 3578 cm^2 for 100.0 Ms<br>     rates:  source 7.57e-09/s, background 3.71e-06/s, S/N ratio 0.00<br>CellData: Bin photon data into 665 1-week bins from 54683.0 to 59338.0<br>LightCurve: select 658 cells for fitting with e&gt;10 & n&gt;2<br></pre></div> </details></p>
+<p><details  class="nbdoc-description" >  <summary> BB partition output </summary>  <div style="margin-left: 5%"><pre>LightCurve: select 658 cells for fitting with e&gt;10 & n&gt;2<br>Partitioned 658 cells into 9 blocks, using LikelihoodFitness <br>LightCurve: Loaded 9 / 9 cells for fitting<br></pre></div> </details></p>
 <p>Here is the light curve, measured in weekly intervals.</p>
 <figure style="margin-left: 5%" title="Figure 2">  <a href="images/P88Y3250_fig_02.png" title="images/P88Y3250_fig_02.png">    <img src="images/P88Y3250_fig_02.png" alt="Figure 2 at images/P88Y3250_fig_02.png" width=600>   </a> </figure><p>Note that most of the weeks are limits, except for a few quite significant ones.
 The blue line is the result of the Bayesian block (BB) analysis, which found several blocks.</p>
@@ -146,6 +146,25 @@ This shows the energy flux for 3-day intervals, and appears to be consistent wit
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Implications-for-Catalog-analysis">Implications for Catalog analysis<a class="anchor-link" href="#Implications-for-Catalog-analysis"> </a></h1><p>This could be done with <strong>all</strong> 4FGL sources with a relatively small amount of effort.</p>
+<p>Computing time to generate this:</p>
+<ul>
+<li>15' using pointlike to generate a table of weights for energy- and angle- regions</li>
+<li>10' to load the the compressed FT1/FT2 table for the 11 2/3 years.</li>
+</ul>
+<p>What would be needed:</p>
+<ul>
+<li>a systmatic effort to produce such tables, using the official catalog model with fermipy for all sources.</li>
+<li>Compare all lightcurves for nearby sources to check correlations: for such pairs, or groups, identify which is the culpit, an modify the background assumption for the neighbors. </li>
+</ul>
+<p>Potential result: Detailed light curves on any time scale for all sources.</p>
+<p><strong>Can I enlist volunteers?</strong></p>
+
+</div>
+</div>
+</div>
 </div>
  
 
