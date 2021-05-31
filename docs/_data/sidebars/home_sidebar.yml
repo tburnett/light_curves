@@ -11,28 +11,28 @@ entries:
       url: /
     - output: web,pdf
       title: B1259-63 Analysis
-      url: /B1259
+      url: B1259.html
     - output: web,pdf
       title: B1259-63 folded analysis
-      url: /B1259_phased
+      url: B1259_phased.html
     - output: web,pdf
       title: BL Lac
-      url: /BL_Lac
+      url: BL_Lac.html
     - output: web,pdf
       title: Eta Car
-      url: /Eta_Car
+      url: Eta_Car.html
     - output: web,pdf
       title: 4FGL J1257.0-6339 (P88Y3250)
-      url: /P88Y3250
+      url: P88Y3250.html
     - output: web,pdf
       title: Geminga Analyses
-      url: /geminga
+      url: geminga.html
     - output: web,pdf
       title: Kerr Comparison
-      url: /kerr_comparison
+      url: kerr_comparison.html
     - output: web,pdf
       title: Light curve tools
-      url: /tools
+      url: tools.html
     output: web
     title: light_curves
   output: web

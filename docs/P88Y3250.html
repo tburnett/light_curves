@@ -2,6 +2,7 @@
 
 title: 4FGL J1257.0-6339 (P88Y3250)
 
+
 keywords: fastai
 sidebar: home_sidebar
 
@@ -91,8 +92,8 @@ nb_path: "nbs/P88Y3250.ipynb"
         <span class="n">bbview</span> <span class="o">=</span> <span class="n">weekly</span><span class="o">.</span><span class="n">bb_view</span><span class="p">()</span>
         
     <span class="n">fig1</span> <span class="o">=</span><span class="n">figure</span><span class="p">(</span>
-            <span class="n">bbview</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span> <span class="n">yscale</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="n">ts_bar_min</span><span class="o">=</span><span class="mi">4</span><span class="p">),</span>
-            <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+            <span class="n">bbview</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span> <span class="n">yscale</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="n">ts_bar_min</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">4</span><span class="p">)),</span>
+            <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="p">)</span>
     <span class="n">bbflux</span> <span class="o">=</span> <span class="n">monospace</span><span class="p">(</span><span class="n">bbview</span><span class="o">.</span><span class="n">fluxes</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;flux&gt;2&#39;</span><span class="p">))</span>
     
     <span class="k">with</span> <span class="n">capture_print</span><span class="p">()</span> <span class="k">as</span> <span class="n">out3</span><span class="p">:</span>
@@ -120,17 +121,17 @@ nb_path: "nbs/P88Y3250.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Variability-analysis-of-4FGL-J1257.0-6339">Variability analysis of 4FGL J1257.0-6339<a class="anchor-link" href="#Variability-analysis-of-4FGL-J1257.0-6339"> </a></h2><p>2021-05-12 06:13</p>
+<h2 id="Variability-analysis-of-4FGL-J1257.0-6339">Variability analysis of 4FGL J1257.0-6339<a class="anchor-link" href="#Variability-analysis-of-4FGL-J1257.0-6339"> </a></h2><p>2021-05-21 08:59</p>
 <p>This source, ~$0.5^\circ$ distant from PSR B1259-63, has a nickname P88Y3250. 
 I look at it because it was flagged as variable, index=48.3, so may affect B1259.</p>
 <p>It is unassociated, with a pointlike TS=287, and flux uncertainty of 0.7%. Its 12-year SED is:</p>
-<figure style="margin-left: 5%" title="Figure 1">  <a href="images/P88Y3250_fig_01.png" title="images/P88Y3250_fig_01.png">    <img src="images/P88Y3250_fig_01.png" alt="Figure 1 at images/P88Y3250_fig_01.png" width=250>   </a> </figure><p><details  class="nbdoc-description" >  <summary> Output: load data, add weights, form time bins, fit </summary>  <div style="margin-left: 5%"><pre>SourceData: photons and exposure for 4FGL J1257.0-6339: Restoring from cache with key "4FGL J1257.0-6339_data"<br>WtLike: Source 4FGL J1257.0-6339 with:<br>  data:     1,329,315 photons from 2008-08-04 to 2021-05-06<br>   exposure: 3,347,950 intervals,  average rate 3578 cm^2 for 100.0 Ms<br>     rates:  source 7.57e-09/s, background 3.71e-06/s, S/N ratio 0.00<br>CellData: Bin photon data into 665 1-week bins from 54683.0 to 59338.0<br>LightCurve: select 658 cells for fitting with e&gt;10 & n&gt;2<br></pre></div> </details></p>
-<p><details  class="nbdoc-description" >  <summary> BB partition output </summary>  <div style="margin-left: 5%"><pre>LightCurve: select 658 cells for fitting with e&gt;10 & n&gt;2<br>Partitioned 658 cells into 9 blocks, using LikelihoodFitness <br>LightCurve: Loaded 9 / 9 cells for fitting<br></pre></div> </details></p>
+<figure style="margin-left: 5%" title="Figure 1">  <a href="images/P88Y3250_fig_01.png" title="images/P88Y3250_fig_01.png">    <img src="images/P88Y3250_fig_01.png" alt="Figure 1 at images/P88Y3250_fig_01.png" width=250>   </a> </figure><p><details  class="nbdoc-description" >  <summary> Output: load data, add weights, form time bins, fit </summary>  <div style="margin-left: 5%"><pre>SourceData: photons and exposure for 4FGL J1257.0-6339: Restoring from cache with key "4FGL J1257.0-6339_data"<br>SourceData: Source 4FGL J1257.0-6339 with:<br>  data:     1,333,593 photons from 2008-08-04 to 2021-05-19<br>   exposure: 3,356,508 intervals,  average rate 3578 cm^2 for 100.2 Ms<br>     rates:  source 7.57e-09/s, background 3.71e-06/s, S/N ratio 2.04e-03<br>CellData: Bin photon data into 667 1-week bins from 54683.0 to 59352.0<br>LightCurve: select 660 cells for fitting with e&gt;1 & n&gt;2<br></pre></div> </details></p>
+<p><details  class="nbdoc-description" >  <summary> BB partition output </summary>  <div style="margin-left: 5%"><pre>LightCurve: select 660 cells for fitting with e&gt;1 & n&gt;2<br>Bayesian Blocks: using penalty 0.05<br>Partitioned 660 cells into 9 blocks, using LikelihoodFitness <br>LightCurve: Loaded 9 / 9 cells for fitting<br></pre></div> </details></p>
 <p>Here is the light curve, measured in weekly intervals.</p>
 <figure style="margin-left: 5%" title="Figure 2">  <a href="images/P88Y3250_fig_02.png" title="images/P88Y3250_fig_02.png">    <img src="images/P88Y3250_fig_02.png" alt="Figure 2 at images/P88Y3250_fig_02.png" width=600>   </a> </figure><p>Note that most of the weeks are limits, except for a few quite significant ones.
 The blue line is the result of the Bayesian block (BB) analysis, which found several blocks.</p>
 <p>The BB fluxes with relative flux &gt;2:</p>
-<p><div style="margin-left: 5%"><pre>         t     tw      n    ts   flux           errors  limit<br>1  55589.5   21.0   6199  41.3  13.25   (-2.509, 2.53)  17.45<br>3  56758.5  231.0  63904  56.8   3.61  (-0.522, 0.524)   4.47<br>5  57976.5  161.0  47067  25.9   2.62   (-0.545, 0.56)   3.56<br>6  58074.5   35.0  12436  52.2  10.25  (-1.662, 1.672)  13.01<br>8  59324.0   28.0   6701  29.0   9.70  (-2.064, 2.182)  13.48</pre></div>
+<p><div style="margin-left: 5%"><pre>         t     tw      n    ts   flux           errors  limit<br>1  55589.5   21.0   6199  41.2  13.21  (-2.506, 2.527)  17.40<br>3  56758.5  231.0  63904  56.3   3.59  (-0.522, 0.523)   4.45<br>5  57976.5  161.0  47067  25.6   2.60  (-0.544, 0.559)   3.54<br>6  58074.5   35.0  12436  52.0  10.21    (-1.66, 1.67)  12.97<br>8  59331.0   42.0  10859  45.4   9.85  (-1.723, 1.734)  12.72</pre></div>
 Here is a an expansion, in daily bins, following the 2017 B1259-63 periastron at 58018:</p>
 <figure style="margin-left: 5%" title="Figure 3">  <a href="images/P88Y3250_fig_03.png" title="images/P88Y3250_fig_03.png">    <img src="images/P88Y3250_fig_03.png" alt="Figure 3 at images/P88Y3250_fig_03.png" width=600>   </a> </figure><h3 id="Comparison-with-the-LightCurveRepository.">Comparison with the <a href="https://fermi.gsfc.nasa.gov/ssc/data/access/lat/LightCurveRepository/">LightCurveRepository</a>.<a class="anchor-link" href="#Comparison-with-the-LightCurveRepository."> </a></h3><p><figure style="margin-left: 5%" title="Figure 4">  <a href="images/P88Y3250_fig_04.png" title="images/P88Y3250_fig_04.png">    <img src="images/P88Y3250_fig_04.png" alt="Figure 4 at images/P88Y3250_fig_04.png" width=600>   </a> </figure>
 This shows the energy flux for 3-day intervals, and appears to be consistent with the wtlike analysis.</p>
