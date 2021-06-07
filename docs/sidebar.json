@@ -1,13 +1,13 @@
 {
   "light_curves": {
     "Overview": "/",
-    "B1259-63 Analysis": "B1259.html",
-    "B1259-63 folded analysis": "B1259_phased.html",
-    "BL Lac": "BL_Lac.html",
-    "Eta Car": "Eta_Car.html",
-    "4FGL J1257.0-6339 (P88Y3250)": "P88Y3250.html",
-    "Geminga Analyses": "geminga.html",
-    "Kerr Comparison": "kerr_comparison.html",
-    "Light curve tools": "tools.html"
+    "B1259-63 Analysis": "/B1259",
+    "B1259-63 folded analysis": "/B1259_phased",
+    "BL Lac": "/BL_Lac",
+    "Eta Car": "/Eta_Car",
+    "4FGL J1257.0-6339 (P88Y3250)": "/P88Y3250",
+    "Geminga Analyses": "/geminga",
+    "Kerr Comparison": "/kerr_comparison",
+    "Light curve tools": "/tools"
   }
 }
